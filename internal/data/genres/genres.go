@@ -8,6 +8,14 @@ import (
 
 type Genres []Genre
 
+func (genres Genres) Names() []string {
+	var arr = make([]string, len(genres))
+	for i, genre := range genres {
+		arr[i] = genre.Name
+	}
+	return arr
+}
+
 type Genre struct {
 	ID      int32  `json:"id"`
 	Name    string `json:"name"`

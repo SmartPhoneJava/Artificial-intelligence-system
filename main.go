@@ -4,11 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"shiki/internal/data/anime"
+	"shiki/internal/data/anime/compare"
+	"shiki/internal/data/anime/tree"
 	"shiki/internal/data/genres"
 	"shiki/internal/data/studios"
 	"shiki/internal/graphml"
@@ -138,8 +141,6 @@ func getAnimeInfo(category, value string, g genres.Genres, s studios.Studios) (a
 		return animes, err
 	}
 
-	//log.Println("aaaaaa", string(body))
-
 	err = json.Unmarshal(body, &animes)
 	if err != nil {
 		return animes, err
@@ -147,34 +148,7 @@ func getAnimeInfo(category, value string, g genres.Genres, s studios.Studios) (a
 	return animes, nil
 }
 
-func getLast(gr graphml.Graphml) []string {
-	var m = make(map[string]string)
-
-	for _, v := range gr.Graph.Node {
-		var id = v.ID
-		for _, d := range v.Data {
-			if d.ShapeNode.NodeLabel != "" {
-				m[id] = d.ShapeNode.NodeLabel
-			}
-		}
-	}
-	for _, v := range gr.Graph.Edge {
-		m[v.Source] = ""
-
-	}
-	var arr = make([]string, len(m))
-	var i int
-	for _, v := range m {
-		if v != "" {
-			arr[i] = v
-			i++
-		}
-	}
-	return arr
-}
-
 func createNode(graph *etree.Element, sourceID string, anime anime.Anime) error {
-
 	bytesArray, err := json.Marshal(anime)
 	if err != nil {
 		return err
@@ -218,7 +192,7 @@ func createNode(graph *etree.Element, sourceID string, anime anime.Anime) error 
 	return nil
 }
 
-func change(fromPath, toPath string, tree Tree) error {
+func change(fromPath, toPath string, tree tree.Tree) error {
 	doc := etree.NewDocument()
 	if err := doc.ReadFromFile(fromPath); err != nil {
 		return err
@@ -234,13 +208,15 @@ func change(fromPath, toPath string, tree Tree) error {
 		return err
 	}
 
+	fmt.Println("begin2", tree.Categories)
 	for _, v := range doc.ChildElements() {
 		for _, v1 := range v.ChildElements() {
 			if v1.Tag == "graph" {
 				for _, v2 := range v1.ChildElements() {
 					if v2.Tag == "node" {
-						name := tree.values[v2.Attr[0].Value]
-						var category, ok = tree.categories[name]
+						name := tree.NodesNames[v2.Attr[0].Value]
+						var category, ok = tree.Categories[name]
+
 						if ok {
 							val := v2.Attr[0].Value
 							time.Sleep(time.Millisecond * 200)
@@ -253,6 +229,7 @@ func change(fromPath, toPath string, tree Tree) error {
 							}
 
 						}
+
 					}
 				}
 			}
@@ -278,13 +255,38 @@ func main() {
 	// animes.Load("res/cats4.graphml")
 	// fmt.Println(animes)
 	router()
+	// fs := http.FileServer(http.Dir("./assets"))
+	// http.Handle("/assets/", http.StripPrefix("/assets/", fs))
+
+	// log.Println("Listening on :2999...")
+	// err := http.ListenAndServe(":2999", nil)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 }
+
+var ANIMES anime.Animes
 
 func router() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
+	var tpl, err = template.ParseFiles("index.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// fs := http.FileServer(http.Dir("./assets"))
+	// r.Handle("/assets/", http.StripPrefix("/assets/", fs))
+
+	// fs := http.FileServer(http.Dir("./assets"))
+	// r.Handle("/assets", http.StripPrefix("/assets", fs))
+
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome1"))
+		animeName := chi.URLParam(r, "q")
+		ANIMES.Load("")
+		animesFound := ANIMES.Search(animeName)
+		log.Println("animes are", animesFound)
+		tpl.Execute(w, animesFound)
 	})
 	r.Get("/token/{token}", func(w http.ResponseWriter, r *http.Request) {
 
@@ -381,7 +383,6 @@ func router() {
 
 	})
 	r.Get("/graph", func(w http.ResponseWriter, r *http.Request) {
-
 		query := r.URL.Query()
 		pathFrom := query.Get("from")
 		if pathFrom == "" {
@@ -393,18 +394,46 @@ func router() {
 			pathTo = "res/cats5.graphml"
 		}
 
-		var graphml = new(Graphml)
+		var graphml = new(graphml.Graphml)
 		err := graphml.Load(pathFrom)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		var tree = NewTree()
-		tree.FromGraphml(*graphml)
-
-		err = change(pathFrom, pathTo, tree)
+		var t = tree.NewTree()
+		t.FromGraphml(*graphml, &tree.TreeSettings{false})
+		fmt.Println("begin")
+		err = change(pathFrom, pathTo, t)
 		if err != nil {
 			log.Fatal(err)
+		}
+	})
+	r.Get("/compare", func(w http.ResponseWriter, r *http.Request) {
+		query := r.URL.Query()
+		// first := query.Get("first")
+		// second := query.Get("second")
+		// if first == "" || second == "" {
+		// 	w.Write([]byte("Непонятно кого с кем сравнивать"))
+		// }
+
+		path := query.Get("path")
+		var animes anime.Animes
+		animes.Load(path)
+
+		w.Write([]byte("Ищем тайтлы, похожие на" + animes[3].Russian))
+
+		var err = animes[3].Update()
+		if err != nil {
+			fmt.Println("err is", err)
+		}
+
+		var comparator = compare.NewAnimeComparator(animes, nil)
+		var list = comparator.EuclideanAll(animes[3])
+
+		for _, v := range list {
+			w.Write([]byte("\n\n" + fmt.Sprintf("%v", v.Anime.Russian)))
+			w.Write([]byte("\nЕвклидово расстояние:" + fmt.Sprintf("%.6f", v.D)))
+			w.Write([]byte("\nОбщая информация:" + fmt.Sprintf("%v", v.Anime)))
 		}
 
 	})
@@ -439,7 +468,28 @@ func router() {
 
 	})
 
-	http.ListenAndServe(":2999", r)
+	FileServer(r)
+	server := &http.Server{
+		Addr:         ":2999",
+		Handler:      r,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+	server.ListenAndServe()
+}
+
+// FileServer is serving static files.
+func FileServer(router *chi.Mux) {
+	root := "./assets"
+	fs := http.FileServer(http.Dir(root))
+
+	router.Get("/*", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := os.Stat(root + r.RequestURI); os.IsNotExist(err) {
+			http.StripPrefix(r.RequestURI, fs).ServeHTTP(w, r)
+		} else {
+			fs.ServeHTTP(w, r)
+		}
+	})
 }
 
 func String(n int32) string {

@@ -4,6 +4,7 @@ import (
 	"shiki/internal/amath"
 	"shiki/internal/data/anime"
 	"shiki/internal/data/anime/settings"
+	"sort"
 )
 
 type AnimeComparator struct {
@@ -36,11 +37,21 @@ func (compare AnimeComparator) toPairs(first, second anime.Anime) amath.Pairs {
 	pairs.AddInt(first.RatingI, second.RatingI, settings.Rating)
 	pairs.AddInt(first.Year, second.Year, settings.Year)
 	pairs.AddBool(first.Ongoing, second.Ongoing, settings.Ongoing)
-	pairs.AddSlice(first.Studios, second.Studios, settings.Studio)
-	pairs.AddSlice(first.Genres, second.Genres, settings.Genre)
+	pairs.AddSlice(first.Studios.Names(), second.Studios.Names(), settings.Studio)
+	pairs.AddSlice(first.Genres.Names(), second.Genres.Names(), settings.Genre)
 	return pairs
 }
 
-func (compare AnimeComparator) Euclidean(first, second anime.Anime) float64 {
+func (compare AnimeComparator) EuclideanOne(first, second anime.Anime) float64 {
 	return compare.toPairs(first, second).Euclidean()
+}
+
+func (compare AnimeComparator) EuclideanAll(first anime.Anime) AnimeDistances {
+	var dists = NewDistances(len(compare.animes))
+	for i, a := range compare.animes {
+		dists.Set(i, compare.EuclideanOne(first, a), &compare.animes[i])
+	}
+	sort.Sort(dists)
+
+	return dists
 }

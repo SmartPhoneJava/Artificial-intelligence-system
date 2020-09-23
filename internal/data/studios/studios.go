@@ -8,6 +8,14 @@ import (
 
 type Studios []Studio
 
+func (studios Studios) Names() []string {
+	var arr = make([]string, len(studios))
+	for i, studio := range studios {
+		arr[i] = studio.Name
+	}
+	return arr
+}
+
 type Studio struct {
 	ID           int32  `json:"id"`
 	Name         string `json:"name"`

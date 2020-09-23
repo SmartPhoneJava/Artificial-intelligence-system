@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>News App Demo</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <main>
+        <!-- <header>
+            <a class="logo" href="/">News Demo</a>
+            <form action="/" method="GET">
+                <input autofocus class="search-input" value="" placeholder="Enter a news topic" type="search" name="q">
+            </form>
+            <a href="https://github.com/freshman-tech/news" class="button
+            github-button">View on Github</a>
+        </header> -->
+        <header class="l-top_menu-v2 is-search-mobile is-search-focus is-search-shade">
+            <a class="logo-container" href="https://shikimori.one/" title="Шикимори">
+                <div class="glyph">Каталог</div>
+            </a>
+            <a class="logo-container" href="https://shikimori.one/" title="Шикимори">
+                <div class="glyph">Избранное</div>
+            </a>
+            <a class="logo-container" href="https://shikimori.one/" title="Шикимори">
+                <div class="glyph">Рекомендации</div>
+            </a>
+            <a class="logo-container" href="https://shikimori.one/" title="Шикимори">
+                <div class="glyph">Сравнение</div>
+            </a>
+
+
+            <div class="global-search" data-autocomplete_anime_url="https://shikimori.one/animes/autocomplete/v2"
+                data-autocomplete_character_url="https://shikimori.one/characters/autocomplete/v2"
+                data-autocomplete_manga_url="https://shikimori.one/mangas/autocomplete/v2"
+                data-autocomplete_person_url="https://shikimori.one/people/autocomplete/v2"
+                data-autocomplete_ranobe_url="https://shikimori.one/ranobe/autocomplete/v2" data-default-mode="anime"
+                data-search_anime_url="https://shikimori.one/animes"
+                data-search_character_url="https://shikimori.one/characters"
+                data-search_manga_url="https://shikimori.one/mangas"
+                data-search_person_url="https://shikimori.one/people"
+                data-search_ranobe_url="https://shikimori.one/ranobe"><label class="field"><input placeholder="Поиск..."
+                        type="text"><span class="clear" tabindex="-1"></span><span class="hotkey-marker"></span><span
+                        class="search-marker"></span></label>
+
+            </div>
+            <div class="menu-dropdown profile"><span tabindex="0"><a class="submenu-triangle"
+                        href="https://shikimori.one/artyomd"><img alt="artyomd"
+                            src="https://moe.shikimori.one/system/users/x48/282817.png?1533655742"
+                            srcset="https://moe.shikimori.one/system/users/x80/282817.png?1533655742 2x"
+                            title="artyomd"><span class="nickname">artyomd</span></a></span>
+                <div class="submenu" style="display: block;">
+                    <div class="legend">Аккаунт</div><a class="icon-profile" href="https://shikimori.one/artyomd"
+                        tabindex="-1" title="Профиль"><span class="text">Профиль</span></a><a class="icon-anime_list"
+                        href="https://shikimori.one/artyomd/list/anime" tabindex="-1" title="Список аниме"><span
+                            class="text">Список аниме</span></a><a class="icon-manga_list"
+                        href="https://shikimori.one/artyomd/list/manga" tabindex="-1" title="Список манги"><span
+                            class="text">Список манги</span></a><a class="icon-mail"
+                        href="https://shikimori.one/artyomd/messages/news" tabindex="-1" title="Почта"><span
+                            class="text">Почта<span
+                                class="unread"><span>0</span><span>311</span><span>1</span></span></span></a><a
+                        class="icon-achievements" href="https://shikimori.one/artyomd/achievements" tabindex="-1"
+                        title="Достижения"><span class="text">Достижения</span></a><a class="icon-clubs"
+                        href="https://shikimori.one/artyomd/clubs" tabindex="-1" title="Клубы"><span
+                            class="text">Клубы</span></a><a class="icon-settings"
+                        href="https://shikimori.one/artyomd/edit/account" tabindex="-1" title="Настройки"><span
+                            class="text">Настройки</span></a>
+                    <div class="legend">Сайт</div><a class="icon-site_rules"
+                        href="https://shikimori.one/forum/site/79042-pravila-sayta" tabindex="-1"
+                        title="Правила сайта"><span class="text">Правила сайта</span></a><a class="icon-faq"
+                        href="https://shikimori.one/clubs/1093-faq-chasto-zadavaemye-voprosy" tabindex="-1"
+                        title="FAQ"><span class="text">FAQ</span></a><a class="icon-sign_out" data-method="delete"
+                        href="https://shikimori.one/users/sign_out" tabindex="-1">Выход</a>
+                </div>
+
+            </div>
+        </header>
+        <div class="container">
+            {{ range . }}
+            <div class="anime-container">
+
+                <div class="anime-main">
+                    <div class="anime-name-container">
+
+                        <h1>{{.Russian}} <span class="b-separator inline">/</span> {{.Name}}</h1>
+                        <div class="b-breadcrumbs"><span itemscope=""
+                                itemtype="http://data-vocabulary.org/Breadcrumb"><a class="b-link"
+                                    href="https://shikimori.one/animes" itemprop="url" title="Аниме"><span
+                                        itemprop="title">Аниме</span></a></span><span itemscope=""
+                                itemtype="http://data-vocabulary.org/Breadcrumb"><a class="b-link"
+                                    href="https://shikimori.one/animes?type=movie" itemprop="url"
+                                    title="Полнометражные"><span itemprop="title">Полнометражные</span></a></span><span
+                                itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a class="b-link"
+                                    href="https://shikimori.one/animes/genre/10-Fantasy" itemprop="url"
+                                    title="Фэнтези"><span itemprop="title">Фэнтези</span></a></span></div>
+                        <div class="b-add_to_list planned expanded">
+                            <form action="/api/v2/user_rates" data-method="POST" data-remote="true" data-type="json">
+                                <input type="hidden" name="frontend" value="1"><input type="hidden"
+                                    name="user_rate[user_id]" value="282817"><input type="hidden"
+                                    name="user_rate[target_id]" value="32622"><input type="hidden"
+                                    name="user_rate[target_type]" value="Anime"><input type="hidden"
+                                    name="user_rate[status]" value="planned"><input type="hidden"
+                                    name="user_rate[score]" value="0">
+                                <div class="trigger">
+                                    <div class="trigger-arrow"></div>
+                                    <div class="text add-trigger" data-status="planned">
+                                        <div class="plus"></div><span class="status-name"
+                                            data-text="Добавить в список"></span>
+                                    </div>
+                                </div>
+                                <div class="expanded-options" style="height: 185.966px; display: block;">
+                                    <div class="option add-trigger" data-status="completed">
+                                        <div class="text"><span class="status-name" data-text="Просмотрено"></span>
+                                        </div>
+                                    </div>
+                                    <div class="option add-trigger" data-status="dropped">
+                                        <div class="text"><span class="status-name" data-text="Брошено"></span></div>
+                                    </div>
+                                    <div class="option add-trigger" data-status="on_hold">
+                                        <div class="text"><span class="status-name" data-text="Отложено"></span></div>
+                                    </div>
+                                    <div class="option add-trigger" data-status="planned">
+                                        <div class="text"><span class="status-name" data-text="Запланировано"></span>
+                                        </div>
+                                    </div>
+                                    <div class="option add-trigger" data-status="rewatching">
+                                        <div class="text"><span class="status-name" data-text="Пересматриваю"></span>
+                                        </div>
+                                    </div>
+                                    <div class="option add-trigger" data-status="watching">
+                                        <div class="text"><span class="status-name" data-text="Смотрю"></span></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="cc">
+                        <div class="c-info-left">
+                            <div class="subheadline">Информация</div>
+                            <div class="block">
+                                <div class="b-entry-info">
+                                    <div class="line-container">
+                                        <div class="line">
+                                            <div class="key">Тип:</div>
+                                            <div class="value">{{.Kind}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="line-container">
+                                        <div class="line">
+                                            <div class="key">Длительность эпизода:</div>
+                                            <div class="value"><span itemprop="duration">{{.Duration}} мин.</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="line-container">
+                                        <div class="line">
+                                            <div class="key">Статус:</div>
+                                            <div class="value"><span class="b-anime_status_tag released"
+                                                    data-text={{.Status}}></span>&nbsp;{{.Year}} г.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line-container">
+                                        <div class="line">
+                                            <div class="key">Жанры:</div>
+                                            <div class="value"><a class="b-tag"
+                                                    data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
+                                                    data-predelay="350"
+                                                    href="https://shikimori.one/animes/genre/2-Adventure"><span
+                                                        class="genre-en">Adventure</span><span class="genre-ru"
+                                                        data-text="Приключения"></span></a><a
+                                                    class="b-tag bubbled-processed"
+                                                    data-href="https://shikimori.one/moderations/genres/10-Fantasy/tooltip"
+                                                    data-predelay="350"
+                                                    href="https://shikimori.one/animes/genre/10-Fantasy"><span
+                                                        class="genre-en">Fantasy</span><span class="genre-ru"
+                                                        data-text="Фэнтези"></span></a><a
+                                                    class="b-tag bubbled-processed"
+                                                    data-href="https://shikimori.one/moderations/genres/15-Kids/tooltip"
+                                                    data-predelay="350"
+                                                    href="https://shikimori.one/animes/genre/15-Kids"><span
+                                                        class="genre-en">Kids</span><span class="genre-ru"
+                                                        data-text="Детское"></span></a></div>
+                                        </div>
+                                    </div>
+                                    <div class="line-container">
+                                        <div class="line">
+                                            <div class="key">Рейтинг:</div>
+                                            <div class="value"><span class="b-tooltipped dotted mobile"
+                                                    data-direction="right"
+                                                    original-title="G - Нет возрастных ограничений">G</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="line-container">
+                                        <div class="line">
+                                            <div class="key">Альтернативные названия:</div>
+                                            <div class="value"><span class="other-names"
+                                                    data-clickloaded-url="https://shikimori.one/animes/32622-hello-kitty-no-oyayubi-hime/other_names"
+                                                    data-dynamic="clickloaded"><span>···</span></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c-info-right"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {{ end }}
+        </div>
+        <!-- 
+                <div>
+                    {{ .Russian }}
+                    <a target="_blank" rel="noreferrer noopener" href="{{.URL}}">
+                        <h3 class="title">{{.Russian }}</h3>
+                    </a>
+                    <p class="description">{{ .Russian }}</p>
+                    <div class="metadata">
+                        <p class="source">{{ .Russian }}</p>
+                        <time class="published-date">{{ .Russian }}</time>
+                    </div>
+                </div>
+                <img class="article-image" src="{{ .URLToImage }}">
+            -->
+
+        <!-- <section class="container">
+            <ul class="search-results">
+              {{ range . }}
+                <li class="news-article">
+                  <div>
+                    {{ .Name }}
+                    <a target="_blank" rel="noreferrer noopener" href="{{.URL}}">
+                      <h3 class="title">{{.Name }}</h3>
+                    </a>
+                    <p class="description">{{ .Name }}</p>
+                    <div class="metadata">
+                      <p class="source">{{ .Name }}</p>
+                      <time class="published-date">{{ .Name }}</time>
+                    </div>
+                  </div>
+                  <img class="article-image" src="{{ .URLToImage }}">
+                </li>
+              {{ end }}
+            </ul>
+          </section> -->
+    </main>
+</body>
+
+</html>

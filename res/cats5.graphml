@@ -1356,10 +1356,12 @@ cccccccccccccc</data>
         </y:PolyLineEdge>
       </data>
     </edge>
-  <node id="n65">
-      <data key="d6">
-        <y:ShapeNode>
-          <y:Geometry height="37.0" width="140.75" x="1368.9610234849024" y="1531.8166725462331"/>
+  </graph>
+  <data key="d7">
+    <y:Resources/>
+  </data>
+</graphml>
+   <y:Geometry height="37.0" width="140.75" x="1368.9610234849024" y="1531.8166725462331"/>
           <y:Fill color="#FF99CC" transparent="false"/>
           <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="106.921875" x="16.9140625" xml:space="preserve" y="7.1875"><![CDATA[Ponkotsu Quest: Maou to Haken no Mamono-tachi]]><y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>

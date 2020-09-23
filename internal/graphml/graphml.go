@@ -53,6 +53,7 @@ type Edge struct {
 type Data struct {
 	Key       string    `xml:"key,attr"`
 	ShapeNode ShapeNode `xml:"http://www.yworks.com/xml/graphml ShapeNode"`
+	Value     string    `xml:",chardata"`
 }
 
 type ShapeNode struct {

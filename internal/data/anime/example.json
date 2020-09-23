@@ -1,0 +1,72 @@
+{
+	"id": 42897,
+	"name": "Horimiya",
+	"russian": "Хоримия",
+	"image": {
+		"original": "/system/animes/original/42897.jpg?1600310936",
+		"preview": "/system/animes/preview/42897.jpg?1600310936",
+		"x96": "/system/animes/x96/42897.jpg?1600310936",
+		"x48": "/system/animes/x48/42897.jpg?1600310936"
+	},
+	"url": "/animes/42897-horimiya",
+	"kind": "tv",
+	"score": "0.0",
+	"status": "anons",
+	"episodes": 0,
+	"episodes_aired": 0,
+	"aired_on": "2021-01-01",
+	"released_on": null,
+	"rating": "pg_13",
+	"english": [null],
+	"japanese": ["ホリミヤ"],
+	"synonyms": [],
+	"license_name_ru": null,
+	"duration": 0,
+	"description": null,
+	"description_html": "\u003cp class='b-nothing_here'\u003eНет описания\u003c/p\u003e",
+	"description_source": null,
+	"franchise": null,
+	"favoured": false,
+	"anons": true,
+	"ongoing": false,
+	"thread_id": 319212,
+	"topic_id": 319212,
+	"myanimelist_id": 42897,
+	"rates_scores_stats": [
+		{ "name": 10, "value": 15 },
+		{ "name": 9, "value": 2 },
+		{ "name": 8, "value": 3 },
+		{ "name": 4, "value": 1 },
+		{ "name": 2, "value": 1 }
+	],
+	"rates_statuses_stats": [
+		{ "name": "Просмотрено", "value": 8 },
+		{ "name": "Брошено", "value": 9 },
+		{ "name": "Отложено", "value": 79 },
+		{ "name": "Запланировано", "value": 2866 },
+		{ "name": "Смотрю", "value": 46 }
+	],
+	"updated_at": "2020-09-23T00:00:47.305+03:00",
+	"next_episode_at": null,
+	"genres": [
+		{ "id": 36, "name": "Slice of Life", "russian": "Повседневность", "kind": "anime" },
+		{ "id": 4, "name": "Comedy", "russian": "Комедия", "kind": "anime" },
+		{ "id": 22, "name": "Romance", "russian": "Романтика", "kind": "anime" },
+		{ "id": 23, "name": "School", "russian": "Школа", "kind": "anime" },
+		{ "id": 27, "name": "Shounen", "russian": "Сёнен", "kind": "anime" }
+	],
+	"studios": [{ "id": 1835, "name": "CloverWorks", "filtered_name": "CloverWorks", "real": false, "image": null }],
+	"videos": [
+		{
+			"id": 35215,
+			"url": "https://youtube.com/watch?v=qLPGJTU93bY",
+			"image_url": "http://img.youtube.com/vi/qLPGJTU93bY/hqdefault.jpg",
+			"player_url": "http://youtube.com/embed/qLPGJTU93bY",
+			"name": "",
+			"kind": "pv",
+			"hosting": "youtube"
+		}
+	],
+	"screenshots": [],
+	"user_rate": null
+}

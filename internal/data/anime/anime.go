@@ -2,10 +2,14 @@ package anime
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"shiki/internal/data/genres"
+	"shiki/internal/data/studios"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/beevik/etree"
@@ -15,6 +19,7 @@ type Anime struct {
 	ID            int32  `json:"id"`
 	Name          string `json:"name"`
 	Russian       string `json:"russian"`
+	URL           string `json:"url"`
 	Status        string `json:"status"`
 	EpisodesAired int    `json:"episodes_aired"`
 	AiredOn       string `json:"aired_on"`
@@ -30,8 +35,23 @@ type Anime struct {
 	Year     int     //!++
 	Ongoing  bool    `json:"ongoing"`
 
-	Studios []string `json:"studios"` //!+++
-	Genres  []string `json:"genres"`  //!+++
+	Studios studios.Studios `json:"studios"` //!+++
+	Genres  genres.Genres   `json:"genres"`  //!+++
+}
+
+func (anime Anime) ToString() string {
+	return fmt.Sprintf("\nНазвание:%s\nТип:%sРейтинг:%s\nКоличество эпизодов:%d\n",
+		anime.Name,
+		anime.Kind,
+		anime.Score,
+		anime.Episodes,
+		anime.Duration,
+		anime.Rating,
+		anime.Year,
+		anime.Ongoing,
+		anime.Studios,
+		anime.Genres,
+	)
 }
 
 func (anime *Anime) ratingToInt() int {
@@ -72,13 +92,15 @@ func (anime *Anime) Update() error {
 		return err
 	}
 
+	log.Println("resp.body ", string(body))
+
 	err = json.Unmarshal(body, anime)
 	if err != nil {
 		return err
 	}
 	anime.Scoref, err = strconv.ParseFloat(anime.Score, 64)
 	anime.RatingI = anime.ratingToInt()
-	t, err := time.Parse("2004-09-30", anime.AiredOn)
+	t, err := time.Parse("2006-01-02", anime.AiredOn)
 	if err != nil {
 		return err
 	}
@@ -87,6 +109,19 @@ func (anime *Anime) Update() error {
 }
 
 type Animes []Anime
+
+func (animes Animes) Search(name string) []Anime {
+	if name == "" {
+		return animes
+	}
+	var arr []Anime
+	for _, anime := range animes {
+		if strings.Contains(anime.Russian, name) || strings.Contains(anime.Name, name) {
+			arr = append(arr, anime)
+		}
+	}
+	return arr
+}
 
 func (animes *Animes) Load(pathToFile string) error {
 	var (
