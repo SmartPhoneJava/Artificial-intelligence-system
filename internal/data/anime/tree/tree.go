@@ -1,8 +1,6 @@
 package tree
 
 import (
-	"log"
-	"shiki/internal/data/anime"
 	"shiki/internal/graphml"
 )
 
@@ -11,8 +9,7 @@ type TreeSettings struct {
 }
 
 type Tree struct {
-	NodesNames  map[string]string
-	NodesAnimes map[string]anime.Anime
+	NodesNames map[string]string
 
 	NodesUp   map[string][]string
 	NodesDown map[string][]string
@@ -20,21 +17,18 @@ type Tree struct {
 	// for loading anime only
 	Categories map[string]string
 
-	animes     anime.Animes
 	nodesDepth map[string]int
 }
 
 func NewTree() Tree {
 	return Tree{
-		NodesNames:  make(map[string]string),
-		NodesAnimes: make(map[string]anime.Anime),
+		NodesNames: make(map[string]string),
 
 		NodesUp:   make(map[string][]string),
 		NodesDown: make(map[string][]string),
 
 		Categories: make(map[string]string),
 
-		animes:     []anime.Anime{},
 		nodesDepth: make(map[string]int),
 	}
 
@@ -55,10 +49,6 @@ func (tree *Tree) FromGraphml(gr graphml.Graphml, settings *TreeSettings) {
 				if d.ShapeNode.NodeLabel != "" {
 					tree.NodesNames[id] = d.ShapeNode.NodeLabel
 				}
-			} else if d.Key == "d5" {
-				if settings.LeavesKnown {
-					log.Println("d.Value", d.Value)
-				}
 			}
 		}
 	}
@@ -74,17 +64,31 @@ func (tree *Tree) FromGraphml(gr graphml.Graphml, settings *TreeSettings) {
 
 		for id, v := range lastM {
 			if v > 0 {
-				arr := tree.getParent(id, 2)
-				if len(arr) != 0 {
-					tree.Categories[tree.NodesUp[id][0]] = arr[0]
+				str := tree.getType(id)
+				if str != "" {
+					tree.Categories[tree.NodesNames[id]] = str
 				}
 			}
 		}
 	}
 }
 
+func (tree *Tree) Branch(key string) []string {
+	var arr = make([]string, 0)
+	for {
+		v := tree.NodesUp[key]
+		if len(v) == 0 {
+			break
+		}
+		key = v[0]
+		arr = append([]string{tree.NodesNames[key]}, arr...)
+	}
+
+	return arr
+}
+
 func (tree *Tree) Depth(key string) int {
-	var size = 0
+	var size = 1
 	for {
 		v := tree.NodesUp[key]
 		if len(v) == 0 {
@@ -110,4 +114,18 @@ func (tree *Tree) getParent(id string, index int) []string {
 		return tree.NodesUp[id]
 	}
 	return []string{}
+}
+
+func (tree *Tree) getType(id string) string {
+	var strType = ""
+	for {
+		arr := tree.NodesUp[id]
+		if len(arr) == 0 || tree.NodesNames[arr[0]] == "Аниме" {
+			break
+		}
+		id = arr[0]
+		strType = tree.NodesNames[id]
+	}
+
+	return strType
 }

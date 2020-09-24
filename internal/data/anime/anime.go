@@ -2,10 +2,11 @@ package anime
 
 import (
 	"encoding/json"
-	"fmt"
+	"errors"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"shiki/internal/data/anime/eatree"
 	"shiki/internal/data/genres"
 	"shiki/internal/data/studios"
 	"strconv"
@@ -37,21 +38,7 @@ type Anime struct {
 
 	Studios studios.Studios `json:"studios"` //!+++
 	Genres  genres.Genres   `json:"genres"`  //!+++
-}
-
-func (anime Anime) ToString() string {
-	return fmt.Sprintf("\nНазвание:%s\nТип:%sРейтинг:%s\nКоличество эпизодов:%d\n",
-		anime.Name,
-		anime.Kind,
-		anime.Score,
-		anime.Episodes,
-		anime.Duration,
-		anime.Rating,
-		anime.Year,
-		anime.Ongoing,
-		anime.Studios,
-		anime.Genres,
-	)
+	Branch  []string        `json:"branch"`  //!+++
 }
 
 func (anime *Anime) ratingToInt() int {
@@ -74,6 +61,8 @@ func (anime *Anime) ratingToInt() int {
 	return 0
 }
 
+var Err429 = errors.New("429 Too Many Requests")
+
 func (anime *Anime) Update() error {
 	client := &http.Client{}
 
@@ -85,14 +74,15 @@ func (anime *Anime) Update() error {
 	}
 
 	log.Println("resp.Status ", resp.Status)
+	if resp.StatusCode == http.StatusTooManyRequests {
+		return Err429
+	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
 		return err
 	}
-
-	log.Println("resp.body ", string(body))
 
 	err = json.Unmarshal(body, anime)
 	if err != nil {
@@ -105,67 +95,178 @@ func (anime *Anime) Update() error {
 		return err
 	}
 	anime.Year = t.Year()
+	log.Println("resp.body ", anime)
 	return err
 }
 
 type Animes []Anime
 
-func (animes Animes) Search(name string) []Anime {
+func (animes Animes) Update(done chan struct{}) {
+	log.Printf("we begin update", len(animes))
+	var count = 0
+	i := 0
+	if len(animes) == 0 {
+		animes.Load("")
+	}
+	for i < len(animes) {
+		log.Printf("%d/%d", i, len(animes))
+		if count > 0 && count%90 == 0 {
+			time.Sleep(time.Second * 50)
+		}
+		count++
+		time.Sleep(100 * time.Millisecond)
+		err := (&animes[i]).Update()
+		if err == Err429 {
+
+		} else {
+			i++
+		}
+	}
+	log.Printf("%d/%d", i, len(animes))
+	done <- struct{}{}
+	log.Printf("we end update", len(animes))
+}
+
+func (animes Animes) SearchByName(name string) Animes {
 	if name == "" {
 		return animes
 	}
 	var arr []Anime
-	for _, anime := range animes {
-		if strings.Contains(anime.Russian, name) || strings.Contains(anime.Name, name) {
+	var found = make(map[int32]bool)
+	log.Println("search!", name)
+	for i, anime := range animes {
+
+		log.Println("www! ", i, strings.Contains(anime.Name, name), anime.Name, name)
+		if !found[anime.ID] && strings.Contains(anime.Russian, name) || strings.Contains(anime.Name, name) {
+			log.Println("contain!", anime.Name, name)
 			arr = append(arr, anime)
+			found[anime.ID] = true
 		}
 	}
 	return arr
 }
 
+func (animes Animes) FindAnime(name string) (Anime, bool) {
+
+	if name == "" {
+		return Anime{}, false
+	}
+	for _, anime := range animes {
+		if anime.Name == name || anime.Russian == name {
+			return anime, true
+		}
+	}
+	return Anime{}, false
+}
+
+func saveAnime(saveTo *etree.Element, anime Anime) error {
+	anime.Duration = 777
+	bytesS, err := json.Marshal(anime)
+	if err != nil {
+		return err
+	}
+	saveTo.SetCData(string(bytesS))
+	return nil
+}
+
+func (animes Animes) Save(fromPath, toPath string) error {
+	edoc, err := eatree.NewEdoc(fromPath)
+	if err != nil {
+		return err
+	}
+	for _, v := range edoc.Leaves {
+		found, isFound := animes.FindAnime(v.Name.Text())
+		if isFound {
+			err = saveAnime(v.Desription, found)
+			if err != nil {
+				return err
+			}
+		}
+	}
+	log.Println("SAVE END")
+	return edoc.Save(toPath)
+}
+
 func (animes *Animes) Load(pathToFile string) error {
 	var (
-		path = "res/cats4.graphml"
-		doc  = etree.NewDocument()
+		path = "assets/res/cats_3.graphml"
 	)
 	if pathToFile != "" {
 		path = pathToFile
 	}
-	if err := doc.ReadFromFile(path); err != nil {
+	edoc, err := eatree.NewEdoc(path)
+	if err != nil {
 		return err
 	}
 
-	for _, v := range doc.ChildElements() {
-		for _, v1 := range v.ChildElements() {
-			if v1.Tag == "graph" {
-				for _, v2 := range v1.ChildElements() {
-					if v2.Tag == "node" {
-						for _, v3 := range v2.ChildElements() {
+	var added = make(map[int32]bool)
 
-							var flag bool
-							for _, attr := range v3.Attr {
-
-								if attr.Value == "d5" {
-									flag = true
-
-								}
-							}
-
-							if flag {
-								var anime Anime
-								json.Unmarshal([]byte(v3.Text()), &anime)
-								*animes = append(*animes, anime)
-
-							}
-
-						}
-					}
-				}
-			}
+	for _, v := range edoc.Leaves {
+		var anime Anime
+		json.Unmarshal([]byte(v.Desription.Text()), &anime)
+		log.Println("anime is", anime)
+		anime.Branch = edoc.Tree.Branch(v.NodeID)
+		if anime.ID > 0 && !added[anime.ID] {
+			*animes = append(*animes, anime)
+			added[anime.ID] = true
 		}
 	}
+
 	return nil
 }
+
+// func (animes *Animes) LoadOld(pathToFile string) error {
+// 	var (
+// 		path = "res/cats4.graphml"
+// 		doc  = etree.NewDocument()
+// 	)
+// 	if pathToFile != "" {
+// 		path = pathToFile
+// 	}
+// 	if err := doc.ReadFromFile(path); err != nil {
+// 		return err
+// 	}
+
+// 	var graphml = new(graphml.Graphml)
+// 	err := graphml.Load(pathToFile)
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	var t = tree.NewTree()
+// 	t.FromGraphml(*graphml, &tree.TreeSettings{
+// 		LeavesKnown: true,
+// 	})
+
+// 	for _, v := range doc.ChildElements() {
+// 		for _, v1 := range v.ChildElements() {
+// 			if v1.Tag == "graph" {
+// 				for _, v2 := range v1.ChildElements() {
+// 					if v2.Tag == "node" {
+// 						for _, v3 := range v2.ChildElements() {
+// 							var flag bool
+// 							for _, attr := range v3.Attr {
+// 								if attr.Value == "d5" {
+// 									flag = true
+// 								}
+// 							}
+
+// 							if flag {
+// 								var anime Anime
+
+// 								json.Unmarshal([]byte(v3.Text()), &anime)
+// 								if anime.ID > 0 {
+// 									*animes = append(*animes, anime)
+// 								}
+// 							}
+// 						}
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// 	return nil
+// }
 
 func String(n int32) string {
 	buf := [11]byte{}

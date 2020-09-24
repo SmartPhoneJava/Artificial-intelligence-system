@@ -2,7 +2,9 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"html/template"
 	"io/ioutil"
@@ -15,12 +17,13 @@ import (
 	"shiki/internal/data/genres"
 	"shiki/internal/data/studios"
 	"shiki/internal/graphml"
+	"shiki/internal/page"
 	"strconv"
 	"time"
 
 	"github.com/beevik/etree"
 	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
+	"github.com/gorilla/mux"
 )
 
 type TokenRequest struct {
@@ -44,6 +47,11 @@ const (
 	UserAgent    = "Shikimori chrome extension"
 	ClientID     = "5427ddff1021ee49d222b276e3f27fc0743896579dc8a79af2c76cfa94781e34"
 	ClientSecret = "3ac12dfd95d24dba4ed581f9e47f0ea84bc4d9ed64a9c486be9de0cd0b55b726"
+
+	Addr         = ":2997"
+	ReadTimeout  = time.Second * 60
+	WriteTimeout = time.Second * 60
+	IdleTimeout  = time.Second * 60
 )
 
 var Token = TokenResponse{
@@ -55,15 +63,9 @@ var Token = TokenResponse{
 	CreatedAt:    1600339489,
 }
 
-func findAnime(category, value string, g genres.Genres, s studios.Studios) (anime.Animes, error) {
+func findAnime(category, value string, limit int32, g genres.Genres, s studios.Studios) (anime.Animes, error) {
 	client := &http.Client{}
-
-	requests++
-	if requests%90 == 0 {
-		time.Sleep(time.Minute)
-	}
-
-	var query = "https://shikimori.one/api/animes?page=1&limit=20&censored=false&"
+	var query = "https://shikimori.one/api/animes?page=1&limit=" + String(limit) + "&censored=false&"
 	if category == "Жанры" {
 		query += "genre=" + String(g.ToID(value))
 	}
@@ -78,62 +80,16 @@ func findAnime(category, value string, g genres.Genres, s studios.Studios) (anim
 
 	var animes anime.Animes
 
-	fmt.Println("query is", query)
 	resp, err := client.Do(req)
 	if err != nil {
 		return animes, err
 	}
 
-	log.Println("resp.Status ", resp.Status)
-
-	body, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		return animes, err
+	if resp.StatusCode == http.StatusTooManyRequests {
+		return animes, anime.Err429
+	} else if resp.StatusCode != http.StatusOK {
+		return animes, errors.New("Wrong status:" + resp.Status)
 	}
-
-	//log.Println("aaaaaa", string(body))
-
-	err = json.Unmarshal(body, &animes)
-	if err != nil {
-		return animes, err
-	}
-	for _, v := range animes {
-		requests++
-		if requests%90 == 0 {
-			time.Sleep(time.Minute)
-		}
-		time.Sleep(time.Millisecond * 200)
-		v.Update()
-	}
-	return animes, nil
-}
-
-func getAnimeInfo(category, value string, g genres.Genres, s studios.Studios) (anime.Animes, error) {
-	client := &http.Client{}
-
-	var query = "https://shikimori.one/api/animes?page=1&limit=20&censored=false&"
-	if category == "Жанры" {
-		query += "genre=" + String(g.ToID(value))
-	}
-	if category == "Студия" {
-		query += "studio=" + String(s.ToID(value))
-	}
-
-	req, _ := http.NewRequest("GET", query, nil)
-	// req.Header.Add("Accept", "application/json")
-	// req.Header.Set("User-Agent", UserAgent)
-	// req.Header.Set("Authorization", "Bearer "+Token.AccessToken)
-
-	var animes anime.Animes
-
-	fmt.Println("query is", query)
-	resp, err := client.Do(req)
-	if err != nil {
-		return animes, err
-	}
-
-	log.Println("resp.Status ", resp.Status)
 
 	body, err := ioutil.ReadAll(resp.Body)
 
@@ -179,8 +135,6 @@ func createNode(graph *etree.Element, sourceID string, anime anime.Anime) error 
 	descr.CreateCData(info)
 	graph.AddChild(newNode)
 
-	log.Println("\n nodes", len(nodes))
-
 	var edges = graph.SelectElements("edge")
 	var newEdge = edges[0].Copy()
 	newEdge.Attr[0].Value = "e" + strconv.FormatInt(int64(len(edges)+1), 10)
@@ -188,27 +142,78 @@ func createNode(graph *etree.Element, sourceID string, anime anime.Anime) error 
 	newEdge.Attr[2].Value = newID
 	graph.AddChild(newEdge)
 
-	log.Println("\n edges", len(edges))
 	return nil
 }
 
-func change(fromPath, toPath string, tree tree.Tree) error {
+func makeAction(
+	ctx context.Context,
+	v1, v2 *etree.Element,
+	category, name string,
+	limit, animesShouldBe int,
+	animesFound *int,
+	genres genres.Genres, studios studios.Studios,
+) error {
+
+	var count = 0
+	for {
+		var timer = time.Millisecond * 100
+		if count > 5 {
+			count = 0
+			timer = time.Minute
+			log.Printf("RPM limit: Minute sleep")
+		}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-time.After(timer):
+			val := v2.Attr[0].Value
+			animes, err := findAnime(category, name, int32(limit), genres, studios)
+			if err == anime.Err429 {
+				count++
+				continue
+			}
+			count = 0
+			*animesFound += len(animes)
+			log.Printf("Received %d/%d", *animesFound, animesShouldBe)
+			if err != nil {
+				return err
+			}
+			for _, anime := range animes {
+				createNode(v1, val, anime)
+			}
+			return nil
+		}
+	}
+
+}
+
+func change(
+	ctx context.Context,
+	fromPath, toPath string,
+	tree tree.Tree,
+	done chan<- error,
+) {
 	doc := etree.NewDocument()
 	if err := doc.ReadFromFile(fromPath); err != nil {
-		return err
+		done <- err
+		return
 	}
 
 	genres, err := genres.NewGenres("internal/data/genres/genres.json")
 	if err != nil {
-		return err
+		done <- err
+		return
 	}
 
 	studios, err := studios.NewStudios("internal/data/studios/studios.json")
 	if err != nil {
-		return err
+		done <- err
+		return
 	}
 
-	fmt.Println("begin2", tree.Categories)
+	var limit int = 3
+	var animesFound = 0
+	var animesShouldBe = limit * len(tree.Categories)
 	for _, v := range doc.ChildElements() {
 		for _, v1 := range v.ChildElements() {
 			if v1.Tag == "graph" {
@@ -216,20 +221,20 @@ func change(fromPath, toPath string, tree tree.Tree) error {
 					if v2.Tag == "node" {
 						name := tree.NodesNames[v2.Attr[0].Value]
 						var category, ok = tree.Categories[name]
-
 						if ok {
-							val := v2.Attr[0].Value
-							time.Sleep(time.Millisecond * 200)
-							animes, err := findAnime(category, name, genres, studios)
+							err = makeAction(
+								ctx,
+								v1, v2,
+								category, name,
+								limit, animesShouldBe,
+								&animesFound,
+								genres, studios)
 							if err != nil {
-								return err
-							}
-							for _, anime := range animes {
-								createNode(v1, val, anime)
+								done <- err
+								return
 							}
 
 						}
-
 					}
 				}
 			}
@@ -238,57 +243,78 @@ func change(fromPath, toPath string, tree tree.Tree) error {
 
 	f, err := os.OpenFile(toPath, os.O_CREATE|os.O_RDWR, 0777)
 	if err != nil {
-		return err
+		done <- err
+		return
 	}
 	_, err = doc.WriteTo(f)
 
 	if err != nil {
-		return err
+		done <- err
+		return
 	}
-	return f.Close()
+	err = f.Close()
+	if err != nil {
+		done <- err
+		return
+	}
+	done <- nil
 }
 
 var requests = 0
 
 func main() {
-	// animes := new(anime.Animes)
-	// animes.Load("res/cats4.graphml")
-	// fmt.Println(animes)
 	router()
-	// fs := http.FileServer(http.Dir("./assets"))
-	// http.Handle("/assets/", http.StripPrefix("/assets/", fs))
-
-	// log.Println("Listening on :2999...")
-	// err := http.ListenAndServe(":2999", nil)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
 }
 
 var ANIMES anime.Animes
 
 func router() {
-	r := chi.NewRouter()
-	r.Use(middleware.Logger)
+	r := mux.NewRouter()
+
 	var tpl, err = template.ParseFiles("index.html")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// fs := http.FileServer(http.Dir("./assets"))
-	// r.Handle("/assets/", http.StripPrefix("/assets/", fs))
+	err = ANIMES.Load("")
+	if err != nil {
+		log.Println("err is", err)
+	}
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
-	// fs := http.FileServer(http.Dir("./assets"))
-	// r.Handle("/assets", http.StripPrefix("/assets", fs))
-
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		animeName := chi.URLParam(r, "q")
-		ANIMES.Load("")
-		animesFound := ANIMES.Search(animeName)
-		log.Println("animes are", animesFound)
-		tpl.Execute(w, animesFound)
+		animesFound := ANIMES.SearchByName(page.Settings.Search)
+		tpl.Execute(w, struct {
+			Animes anime.Animes
+			Page   page.PageSettings
+		}{
+			Animes: animesFound,
+			Page:   page.Settings,
+		})
 	})
-	r.Get("/token/{token}", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/set", func(w http.ResponseWriter, r *http.Request) {
+		for k, v := range r.URL.Query() {
+			switch k {
+			case "tag":
+				page.Settings.Tag = v[0]
+				break
+			case "search":
+				page.Settings.Search = v[0]
+				break
+			}
+		}
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	})
+	r.HandleFunc("/update", func(w http.ResponseWriter, r *http.Request) {
+		done := make(chan struct{})
+		go ANIMES.Update(done)
+		<-done
+		ANIMES.Save("res/cats_3.graphml", "res/cats_3.graphml")
+		log.Println("FINISH")
+		//w.WriteHeader(http.StatusOK)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	})
+
+	r.HandleFunc("/token/{token}", func(w http.ResponseWriter, r *http.Request) {
 
 		jsonStr, err := json.Marshal(TokenRequest{
 			GrantType:    "authorization_code",
@@ -329,10 +355,10 @@ func router() {
 		http.SetCookie(w, &cookie)
 		w.Write([]byte("Вы авторизовались"))
 	})
-	r.Get("/auth", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/auth", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "https://shikimori.one/oauth/authorize?client_id="+ClientID+"&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=", 301)
 	})
-	r.Get("/anime", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/anime", func(w http.ResponseWriter, r *http.Request) {
 
 		client := &http.Client{}
 
@@ -349,7 +375,7 @@ func router() {
 		w.Write(body)
 
 	})
-	r.Get("/genres", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/genres", func(w http.ResponseWriter, r *http.Request) {
 
 		client := &http.Client{}
 
@@ -365,7 +391,7 @@ func router() {
 		}
 		w.Write(body)
 	})
-	r.Get("/studios", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/studios", func(w http.ResponseWriter, r *http.Request) {
 
 		client := &http.Client{}
 
@@ -382,7 +408,7 @@ func router() {
 		w.Write(body)
 
 	})
-	r.Get("/graph", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/graph", func(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query()
 		pathFrom := query.Get("from")
 		if pathFrom == "" {
@@ -391,7 +417,7 @@ func router() {
 
 		pathTo := query.Get("to")
 		if pathTo == "" {
-			pathTo = "res/cats5.graphml"
+			pathTo = "res/cats_3.graphml"
 		}
 
 		var graphml = new(graphml.Graphml)
@@ -401,14 +427,23 @@ func router() {
 		}
 
 		var t = tree.NewTree()
-		t.FromGraphml(*graphml, &tree.TreeSettings{false})
-		fmt.Println("begin")
-		err = change(pathFrom, pathTo, t)
+		t.FromGraphml(*graphml, &tree.TreeSettings{
+			LeavesKnown: false,
+		})
+
+		done := make(chan error)
+		ctx, _ := context.WithTimeout(r.Context(), ReadTimeout)
+		go change(ctx, pathFrom, pathTo, t, done)
+		err = <-done
 		if err != nil {
-			log.Fatal(err)
+			w.Write([]byte(err.Error()))
+			w.WriteHeader(http.StatusInternalServerError)
 		}
+		log.Printf("Finished")
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 	})
-	r.Get("/compare", func(w http.ResponseWriter, r *http.Request) {
+
+	r.HandleFunc("/compare", func(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query()
 		// first := query.Get("first")
 		// second := query.Get("second")
@@ -438,58 +473,19 @@ func router() {
 
 	})
 
-	r.Get("/find/{query}", func(w http.ResponseWriter, r *http.Request) {
+	r.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets"))))
 
-		client := &http.Client{}
-
-		query := chi.URLParam(r, "query")
-
-		req, _ := http.NewRequest("GET", "https://shikimori.one/api/animes?page=1&limit=45&"+query, nil)
-		// req.Header.Add("Accept", "application/json")
-		// req.Header.Set("User-Agent", UserAgent)
-		// req.Header.Set("Authorization", "Bearer "+Token.AccessToken)
-
-		resp, err := client.Do(req)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		log.Println("resp.Status ", resp.Status)
-
-		body, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		_, err = w.Write(body)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-	})
-
-	FileServer(r)
+	// FileServer(r)
 	server := &http.Server{
-		Addr:         ":2999",
+		Addr:         Addr,
 		Handler:      r,
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 10 * time.Second,
+		ReadTimeout:  ReadTimeout,
+		WriteTimeout: WriteTimeout,
+		IdleTimeout:  IdleTimeout,
 	}
+
+	log.Println("Server is on localhost" + Addr + "/")
 	server.ListenAndServe()
-}
-
-// FileServer is serving static files.
-func FileServer(router *chi.Mux) {
-	root := "./assets"
-	fs := http.FileServer(http.Dir(root))
-
-	router.Get("/*", func(w http.ResponseWriter, r *http.Request) {
-		if _, err := os.Stat(root + r.RequestURI); os.IsNotExist(err) {
-			http.StripPrefix(r.RequestURI, fs).ServeHTTP(w, r)
-		} else {
-			fs.ServeHTTP(w, r)
-		}
-	})
 }
 
 func String(n int32) string {
