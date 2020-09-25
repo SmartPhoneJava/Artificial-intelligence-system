@@ -4,6 +4,21 @@ import (
 	"shiki/internal/data/anime"
 )
 
+type AnimeAllDistances struct {
+	E, M, K, C, T, D AnimeDistances
+}
+
+func NewAnimeAllDistances(e, m, k, c, t, d AnimeDistances) AnimeAllDistances {
+	return AnimeAllDistances{
+		E: e,
+		M: m,
+		K: k,
+		C: c,
+		T: t,
+		D: d,
+	}
+}
+
 type AnimeDistance struct {
 	D     float64
 	Anime *anime.Anime

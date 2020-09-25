@@ -1,14 +1,15 @@
 package anime
 
 import (
+	"context"
 	"encoding/json"
-	"errors"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"shiki/internal/data/anime/eatree"
 	"shiki/internal/data/genres"
 	"shiki/internal/data/studios"
+	"shiki/internal/utils"
 	"strconv"
 	"strings"
 	"time"
@@ -41,6 +42,17 @@ type Anime struct {
 	Branch  []string        `json:"branch"`  //!+++
 }
 
+func (anime Anime) BranchDiff(another Anime) int {
+	for i, t := range anime.Branch {
+		for j, v := range another.Branch {
+			if t == v {
+				return i + j
+			}
+		}
+	}
+	return len(anime.Branch) + len(another.Branch)
+}
+
 func (anime *Anime) ratingToInt() int {
 	switch anime.Rating {
 	case "none":
@@ -61,8 +73,6 @@ func (anime *Anime) ratingToInt() int {
 	return 0
 }
 
-var Err429 = errors.New("429 Too Many Requests")
-
 func (anime *Anime) Update() error {
 	client := &http.Client{}
 
@@ -73,9 +83,9 @@ func (anime *Anime) Update() error {
 		return err
 	}
 
-	log.Println("resp.Status ", resp.Status)
+	//log.Println("resp.Status ", resp.Status)
 	if resp.StatusCode == http.StatusTooManyRequests {
-		return Err429
+		return utils.Err429
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
@@ -92,38 +102,39 @@ func (anime *Anime) Update() error {
 	anime.RatingI = anime.ratingToInt()
 	t, err := time.Parse("2006-01-02", anime.AiredOn)
 	if err != nil {
-		return err
+		// return err
+		log.Println("time.Parse update error ", err)
+		err = nil
 	}
 	anime.Year = t.Year()
-	log.Println("resp.body ", anime)
+	//log.Println("resp.body ", anime)
 	return err
 }
 
 type Animes []Anime
 
-func (animes Animes) Update(done chan struct{}) {
+func (animes Animes) Update(ctx context.Context, done chan error) {
 	log.Printf("we begin update", len(animes))
-	var count = 0
-	i := 0
-	if len(animes) == 0 {
-		animes.Load("")
-	}
-	for i < len(animes) {
-		log.Printf("%d/%d", i, len(animes))
-		if count > 0 && count%90 == 0 {
-			time.Sleep(time.Second * 50)
-		}
-		count++
-		time.Sleep(100 * time.Millisecond)
-		err := (&animes[i]).Update()
-		if err == Err429 {
 
-		} else {
-			i++
+	if len(animes) == 0 {
+		err := animes.Load("")
+		if err != nil {
+			done <- err
+			return
 		}
 	}
-	log.Printf("%d/%d", i, len(animes))
-	done <- struct{}{}
+	for i := 0; i < len(animes); i++ {
+		err := utils.MakeAction(ctx, func() error {
+			return (&animes[i]).Update()
+		})
+		if err != nil {
+			done <- err
+			return
+		}
+		log.Printf("Updated %d/%d", i, len(animes))
+	}
+	log.Printf("aaaaaaaaaaaa")
+	done <- nil
 	log.Printf("we end update", len(animes))
 }
 
@@ -147,7 +158,6 @@ func (animes Animes) SearchByName(name string) Animes {
 }
 
 func (animes Animes) FindAnime(name string) (Anime, bool) {
-
 	if name == "" {
 		return Anime{}, false
 	}
@@ -159,8 +169,19 @@ func (animes Animes) FindAnime(name string) (Anime, bool) {
 	return Anime{}, false
 }
 
+func (animes Animes) FindAnimeByID(id int32) (Anime, bool) {
+	for _, anime := range animes {
+		if anime.ID == id {
+			return anime, true
+		}
+	}
+	return Anime{}, false
+}
+
 func saveAnime(saveTo *etree.Element, anime Anime) error {
-	anime.Duration = 777
+	if anime.Episodes == 0 {
+		anime.Episodes = 1
+	}
 	bytesS, err := json.Marshal(anime)
 	if err != nil {
 		return err

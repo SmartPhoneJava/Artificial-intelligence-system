@@ -18,6 +18,7 @@ import (
 	"shiki/internal/data/studios"
 	"shiki/internal/graphml"
 	"shiki/internal/page"
+	"shiki/internal/utils"
 	"strconv"
 	"time"
 
@@ -49,9 +50,9 @@ const (
 	ClientSecret = "3ac12dfd95d24dba4ed581f9e47f0ea84bc4d9ed64a9c486be9de0cd0b55b726"
 
 	Addr         = ":2997"
-	ReadTimeout  = time.Second * 60
-	WriteTimeout = time.Second * 60
-	IdleTimeout  = time.Second * 60
+	ReadTimeout  = time.Second * 360
+	WriteTimeout = time.Second * 360
+	IdleTimeout  = time.Second * 360
 )
 
 var Token = TokenResponse{
@@ -72,6 +73,7 @@ func findAnime(category, value string, limit int32, g genres.Genres, s studios.S
 	if category == "Студия" {
 		query += "studio=" + String(s.ToID(value))
 	}
+	query += "&order=ranked"
 
 	req, _ := http.NewRequest("GET", query, nil)
 	// req.Header.Add("Accept", "application/json")
@@ -86,7 +88,7 @@ func findAnime(category, value string, limit int32, g genres.Genres, s studios.S
 	}
 
 	if resp.StatusCode == http.StatusTooManyRequests {
-		return animes, anime.Err429
+		return animes, utils.Err429
 	} else if resp.StatusCode != http.StatusOK {
 		return animes, errors.New("Wrong status:" + resp.Status)
 	}
@@ -145,48 +147,6 @@ func createNode(graph *etree.Element, sourceID string, anime anime.Anime) error 
 	return nil
 }
 
-func makeAction(
-	ctx context.Context,
-	v1, v2 *etree.Element,
-	category, name string,
-	limit, animesShouldBe int,
-	animesFound *int,
-	genres genres.Genres, studios studios.Studios,
-) error {
-
-	var count = 0
-	for {
-		var timer = time.Millisecond * 100
-		if count > 5 {
-			count = 0
-			timer = time.Minute
-			log.Printf("RPM limit: Minute sleep")
-		}
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		case <-time.After(timer):
-			val := v2.Attr[0].Value
-			animes, err := findAnime(category, name, int32(limit), genres, studios)
-			if err == anime.Err429 {
-				count++
-				continue
-			}
-			count = 0
-			*animesFound += len(animes)
-			log.Printf("Received %d/%d", *animesFound, animesShouldBe)
-			if err != nil {
-				return err
-			}
-			for _, anime := range animes {
-				createNode(v1, val, anime)
-			}
-			return nil
-		}
-	}
-
-}
-
 func change(
 	ctx context.Context,
 	fromPath, toPath string,
@@ -222,19 +182,29 @@ func change(
 						name := tree.NodesNames[v2.Attr[0].Value]
 						var category, ok = tree.Categories[name]
 						if ok {
-							err = makeAction(
-								ctx,
-								v1, v2,
-								category, name,
-								limit, animesShouldBe,
-								&animesFound,
-								genres, studios)
+							err = utils.MakeAction(ctx, func() error {
+								val := v2.Attr[0].Value
+								animes, err := findAnime(category, name, int32(limit), genres, studios)
+								if err == utils.Err429 {
+									return err
+								}
+								animesFound += len(animes)
+								log.Printf("Received %d/%d", animesFound, animesShouldBe)
+								if err != nil {
+									return err
+								}
+								for _, anime := range animes {
+									createNode(v1, val, anime)
+								}
+								return nil
+							},
+							)
 							if err != nil {
 								done <- err
 								return
 							}
-
 						}
+
 					}
 				}
 			}
@@ -305,11 +275,19 @@ func router() {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	})
 	r.HandleFunc("/update", func(w http.ResponseWriter, r *http.Request) {
-		done := make(chan struct{})
-		go ANIMES.Update(done)
-		<-done
-		ANIMES.Save("res/cats_3.graphml", "res/cats_3.graphml")
-		log.Println("FINISH")
+		done := make(chan error)
+		ctx, _ := context.WithTimeout(r.Context(), ReadTimeout)
+		go ANIMES.Update(ctx, done)
+		err := <-done
+		if err != nil {
+			log.Println("err is", err)
+		} else {
+			err = ANIMES.Save("assets/res/cats_3.graphml", "assets/res/cats_3.graphml")
+			if err != nil {
+				log.Println("err is", err)
+			}
+			log.Println("FINISH")
+		}
 		//w.WriteHeader(http.StatusOK)
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	})
@@ -412,12 +390,12 @@ func router() {
 		query := r.URL.Query()
 		pathFrom := query.Get("from")
 		if pathFrom == "" {
-			pathFrom = "res/cats2.graphml"
+			pathFrom = "assets/res/cats2.graphml"
 		}
 
 		pathTo := query.Get("to")
 		if pathTo == "" {
-			pathTo = "res/cats_3.graphml"
+			pathTo = "assets/res/cats_3.graphml"
 		}
 
 		var graphml = new(graphml.Graphml)
@@ -444,26 +422,38 @@ func router() {
 	})
 
 	r.HandleFunc("/compare", func(w http.ResponseWriter, r *http.Request) {
-		query := r.URL.Query()
+		id := r.URL.Query().Get("id")
+		page.Settings.Tabs = page.NewTabs("Сравнение")
 		// first := query.Get("first")
 		// second := query.Get("second")
 		// if first == "" || second == "" {
 		// 	w.Write([]byte("Непонятно кого с кем сравнивать"))
 		// }
 
-		path := query.Get("path")
-		var animes anime.Animes
-		animes.Load(path)
+		// path := "assets/res/cats_3.graphml"
+		// var animes anime.Animes
+		// animes.Load(path)
 
-		w.Write([]byte("Ищем тайтлы, похожие на" + animes[3].Russian))
+		// w.Write([]byte("Ищем тайтлы, похожие на" + animes[3].Russian))
 
-		var err = animes[3].Update()
+		// var err = animes[3].Update()
+		// if err != nil {
+		// 	fmt.Println("err is", err)
+		// }
+
+		var comparator = compare.NewAnimeComparator(ANIMES, nil)
+		idInt, err := strconv.Atoi(id)
 		if err != nil {
-			fmt.Println("err is", err)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
 		}
 
-		var comparator = compare.NewAnimeComparator(animes, nil)
-		var list = comparator.EuclideanAll(animes[3])
+		var anime, ok = ANIMES.FindAnimeByID(int32(idInt))
+		if !ok {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		var list = comparator.EuclideanAll(anime)
 
 		for _, v := range list {
 			w.Write([]byte("\n\n" + fmt.Sprintf("%v", v.Anime.Russian)))

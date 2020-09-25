@@ -1,8 +1,37 @@
 package amath
 
-import "math"
+import (
+	"math"
+
+	"gonum.org/v1/gonum/stat"
+)
+
+// type Matrix [][]float64
+
+// func NewMatrix(pairs []Pairs) {
+// 	matrix := make([][]float64, len(pairs))
+// 	for i, p := range pairs {
+// 		matrix[i] = make([]float64, len(p)/2)
+// 		for j := 0; j <= len(p)/2; j += 2 {
+// 			matrix[i][j/2] = p[j]
+// 		}
+// 	}
+// }
 
 type Pairs []float64
+
+func (pairs Pairs) TwoVectors() ([]float64, []float64) {
+	var (
+		arr1 = make([]float64, len(pairs)/2)
+		arr2 = make([]float64, len(pairs)/2)
+	)
+	for i := 1; i < len(pairs); i += 2 {
+		arr1[(i-1)/2] = pairs[i-1]
+		arr2[(i-1)/2] = pairs[i]
+	}
+
+	return arr1, arr2
+}
 
 func (pairs *Pairs) Add(a, b, k float64) {
 	if k < 0.01 {
@@ -86,4 +115,27 @@ func (pairs Pairs) Chess() float64 {
 		}
 	}
 	return max
+}
+
+// Diff difference
+// Количество отличий
+func (pairs Pairs) Diff() float64 {
+	var summ, prev float64
+	for i, p := range pairs {
+		if i%2 == 0 {
+			prev = p
+		} else {
+			if prev != p {
+				summ++
+			}
+		}
+	}
+	return summ
+}
+
+// Correlation
+func (pairs Pairs) Correlation() float64 {
+	a, b := pairs.TwoVectors()
+
+	return stat.Correlation(a, b, nil)
 }

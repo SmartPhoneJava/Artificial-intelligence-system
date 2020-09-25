@@ -164,10 +164,6 @@
                                     </div>
                                 </div>
                                 <div class="expanded-options" style="height: 185.966px; display: block;">
-                                    <div class="option add-trigger" data-status="completed">
-                                        <div class="text"><span class="status-name" data-text="Обновить"></span>
-                                        </div>
-                                    </div>
                                     <div class="option add-trigger" data-status="dropped">
                                         <div class="text"><span class="status-name" data-text="Найти похожие"></span>
                                         </div>
@@ -189,8 +185,14 @@
                                     </div>
                                     <div class="line-container">
                                         <div class="line">
-                                            <div class="key">Длительность эпизода:</div>
-                                            <div class="value"><span itemprop="duration">{{.Duration}} мин.</span></div>
+                                            <div class="key">Эпизоды:</div>
+                                            <div class="value"><span itemprop="duration">{{.Episodes}} серий по {{.Duration}} мин.</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="line-container">
+                                        <div class="line">
+                                            <div class="key">Рейтинг:</div>
+                                            <div class="value"><span itemprop="duration">{{.Score}}</span></div>
                                         </div>
                                     </div>
                                     <div class="line-container">
@@ -204,56 +206,60 @@
                                     <div class="line-container">
                                         <div class="line">
                                             <div class="key">Жанры:</div>
-                                            <div class="value"><a class="b-tag"
+                                            <div class="value">
+                                                {{ range .Genres}}
+                                                <a class="b-tag"
                                                     data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
                                                     data-predelay="350"
                                                     href="https://shikimori.one/animes/genre/2-Adventure"><span
-                                                        class="genre-en">Adventure</span><span class="genre-ru"
-                                                        data-text="Приключения"></span></a><a
-                                                    class="b-tag bubbled-processed"
-                                                    data-href="https://shikimori.one/moderations/genres/10-Fantasy/tooltip"
-                                                    data-predelay="350"
-                                                    href="https://shikimori.one/animes/genre/10-Fantasy"><span
-                                                        class="genre-en">Fantasy</span><span class="genre-ru"
-                                                        data-text="Фэнтези"></span></a><a
-                                                    class="b-tag bubbled-processed"
-                                                    data-href="https://shikimori.one/moderations/genres/15-Kids/tooltip"
-                                                    data-predelay="350"
-                                                    href="https://shikimori.one/animes/genre/15-Kids"><span
-                                                        class="genre-en">Kids</span><span class="genre-ru"
-                                                        data-text="Детское"></span></a></div>
+                                                        class="genre-en"> {{ .Russian}}</span><span class="genre-ru"
+                                                        data-text="Приключения"></span>
+                                                </a>
+                                                {{ end}}
+                                            </div>
+
                                         </div>
-                                    </div>
-                                    <div class="line-container">
-                                        <div class="line">
-                                            <div class="key">Рейтинг:</div>
-                                            <div class="value"><span class="b-tooltipped dotted mobile"
-                                                    data-direction="right"
-                                                    original-title="G - Нет возрастных ограничений">G</span></div>
+
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Рейтинг:</div>
+                                                <div class="value"><span class="b-tooltipped dotted mobile"
+                                                        data-direction="right"
+                                                        original-title="G - Нет возрастных ограничений">{{.Rating}}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="line-container">
-                                        <div class="line">
-                                            <div class="key">Альтернативные названия:</div>
-                                            <div class="value"><span class="other-names"
-                                                    data-clickloaded-url="https://shikimori.one/animes/32622-hello-kitty-no-oyayubi-hime/other_names"
-                                                    data-dynamic="clickloaded"><span>···</span></span></div>
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Студии:</div>
+                                                <div class="value"><span class="other-names"
+                                                        data-clickloaded-url="https://shikimori.one/animes/32622-hello-kitty-no-oyayubi-hime/other_names"
+                                                        data-dynamic="clickloaded"><span>{{range .Studios}}
+                                                           
+                                                            <a class="b-tag"
+                                                            data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
+                                                            data-predelay="350"
+                                                            href="https://shikimori.one/animes/genre/2-Adventure"><span
+                                                                class="genre-en">  {{.Name}}</span><span class="genre-ru"
+                                                                data-text="ыыы"></span>
+                                                        </a>
+                                                            {{end}}</span></span></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="c-info-right"></div>
                         </div>
-                        <div class="c-info-right"></div>
+
                     </div>
 
                 </div>
 
+
+                {{ end }}
             </div>
-
-
-            {{ end }}
-        </div>
-        <!-- 
+            <!-- 
                 <div>
                     {{ .Russian }}
                     <a target="_blank" rel="noreferrer noopener" href="{{.URL}}">
@@ -268,7 +274,7 @@
                 <img class="article-image" src="{{ .URLToImage }}">
             -->
 
-        <!-- <section class="container">
+            <!-- <section class="container">
             <ul class="search-results">
               {{ range . }}
                 <li class="news-article">
