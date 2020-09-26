@@ -37,6 +37,7 @@ func (pairs *Pairs) Add(a, b, k float64) {
 	if k < 0.01 {
 		k = 1
 	}
+	//fmt.Println("!!!", k*a, k*b)
 	*pairs = append(*pairs, k*a, k*b)
 }
 
@@ -136,6 +137,5 @@ func (pairs Pairs) Diff() float64 {
 // Correlation
 func (pairs Pairs) Correlation() float64 {
 	a, b := pairs.TwoVectors()
-
 	return stat.Correlation(a, b, nil)
 }

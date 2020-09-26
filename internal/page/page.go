@@ -32,6 +32,10 @@ var Settings PageSettings = PageSettings{
 	Panels: NewPanels("Все"),
 }
 
+func (pg *PageSettings) SetTabs(tab string) {
+	pg.Tabs = NewTabs(tab)
+}
+
 type PageSettings struct {
 	Tag, Search string
 	Tabs        Tabs

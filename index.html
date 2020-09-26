@@ -20,14 +20,14 @@
             github-button">View on Github</a>
         </header> -->
         <header class="l-top_menu-v2 is-search-mobile is-search-focus is-search-shade">
-            <a class="logo-container" href="https://shikimori.one/" title="Шикимори">
+            <a class="logo-container" href="/tab_catalog" title="Шикимори">
                 {{if .Page.Tabs.IsCatalog}}
                 <div class="glyph">Каталог</div>
                 {{else}}
                 <div class="glyph-none">Каталог</div>
                 {{end}}
             </a>
-            <a class="logo-container" href="https://shikimori.one/" title="Шикимори">
+            <!-- <a class="logo-container" href="/" title="Шикимори">
                 {{if .Page.Tabs.IsFav}}
                 <div class="glyph">Избранное</div>
                 {{else}}
@@ -35,14 +35,14 @@
                 {{end}}
 
             </a>
-            <a class="logo-container" href="https://shikimori.one/" title="Шикимори">
+            <a class="logo-container" href="/" title="Шикимори">
                 {{if .Page.Tabs.IsRec}}
                 <div class="glyph">Рекомендации</div>
                 {{else}}
                 <div class="glyph-none">Рекомендации</div>
                 {{end}}
-            </a>
-            <a class="logo-container" href="https://shikimori.one/" title="Шикимори">
+            </a> -->
+            <a class="logo-container" href="/tab_compare" title="Шикимори">
                 {{if .Page.Tabs.IsCompare}}
                 <div class="glyph">Сравнение</div>
                 {{else}}
@@ -102,11 +102,60 @@
             </div>
 
         </header>
+        {{$Ec := .Distances.Ec}}
+        {{$Mc := .Distances.Mc}}
+        {{$Kc := .Distances.Kc}}
+        {{$Dc := .Distances.Dc}}
+        {{$Cc := .Distances.Cc}}
+        {{$Tc := .Distances.Tc}}
         <div class="tags">
+            {{if .Page.Tabs.IsCatalog}}
             <a href="/graph" class="b-anime_status_tag other" data-text="Перезагрузить списки "></a>
             <a href="/update" class="b-anime_status_tag other" data-text="Обновить данные"></a>
+            {{end}}
+            {{if .Page.Tabs.IsCompare}}
+    
+            {{if .Distances.Ec}}
+            <a href="/set?compare=e" class="b-anime_status_tag other other-active" data-text="Евклидово расстояние"></a>
+            {{else}}
+            <a href="/set?compare=e" class="b-anime_status_tag other other-passive"
+                data-text="Евклидово расстояние"></a>
+            {{end}}
+
+            {{if .Distances.Mc}}
+            <a href="/set?compare=m" class="b-anime_status_tag other other-active" data-text="Расстояние кварталов"></a>
+            {{else}}
+            <a href="/set?compare=m" class="b-anime_status_tag other other-passive"
+                data-text="Расстояние кварталов"></a>
+            {{end}}
+
+            {{if .Distances.Kc}}
+            <a href="/set?compare=k" class="b-anime_status_tag other other-active" data-text="Шахматное"></a>
+            {{else}}
+            <a href="/set?compare=k" class="b-anime_status_tag other other-passive" data-text="Шахматное"></a>
+            {{end}}
+
+            {{if .Distances.Cc}}
+            <a href="/set?compare=c" class="b-anime_status_tag other other-active" data-text="Корреляция"></a>
+            {{else}}
+            <a href="/set?compare=c" class="b-anime_status_tag other other-passive" data-text="Корреляция"></a>
+            {{end}}
+
+            {{if .Distances.Tc}}
+            <a href="/set?compare=t" class="b-anime_status_tag other other-active" data-text="Близость по дереву"></a>
+            {{else}}
+            <a href="/set?compare=t" class="b-anime_status_tag other other-passive" data-text="Близость по дереву"></a>
+            {{end}}
+
+            {{if .Distances.Dc}}
+            <a href="/set?compare=d" class="b-anime_status_tag other other-active" data-text="Кол-во отличий"></a>
+            {{else}}
+            <a href="/set?compare=d" class="b-anime_status_tag other other-passive" data-text="Кол-во отличий"></a>
+            {{end}}
+
+            {{end}}
         </div>
-        <div class="filter-container">
+        <!-- <div class="filter-container">
             <div class="line">
                 <div class="filter">Количество тайтлов</div>
                 <form action="/" method="GET">
@@ -131,11 +180,127 @@
                 </form>
 
             </div>
+        </div> -->
+        {{$isCompare := .Page.Tabs.IsCompare}}
+        {{if .Page.Tabs.IsCompare}}
+        {{if .Distances.OK}}
+        <div class="subheadline linkheadline"><a href="https://shikimori.one/animes/status/ongoing">
+                Эталонный объект
+            </a></div>
+        <div class="anime-container">
+            <div class="anime-main">
+                <div class="anime-name-container">
+
+                    <h1>{{.Distances.Anime.Russian}} <span class="b-separator inline">/</span> {{.Distances.Anime.Name}}
+                    </h1>
+                    <div class="b-breadcrumbs">
+                        {{ range .Distances.Anime.Branch }}
+                        <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a class="b-link"
+                                href="https://shikimori.one/animes" itemprop="url" title="Аниме"><span itemprop="title">
+                                    {{ . }}</span></a>
+                        </span>
+                        {{ end }}
+                    </div>
+
+                </div>
+                <div class="cc">
+                    <div class="c-info-left">
+                        <div class="subheadline">Информация</div>
+                        <div class="block">
+                            <div class="b-entry-info">
+                                <div class="line-container">
+                                    <div class="line">
+                                        <div class="key">Тип:</div>
+                                        <div class="value">{{.Distances.Anime.Kind}}</div>
+                                    </div>
+                                </div>
+                                <div class="line-container">
+                                    <div class="line">
+                                        <div class="key">Эпизоды:</div>
+                                        <div class="value"><span itemprop="duration">{{.Distances.Anime.Episodes}} серий
+                                                по
+                                                {{.Distances.Anime.Duration}} мин.</span></div>
+                                    </div>
+                                </div>
+                                <div class="line-container">
+                                    <div class="line">
+                                        <div class="key">Рейтинг:</div>
+                                        <div class="value"><span itemprop="duration">{{.Distances.Anime.Score}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line-container">
+                                    <div class="line">
+                                        <div class="key">Статус:</div>
+                                        <div class="value"><span class="b-anime_status_tag released"
+                                                data-text={{.Distances.Anime.Status}}></span>&nbsp;{{.Distances.Anime.Year}}
+                                            г.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line-container">
+                                    <div class="line">
+                                        <div class="key">Жанры:</div>
+                                        <div class="value">
+                                            {{ range .Distances.Anime.Genres}}
+                                            <a class="b-tag"
+                                                data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
+                                                data-predelay="350"
+                                                href="https://shikimori.one/animes/genre/2-Adventure"><span
+                                                    class="genre-en"> {{ .Russian}}</span><span class="genre-ru"
+                                                    data-text="Приключения"></span>
+                                            </a>
+                                            {{ end}}
+                                        </div>
+
+                                    </div>
+
+                                    <div class="line-container">
+                                        <div class="line">
+                                            <div class="key">Рейтинг:</div>
+                                            <div class="value"><span class="b-tooltipped dotted mobile"
+                                                    data-direction="right"
+                                                    original-title="G - Нет возрастных ограничений">{{.Distances.Anime.Rating}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line-container">
+                                        <div class="line">
+                                            <div class="key">Студии:</div>
+                                            <div class="value"><span class="other-names"
+                                                    data-clickloaded-url="https://shikimori.one/animes/32622-hello-kitty-no-oyayubi-hime/other_names"
+                                                    data-dynamic="clickloaded"><span>{{range .Distances.Anime.Studios}}
+
+                                                        <a class="b-tag"
+                                                            data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
+                                                            data-predelay="350"
+                                                            href="https://shikimori.one/animes/genre/2-Adventure"><span
+                                                                class="genre-en"> {{.Name}}</span><span class="genre-ru"
+                                                                data-text="ыыы"></span>
+                                                        </a>
+                                                        {{end}}</span></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        {{end}}
+        {{end}}
+        <div class="subheadline linkheadline"><a href="https://shikimori.one/animes/status/ongoing">
+                {{if .Page.Tabs.IsCatalog}}
+                Список доступных тайтлов
+                {{end}}
+                {{if .Page.Tabs.IsCompare}}
+                Список похожих
+                {{end}}
+            </a></div>
         <div class="container">
             {{ range .Animes }}
             <div class="anime-container">
-
                 <div class="anime-main">
                     <div class="anime-name-container">
 
@@ -165,100 +330,179 @@
                                 </div>
                                 <div class="expanded-options" style="height: 185.966px; display: block;">
                                     <div class="option add-trigger" data-status="dropped">
-                                        <div class="text"><span class="status-name" data-text="Найти похожие"></span>
+                                        <div class="text">
+                                            <!-- <span class="status-name" data-text="Найти похожие">
+
+                                            </span> -->
+                                            <a href="/compare?id={{.ID}}" class="status-name"
+                                                data-text="Найти похожие"></a>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="cc">
-                        <div class="c-info-left">
-                            <div class="subheadline">Информация</div>
-                            <div class="block">
-                                <div class="b-entry-info">
-                                    <div class="line-container">
-                                        <div class="line">
-                                            <div class="key">Тип:</div>
-                                            <div class="value">{{.Kind}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="line-container">
-                                        <div class="line">
-                                            <div class="key">Эпизоды:</div>
-                                            <div class="value"><span itemprop="duration">{{.Episodes}} серий по {{.Duration}} мин.</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="line-container">
-                                        <div class="line">
-                                            <div class="key">Рейтинг:</div>
-                                            <div class="value"><span itemprop="duration">{{.Score}}</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="line-container">
-                                        <div class="line">
-                                            <div class="key">Статус:</div>
-                                            <div class="value"><span class="b-anime_status_tag released"
-                                                    data-text={{.Status}}></span>&nbsp;{{.Year}} г.
+                    <div class="cc-info">
+                        <div class="cc">
+                            <div class="c-info-left">
+                                <div class="subheadline">Информация</div>
+                                <div class="block">
+                                    <div class="b-entry-info">
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Тип:</div>
+                                                <div class="value">{{.Kind}}</div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="line-container">
-                                        <div class="line">
-                                            <div class="key">Жанры:</div>
-                                            <div class="value">
-                                                {{ range .Genres}}
-                                                <a class="b-tag"
-                                                    data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
-                                                    data-predelay="350"
-                                                    href="https://shikimori.one/animes/genre/2-Adventure"><span
-                                                        class="genre-en"> {{ .Russian}}</span><span class="genre-ru"
-                                                        data-text="Приключения"></span>
-                                                </a>
-                                                {{ end}}
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Эпизоды:</div>
+                                                <div class="value"><span itemprop="duration">{{.Episodes}} серий по
+                                                        {{.Duration}} мин.</span></div>
                                             </div>
-
                                         </div>
-
                                         <div class="line-container">
                                             <div class="line">
                                                 <div class="key">Рейтинг:</div>
-                                                <div class="value"><span class="b-tooltipped dotted mobile"
-                                                        data-direction="right"
-                                                        original-title="G - Нет возрастных ограничений">{{.Rating}}</span>
+                                                <div class="value"><span itemprop="duration">{{.Score}}</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Статус:</div>
+                                                <div class="value"><span class="b-anime_status_tag released"
+                                                        data-text={{.Status}}></span>&nbsp;{{.Year}} г.
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="line-container">
                                             <div class="line">
-                                                <div class="key">Студии:</div>
-                                                <div class="value"><span class="other-names"
-                                                        data-clickloaded-url="https://shikimori.one/animes/32622-hello-kitty-no-oyayubi-hime/other_names"
-                                                        data-dynamic="clickloaded"><span>{{range .Studios}}
-                                                           
-                                                            <a class="b-tag"
-                                                            data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
-                                                            data-predelay="350"
-                                                            href="https://shikimori.one/animes/genre/2-Adventure"><span
-                                                                class="genre-en">  {{.Name}}</span><span class="genre-ru"
-                                                                data-text="ыыы"></span>
-                                                        </a>
-                                                            {{end}}</span></span></div>
+                                                <div class="key">Жанры:</div>
+                                                <div class="value">
+                                                    {{ range .Genres}}
+                                                    <a class="b-tag"
+                                                        data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
+                                                        data-predelay="350"
+                                                        href="https://shikimori.one/animes/genre/2-Adventure"><span
+                                                            class="genre-en"> {{ .Russian}}</span><span class="genre-ru"
+                                                            data-text="Приключения"></span>
+                                                    </a>
+                                                    {{ end}}
+                                                </div>
+
+                                            </div>
+
+                                            <div class="line-container">
+                                                <div class="line">
+                                                    <div class="key">Рейтинг:</div>
+                                                    <div class="value"><span class="b-tooltipped dotted mobile"
+                                                            data-direction="right"
+                                                            original-title="G - Нет возрастных ограничений">{{.Rating}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line-container">
+                                                <div class="line">
+                                                    <div class="key">Студии:</div>
+                                                    <div class="value"><span class="other-names"
+                                                            data-clickloaded-url="https://shikimori.one/animes/32622-hello-kitty-no-oyayubi-hime/other_names"
+                                                            data-dynamic="clickloaded"><span>{{range .Studios}}
+
+                                                                <a class="b-tag"
+                                                                    data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
+                                                                    data-predelay="350"
+                                                                    href="https://shikimori.one/animes/genre/2-Adventure"><span
+                                                                        class="genre-en"> {{.Name}}</span><span
+                                                                        class="genre-ru" data-text="ыыы"></span>
+                                                                </a>
+                                                                {{end}}</span></span></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="c-info-right"></div>
                         </div>
-
                     </div>
+                    {{ if $isCompare }}
+                    <div class="cc-info">
+                        <div class="cc">
+                            <div class="c-info-left">
+                                <div class="subheadline">Расстояние</div>
+                                <div class="block">
+                                    <div class="b-entry-info">
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Евклидово:</div>
 
+                                                {{if $Ec}}
+                                                <div class="value">{{.E}}</div>
+                                                {{else}}
+                                                <div class="key">{{.E}}</div>
+                                                {{end}}
+                                            </div>
+                                        </div>
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Кварталов:</div>
+
+                                                {{if $Mc}}
+                                                <div class="value">{{.M}}</div>
+                                                {{else}}
+                                                <div class="key">{{.M}}</div>
+                                                {{end}}
+                                            </div>
+                                        </div>
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Шахматное:</div>
+                                               
+                                                {{if $Kc}}
+                                                <div class="value">{{.K}}</div>
+                                                {{else}}
+                                                <div class="key">{{.K}}</div>
+                                                {{end}}
+                                            </div>
+                                        </div>
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Кол-во различий:</div>
+                                                {{if $Dc}}
+                                                <div class="value">{{.D}}</div>
+                                                {{else}}
+                                                <div class="key">{{.D}}</div>
+                                                {{end}}
+                                            </div>
+                                        </div>
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Близость по дереву:</div>
+                                                {{if $Tc}}
+                                                <div class="value">{{.T}}</div>
+                                                {{else}}
+                                                <div class="key">{{.T}}</div>
+                                                {{end}}
+                                            </div>
+                                        </div>
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Корреляция:</div>
+                                                {{if $Cc}}
+                                                <div class="value">{{.C}}</div>
+                                                {{else}}
+                                                <div class="key">{{.C}}</div>
+                                                {{end}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ end }}
                 </div>
-
-
-                {{ end }}
             </div>
+            {{ end }}
             <!-- 
                 <div>
                     {{ .Russian }}
