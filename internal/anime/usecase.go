@@ -9,7 +9,7 @@ import (
 type AnimeUseCase interface {
 	BranchDiff(another models.Anime) int
 
-	FetchDetails() error
+	FetchDetails(UserAgent string) error
 }
 
 type AnimesUseCase interface {
@@ -20,12 +20,16 @@ type AnimesUseCase interface {
 		tree tree.Tree,
 		done chan<- error,
 	)
-	FetchDetails(ctx context.Context, done chan error)
+	FetchDetails(ctx context.Context, UserAgent string, done chan error)
 
 	Animes() models.Animes
 	FindAnimes(name string) models.Animes
 	FindAnimeByName(name string) (models.Anime, bool)
 	FindAnimeByID(id int32) (models.Anime, bool)
+
+	MarkMine(myScores models.UserScoreMap)
+
+	UserAnimes(uc models.UserScoreMap) models.Animes
 
 	Save(fromPath, toPath string) error
 	Load(pathToFile string) error

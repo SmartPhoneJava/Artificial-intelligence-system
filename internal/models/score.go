@@ -1,81 +1,62 @@
 package models
 
-import (
-	"encoding/json"
-	"io/ioutil"
-	"os"
-)
-
 var UsersScores UsersScoreMap
+
+type ScoreSettings struct {
+	SavePath string `json:"save_path"`
+}
+
+func DefaultScoreSettings() *ScoreSettings {
+	return &ScoreSettings{
+		SavePath: "internal/models/users_scores.json",
+	}
+}
 
 type UsersScoreMap []UserScoreMap
 
-func (usm *UsersScoreMap) Load(path string) error {
-	if path == "" {
-		path = "internal/models/users_scores.json"
-	}
-	f, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-	byteValue, err := ioutil.ReadAll(f)
-	if err != nil {
-		return err
-	}
-
-	err = json.Unmarshal(byteValue, usm)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func (usm UsersScoreMap) Save(path string) error {
-	if path == "" {
-		path = "internal/models/users_scores_2.json"
-	}
-	f, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-
-	bytesS, err := json.Marshal(usm)
-	if err != nil {
-		return err
-	}
-	_, err = f.Write(bytesS)
-	if err != nil {
-		return err
-	}
-	return nil
-}
+func (d UsersScoreMap) Len() int           { return len(d) }
+func (d UsersScoreMap) Less(i, j int) bool { return d[i].D < d[j].D }
+func (d UsersScoreMap) Swap(i, j int)      { d[i], d[j] = d[j], d[i] }
 
 type UserScoreMap struct {
-	User   User          `json:"user"`
-	Scores map[int32]int `json:"scores"`
+	User   int         `json:"user"`
+	Scores map[int]int `json:"scores"`
+	D      float64
+}
+
+func (usm UserScoreMap) Add(id, score int) {
+	usm.Scores[id] = score
+}
+
+func (usm UserScoreMap) Remove(id int) {
+	delete(usm.Scores, id)
 }
 
 func NewUserScoreMap(scores Scores) UserScoreMap {
 	if len(scores) == 0 {
-		return UserScoreMap{}
+		return UserScoreMap{
+			Scores: make(map[int]int, 0),
+		}
 	}
-	var m = make(map[int32]int, len(scores))
+	var m = make(map[int]int, len(scores))
 	for _, score := range scores {
 		if score.Score > 0 {
-			m[score.Anime.ID] = score.Score
+			m[score.TargetID] = score.Score
 		}
 	}
 	return UserScoreMap{
-		User:   scores[0].User,
+		User:   scores[0].UserID,
 		Scores: m,
 	}
-
 }
 
 type Scores []Score
 
 type Score struct {
-	User  User  `json:"user"`
-	Anime Anime `json:"anime"`
-	Score int   `json:"score"`
+	ID         int    `json:"id"`
+	UserID     int    `json:"user_id"`
+	TargetID   int    `json:"target_id"`
+	TargetType string `json:"target_type"`
+	Status     string `json:"status"`
+	Score      int    `json:"score"`
 }

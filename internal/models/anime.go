@@ -26,6 +26,13 @@ type Anime struct {
 	Genres  Genres   `json:"genres"`  //!+++
 	Branch  []string `json:"branch"`  //!+++
 
+	Scorea []struct {
+		V bool
+		I int
+	}
+	IsMine    bool
+	ScoreMine int
+
 	E, M, K, C, T, D float64
 }
 

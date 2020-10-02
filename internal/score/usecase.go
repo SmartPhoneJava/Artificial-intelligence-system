@@ -1,12 +1,21 @@
 package score
 
-import "shiki/internal/models"
+import (
+	"context"
+	"shiki/internal/models"
+)
 
 type UseCase interface {
 	Load(path string) error
 	Save(path string) error
 
-	Fetch(users, animes int32) error
+	Fetch(
+		ctx context.Context,
+		users int32,
+		done chan error,
+	)
 
 	Get() models.UsersScoreMap
+
+	SetSettings(settings *models.ScoreSettings)
 }

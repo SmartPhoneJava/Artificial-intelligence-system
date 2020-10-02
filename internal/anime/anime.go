@@ -50,7 +50,7 @@ func (anime *AnimeUC) ratingToInt() int {
 	return 0
 }
 
-func (anime *AnimeUC) FetchDetails() error {
+func (anime *AnimeUC) FetchDetails(UserAgent string) error {
 	client := &http.Client{}
 
 	id := utils.String(anime.ID)
@@ -59,6 +59,7 @@ func (anime *AnimeUC) FetchDetails() error {
 		"https://shikimori.one/api/animes/"+id,
 		nil,
 	)
+	req.Header.Set("User-Agent", UserAgent)
 
 	resp, err := client.Do(req)
 	if err != nil {

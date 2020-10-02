@@ -3,10 +3,7 @@ package anime
 import (
 	"context"
 	"encoding/json"
-	"errors"
-	"io/ioutil"
 	"log"
-	"net/http"
 	"os"
 	"strconv"
 	"strings"
@@ -14,14 +11,16 @@ import (
 	"github.com/beevik/etree"
 
 	"shiki/internal/anime/eatree"
+	"shiki/internal/anime/shikimori"
 	"shiki/internal/anime/tree"
 	"shiki/internal/models"
 	"shiki/internal/utils"
 )
 
 type AnimesUC struct {
-	m models.Animes
-	a []AnimeUseCase
+	m   models.Animes
+	a   []AnimeUseCase
+	api shikimori.Api
 }
 
 func (auc *AnimesUC) init(m models.Animes) {
@@ -33,14 +32,16 @@ func (auc *AnimesUC) init(m models.Animes) {
 	auc.m = m
 }
 
-func NewAnimes(arr models.Animes) AnimesUseCase {
+func NewAnimes(api shikimori.Api, m models.Animes) AnimesUseCase {
 	var auc = new(AnimesUC)
-	auc.init(arr)
+	auc.init(m)
+	auc.api = api
 	return auc
 }
 
 func (auc AnimesUC) FetchDetails(
 	ctx context.Context,
+	UserAgent string,
 	done chan error,
 ) {
 	if len(auc.a) == 0 {
@@ -52,9 +53,8 @@ func (auc AnimesUC) FetchDetails(
 	}
 	for i := 0; i < len(auc.a); i++ {
 		err := utils.MakeAction(ctx, func() error {
-			return auc.a[i].FetchDetails()
+			return auc.a[i].FetchDetails(UserAgent)
 		})
-		log.Println("real anime is ", auc.m[i])
 		log.Printf("Updated %d/%d", i, len(auc.a))
 		if err != nil {
 			done <- err
@@ -97,6 +97,49 @@ func (auc AnimesUC) FindAnimeByName(
 		}
 	}
 	return models.Anime{}, false
+}
+
+func (auc AnimesUC) MarkMine(myScores models.UserScoreMap) {
+	for i, v := range auc.m {
+		score, ok := myScores.Scores[int(v.ID)]
+		if ok {
+			auc.m[i].IsMine = true
+			auc.m[i].ScoreMine = score
+
+			for j := 0; j < score; j++ {
+				auc.m[i].Scorea[j] = struct {
+					V bool
+					I int
+				}{true, j + 1}
+			}
+
+		} else {
+			auc.m[i].IsMine = false
+			for j := 0; j < 10; j++ {
+				auc.m[i].Scorea[j] = struct {
+					V bool
+					I int
+				}{false, j + 1}
+			}
+		}
+	}
+}
+
+func (auc AnimesUC) UserAnimes(
+	uc models.UserScoreMap,
+) models.Animes {
+
+	log.Println("len is", len(uc.Scores))
+
+	var newAnimes = make([]models.Anime, 0)
+	for _, anime := range auc.m {
+		var score = uc.Scores[int(anime.ID)]
+		if score > 0 {
+			anime.Score = strconv.Itoa(score)
+			newAnimes = append(newAnimes, anime)
+		}
+	}
+	return newAnimes
 }
 
 func (auc AnimesUC) FindAnimeByID(
@@ -163,6 +206,18 @@ func (auc *AnimesUC) Load(pathToFile string) error {
 		var anime models.Anime
 		json.Unmarshal([]byte(v.Desription.Text()), &anime)
 		anime.Branch = edoc.Tree.Branch(v.NodeID)
+		anime.Scorea = make([]struct {
+			V bool
+			I int
+		}, 10)
+
+		for i := 0; i < 10; i++ {
+			anime.Scorea[i] = struct {
+				V bool
+				I int
+			}{false, i + 1}
+		}
+
 		if anime.ID > 0 && !added[anime.ID] {
 			m = append(m, anime)
 			added[anime.ID] = true
@@ -170,53 +225,6 @@ func (auc *AnimesUC) Load(pathToFile string) error {
 	}
 	auc.init(m)
 	return nil
-}
-
-func findAnime(
-	category, value string,
-	limit int32,
-	g models.Genres,
-	s models.Studios,
-) (models.Animes, error) {
-	client := &http.Client{}
-	var query = "https://shikimori.one/api/animes?page=1&limit=" +
-		utils.String(limit) + "&censored=false&"
-	if category == "Жанры" {
-		query += "genre=" + utils.String(g.ToID(value))
-	}
-	if category == "Студия" {
-		query += "studio=" + utils.String(s.ToID(value))
-	}
-	query += "&order=ranked"
-
-	req, _ := http.NewRequest("GET", query, nil)
-	// req.Header.Add("Accept", "application/json")
-	// req.Header.Set("User-Agent", UserAgent)
-	// req.Header.Set("Authorization", "Bearer "+Token.AccessToken)
-
-	var animes models.Animes
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return animes, err
-	}
-
-	if resp.StatusCode == http.StatusTooManyRequests {
-		return animes, utils.Err429
-	} else if resp.StatusCode != http.StatusOK {
-		return animes, errors.New("Wrong status:" + resp.Status)
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		return animes, err
-	}
-
-	if err = json.Unmarshal(body, &animes); err != nil {
-		return animes, err
-	}
-	return animes, nil
 }
 
 func createNode(
@@ -300,15 +308,19 @@ func (auc *AnimesUC) FetchData(
 						var category, ok = tree.Categories[name]
 						if ok {
 							err = utils.MakeAction(ctx, func() error {
-								val := v2.Attr[0].Value
-								animes, err := findAnime(
-									category,
-									name,
-									int32(limit),
-									genres,
-									studios,
+								var (
+									val    = v2.Attr[0].Value
+									genre  string
+									studio string
 								)
-								if err == utils.Err429 {
+								if category == "Жанры" {
+									genre = utils.String(genres.ToID(name))
+								} else if category == "Студия" {
+									studio = utils.String(studios.ToID(name))
+
+								}
+								animes, err := auc.api.GetAnimes(int32(limit), genre, studio)
+								if err != nil {
 									return err
 								}
 								animesFound += len(animes)
@@ -319,9 +331,6 @@ func (auc *AnimesUC) FetchData(
 									animesFound,
 									animesShouldBe,
 								)
-								if err != nil {
-									return err
-								}
 								for _, anime := range animes {
 									createNode(v1, val, anime)
 								}

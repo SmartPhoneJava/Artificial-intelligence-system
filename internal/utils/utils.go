@@ -19,8 +19,8 @@ func MakeAction(
 		var timer = time.Millisecond * 100
 		if count > 5 {
 			count = 0
-			timer = time.Minute
-			log.Printf("RPM limit: Minute sleep")
+			timer = time.Second * 10
+			log.Printf("RPM limit: 10s sleep")
 		}
 		select {
 		case <-ctx.Done():

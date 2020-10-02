@@ -1,6 +1,7 @@
 package amath
 
 import (
+	"errors"
 	"math"
 
 	"gonum.org/v1/gonum/stat"
@@ -19,6 +20,19 @@ import (
 // }
 
 type Pairs []float64
+
+func NewPairs(a, b []float64) (Pairs, error) {
+	if len(a) != len(b) {
+		return Pairs{}, errors.New("len(a) not equal len(b)")
+	}
+	pairs := make([]float64, len(a)*2)
+	for i := 0; i < len(a); i += 1 {
+		pairs[i*2] = a[i]
+		pairs[i*2+1] = b[i]
+	}
+
+	return pairs, nil
+}
 
 func (pairs Pairs) TwoVectors() ([]float64, []float64) {
 	var (

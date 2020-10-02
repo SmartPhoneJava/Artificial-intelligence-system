@@ -1,0 +1,4754 @@
+{
+	"status": "ok",
+	"message-type": "work-list",
+	"message-version": "1.0.0",
+	"message": {
+		"facets": {},
+		"total-results": 117416228,
+		"items": [
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998276
+				},
+				"reference-count": 0,
+				"publisher": "Oxford University Press (OUP)",
+				"issue": "4",
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["Journal of Economic Geography"],
+				"published-print": { "date-parts": [[2004, 8, 1]] },
+				"DOI": "10.1093/jeg/4.4.371",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2004, 7, 14]],
+					"date-time": "2004-07-14T00:45:47Z",
+					"timestamp": 1089765947000
+				},
+				"page": "371-388",
+				"source": "Crossref",
+				"is-referenced-by-count": 6,
+				"title": ["University decentralization as regional policy: the Swedish experiment"],
+				"prefix": "10.1093",
+				"volume": "4",
+				"author": [{ "given": "R.", "family": "Andersson", "sequence": "first", "affiliation": [] }],
+				"member": "286",
+				"container-title": ["Journal of Economic Geography"],
+				"language": "en",
+				"deposited": {
+					"date-parts": [[2007, 2, 13]],
+					"date-time": "2007-02-13T20:56:13Z",
+					"timestamp": 1171400173000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2004, 8, 1]] },
+				"references-count": 0,
+				"journal-issue": { "published-print": { "date-parts": [[2004, 8, 1]] }, "issue": "4" },
+				"URL": "http://dx.doi.org/10.1093/jeg/4.4.371",
+				"ISSN": ["1468-2710"],
+				"issn-type": [{ "value": "1468-2710", "type": "electronic" }]
+			},
+			{
+				"institution": {
+					"name": "National Bureau of Economic Research",
+					"place": ["Cambridge, MA"],
+					"acronym": ["NBER"]
+				},
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998276
+				},
+				"publisher-location": "Cambridge, MA",
+				"reference-count": 0,
+				"publisher": "National Bureau of Economic Research",
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"DOI": "10.3386/w23137",
+				"type": "report",
+				"created": {
+					"date-parts": [[2017, 2, 7]],
+					"date-time": "2017-02-07T03:09:07Z",
+					"timestamp": 1486436947000
+				},
+				"source": "Crossref",
+				"is-referenced-by-count": 7,
+				"title": ["Immigration and the Rise of American  Ingenuity"],
+				"prefix": "10.3386",
+				"author": [
+					{ "given": "Ufuk", "family": "Akcigit", "sequence": "first", "affiliation": [] },
+					{ "given": "John", "family": "Grigsby", "sequence": "additional", "affiliation": [] },
+					{ "given": "Tom", "family": "Nicholas", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "1960",
+				"published-online": { "date-parts": [[2017, 2]] },
+				"deposited": {
+					"date-parts": [[2017, 12, 29]],
+					"date-time": "2017-12-29T03:14:51Z",
+					"timestamp": 1514517291000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2017, 2]] },
+				"references-count": 0,
+				"URL": "http://dx.doi.org/10.3386/w23137"
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998276
+				},
+				"reference-count": 41,
+				"publisher": "Royal Society of Chemistry (RSC)",
+				"issue": "6",
+				"license": [
+					{
+						"URL": "http://creativecommons.org/licenses/by-nc/3.0/",
+						"start": {
+							"date-parts": [[2018, 12, 12]],
+							"date-time": "2018-12-12T00:00:00Z",
+							"timestamp": 1544572800000
+						},
+						"delay-in-days": 0,
+						"content-version": "vor"
+					}
+				],
+				"funder": [
+					{
+						"DOI": "10.13039/501100001659",
+						"name": "Deutsche Forschungsgemeinschaft",
+						"doi-asserted-by": "publisher",
+						"award": [
+							"Cluster of Excellence UniCat, EXC 314-2, grant STR",
+							"Priority program SPP1613, grant DA402/7-2"
+						]
+					},
+					{
+						"DOI": "10.13039/501100002347",
+						"name": "Bundesministerium f\u00fcr Bildung und Forschung",
+						"doi-asserted-by": "publisher",
+						"award": ["In situ XAS, grant 05K16KE2", "CO2EKAT, grant 03SF0523-A/B"]
+					},
+					{
+						"DOI": "10.13039/501100004063",
+						"name": "Knut och Alice Wallenbergs Stiftelse",
+						"doi-asserted-by": "publisher",
+						"award": ["3DEM-NATUR"]
+					},
+					{
+						"DOI": "10.13039/501100006360",
+						"name": "Bundesministerium f\u00fcr Wirtschaft und Energie",
+						"doi-asserted-by": "publisher",
+						"award": ["PtTM@HGS/03ET6080A"]
+					}
+				],
+				"content-domain": { "domain": ["rsc.org"], "crossmark-restriction": true },
+				"short-container-title": ["Chem. Commun."],
+				"abstract": "<p>Physically mixing distinct Ni(OH)<sub>2</sub>and Fe(OOH) particles leads to formation of highly active \u201cphysically mixed\u201d Ni + Fe catalysts with atomically intermixed Ni\u2013(O)\u2013Fe sites.</p>",
+				"DOI": "10.1039/c8cc06410e",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2018, 12, 12]],
+					"date-time": "2018-12-12T16:11:52Z",
+					"timestamp": 1544631112000
+				},
+				"page": "818-821",
+				"update-policy": "http://dx.doi.org/10.1039/rsc_crossmark_policy",
+				"source": "Crossref",
+				"is-referenced-by-count": 8,
+				"title": [
+					"Formation of unexpectedly active Ni\u2013Fe oxygen evolution electrocatalysts by physically mixing Ni and Fe oxyhydroxides"
+				],
+				"prefix": "10.1039",
+				"volume": "55",
+				"author": [
+					{
+						"ORCID": "http://orcid.org/0000-0003-4472-955X",
+						"authenticated-orcid": false,
+						"given": "Mikaela",
+						"family": "G\u00f6rlin",
+						"sequence": "first",
+						"affiliation": [
+							{ "name": "Department of Physics" },
+							{ "name": "Free University of Berlin" },
+							{ "name": "14195 Berlin" },
+							{ "name": "Germany" },
+							{ "name": "The Electrochemical Energy, Catalysis, and Materials Science Laboratory" }
+						]
+					},
+					{
+						"given": "Petko",
+						"family": "Chernev",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "Department of Physics" },
+							{ "name": "Free University of Berlin" },
+							{ "name": "14195 Berlin" },
+							{ "name": "Germany" }
+						]
+					},
+					{
+						"given": "Paul",
+						"family": "Paciok",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "Ernst Ruska-Centre for Microscopy and Spectroscopy with Electrons" },
+							{ "name": "Forschungszentrum J\u00fclich" },
+							{ "name": "J\u00fclich" },
+							{ "name": "Germany" }
+						]
+					},
+					{
+						"ORCID": "http://orcid.org/0000-0001-7286-1211",
+						"authenticated-orcid": false,
+						"given": "Cheuk-Wai",
+						"family": "Tai",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "Department of Materials and Environmental Chemistry" },
+							{ "name": "Stockholm University" },
+							{ "name": "Sweden" }
+						]
+					},
+					{
+						"given": "Jorge",
+						"family": "Ferreira de Ara\u00fajo",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "The Electrochemical Energy, Catalysis, and Materials Science Laboratory" },
+							{ "name": "Department of Chemistry" },
+							{ "name": "Technical University of Berlin" },
+							{ "name": "10623 Berlin" },
+							{ "name": "Germany" }
+						]
+					},
+					{
+						"given": "Tobias",
+						"family": "Reier",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "The Electrochemical Energy, Catalysis, and Materials Science Laboratory" },
+							{ "name": "Department of Chemistry" },
+							{ "name": "Technical University of Berlin" },
+							{ "name": "10623 Berlin" },
+							{ "name": "Germany" }
+						]
+					},
+					{
+						"ORCID": "http://orcid.org/0000-0002-2646-0078",
+						"authenticated-orcid": false,
+						"given": "Marc",
+						"family": "Heggen",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "Ernst Ruska-Centre for Microscopy and Spectroscopy with Electrons" },
+							{ "name": "Forschungszentrum J\u00fclich" },
+							{ "name": "J\u00fclich" },
+							{ "name": "Germany" }
+						]
+					},
+					{
+						"ORCID": "http://orcid.org/0000-0001-8082-0647",
+						"authenticated-orcid": false,
+						"given": "Rafal",
+						"family": "Dunin-Borkowski",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "Ernst Ruska-Centre for Microscopy and Spectroscopy with Electrons" },
+							{ "name": "Forschungszentrum J\u00fclich" },
+							{ "name": "J\u00fclich" },
+							{ "name": "Germany" }
+						]
+					},
+					{
+						"ORCID": "http://orcid.org/0000-0002-3884-436X",
+						"authenticated-orcid": false,
+						"given": "Peter",
+						"family": "Strasser",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "The Electrochemical Energy, Catalysis, and Materials Science Laboratory" },
+							{ "name": "Department of Chemistry" },
+							{ "name": "Technical University of Berlin" },
+							{ "name": "10623 Berlin" },
+							{ "name": "Germany" }
+						]
+					},
+					{
+						"ORCID": "http://orcid.org/0000-0001-6482-7494",
+						"authenticated-orcid": false,
+						"given": "Holger",
+						"family": "Dau",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "Department of Physics" },
+							{ "name": "Free University of Berlin" },
+							{ "name": "14195 Berlin" },
+							{ "name": "Germany" }
+						]
+					}
+				],
+				"member": "292",
+				"published-online": { "date-parts": [[2019]] },
+				"reference": [
+					{
+						"key": "C8CC06410E-(cit1)/*[position()=1]",
+						"author": "Lewis",
+						"volume": "103",
+						"first-page": "15729",
+						"year": "2006",
+						"journal-title": "Proc. Natl. Acad. Sci. U. S. A.",
+						"DOI": "10.1073/pnas.0603395103",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit2)/*[position()=1]",
+						"author": "Dau",
+						"volume": "2",
+						"first-page": "724",
+						"year": "2010",
+						"journal-title": "ChemCatChem",
+						"DOI": "10.1002/cctc.201000126",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit3)/*[position()=1]",
+						"author": "Gust",
+						"volume": "42",
+						"first-page": "1890",
+						"year": "2009",
+						"journal-title": "Acc. Chem. Res.",
+						"DOI": "10.1021/ar900209b",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit4)/*[position()=1]",
+						"author": "Luo",
+						"volume": "345",
+						"first-page": "1593",
+						"year": "2014",
+						"journal-title": "Science",
+						"DOI": "10.1126/science.1258307",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit5)/*[position()=1]",
+						"author": "Wang",
+						"volume": "27",
+						"first-page": "2360",
+						"year": "2015",
+						"journal-title": "Chem. Mater.",
+						"DOI": "10.1021/cm503887t",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit6)/*[position()=1]",
+						"author": "Dresp",
+						"volume": "9",
+						"first-page": "2020",
+						"year": "2016",
+						"journal-title": "Energy Environ. Sci.",
+						"DOI": "10.1039/C6EE01046F",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit7)/*[position()=1]",
+						"author": "Li",
+						"volume": "134",
+						"first-page": "7231",
+						"year": "2012",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/ja3010978",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit8)/*[position()=1]",
+						"author": "Mistry",
+						"volume": "7",
+						"first-page": "12123",
+						"year": "2016",
+						"journal-title": "Nat. Commun.",
+						"DOI": "10.1038/ncomms12123",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit9)/*[position()=1]",
+						"author": "Man",
+						"volume": "3",
+						"first-page": "1159",
+						"year": "2011",
+						"journal-title": "ChemCatChem",
+						"DOI": "10.1002/cctc.201000397",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit10)/*[position()=1]",
+						"author": "Lee",
+						"volume": "3",
+						"first-page": "399",
+						"year": "2012",
+						"journal-title": "J. Phys. Lett."
+					},
+					{
+						"key": "C8CC06410E-(cit11)/*[position()=1]",
+						"author": "Reier",
+						"volume": "7",
+						"first-page": "1601275",
+						"year": "2017",
+						"journal-title": "Adv. Energy Mater.",
+						"DOI": "10.1002/aenm.201601275",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit12)/*[position()=1]",
+						"author": "Risch",
+						"volume": "8",
+						"first-page": "661",
+						"year": "2015",
+						"journal-title": "Energy Environ. Sci.",
+						"DOI": "10.1039/C4EE03004D",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit13)/*[position()=1]",
+						"author": "McCrory",
+						"volume": "137",
+						"first-page": "4347",
+						"year": "2015",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/ja510442p",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit14)/*[position()=1]",
+						"author": "Hong",
+						"volume": "8",
+						"first-page": "1404",
+						"year": "2015",
+						"journal-title": "Energy Environ. Sci.",
+						"DOI": "10.1039/C4EE03869J",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit15)/*[position()=1]",
+						"author": "Smith",
+						"volume": "135",
+						"first-page": "11580",
+						"year": "2013",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/ja403102j",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit16)/*[position()=1]",
+						"author": "Gong",
+						"volume": "135",
+						"first-page": "8452",
+						"year": "2013",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/ja4027715",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit17)/*[position()=1]",
+						"author": "Louie",
+						"volume": "135",
+						"first-page": "12329",
+						"year": "2013",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/ja405351s",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit18)/*[position()=1]",
+						"author": "Trotochaud",
+						"volume": "136",
+						"first-page": "6744",
+						"year": "2014",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/ja502379c",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit19)/*[position()=1]",
+						"author": "Corrigan",
+						"volume": "134",
+						"first-page": "377",
+						"year": "1987",
+						"journal-title": "J. Electrochem. Soc.",
+						"DOI": "10.1149/1.2100463",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit20)/*[position()=1]",
+						"author": "G\u00f6rlin",
+						"volume": "138",
+						"first-page": "5603",
+						"year": "2016",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/jacs.6b00332",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit21)/*[position()=1]",
+						"author": "Dresp",
+						"volume": "8",
+						"first-page": "1800338",
+						"year": "2018",
+						"journal-title": "Adv. Energy Mater.",
+						"DOI": "10.1002/aenm.201800338",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit22)/*[position()=1]",
+						"author": "Smith",
+						"volume": "11",
+						"first-page": "2476",
+						"year": "2018",
+						"journal-title": "Energy Environ. Sci.",
+						"DOI": "10.1039/C8EE01063C",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit23)/*[position()=1]",
+						"author": "Gonz\u00e1lez-Flores",
+						"volume": "2",
+						"first-page": "1986",
+						"year": "2018",
+						"journal-title": "Sustainable Energy Fuels",
+						"DOI": "10.1039/C8SE00114F",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit24)/*[position()=1]",
+						"author": "Bates",
+						"volume": "6",
+						"first-page": "155",
+						"year": "2016",
+						"journal-title": "ACS Catal.",
+						"DOI": "10.1021/acscatal.5b01481",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit25)/*[position()=1]",
+						"author": "Xiao",
+						"volume": "115",
+						"first-page": "5872",
+						"year": "2018",
+						"journal-title": "Proc. Natl. Acad. Sci. U. S. A.",
+						"DOI": "10.1073/pnas.1722034115",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit26)/*[position()=1]",
+						"author": "Li",
+						"volume": "114",
+						"first-page": "1486",
+						"year": "2017",
+						"journal-title": "Proc. Natl. Acad. Sci. U. S. A.",
+						"DOI": "10.1073/pnas.1620787114",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit27)/*[position()=1]",
+						"author": "Friebel",
+						"volume": "137",
+						"first-page": "1305",
+						"year": "2015",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/ja511559d",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit28)/*[position()=1]",
+						"author": "Wang",
+						"volume": "119",
+						"first-page": "19573",
+						"year": "2015",
+						"journal-title": "J. Phys. Chem. C",
+						"DOI": "10.1021/acs.jpcc.5b02685",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit29)/*[position()=1]",
+						"author": "Goldsmith",
+						"volume": "114",
+						"first-page": "3050",
+						"year": "2017",
+						"journal-title": "Proc. Natl. Acad. Sci. U. S. A.",
+						"DOI": "10.1073/pnas.1702081114",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit30)/*[position()=1]",
+						"author": "Chen",
+						"volume": "137",
+						"first-page": "15090",
+						"year": "2015",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/jacs.5b10699",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit31)/*[position()=1]",
+						"author": "Hunter",
+						"volume": "2",
+						"first-page": "747",
+						"year": "2018",
+						"journal-title": "Joule",
+						"DOI": "10.1016/j.joule.2018.01.008",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit32)/*[position()=1]",
+						"author": "Ahn",
+						"volume": "138",
+						"first-page": "313",
+						"year": "2016",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/jacs.5b10977",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit33)/*[position()=1]",
+						"author": "Burke Stevens",
+						"volume": "139",
+						"first-page": "11361",
+						"year": "2017",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/jacs.7b07117",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit34)/*[position()=1]",
+						"author": "Yin",
+						"volume": "11",
+						"first-page": "3959",
+						"year": "2018",
+						"journal-title": "Nano Res.",
+						"DOI": "10.1007/s12274-017-1886-7",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit35)/*[position()=1]",
+						"author": "Wang",
+						"volume": "4",
+						"first-page": "eaap7970",
+						"year": "2018",
+						"journal-title": "Sci. Adv.",
+						"DOI": "10.1126/sciadv.aap7970",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit36)/*[position()=1]",
+						"author": "Hall",
+						"volume": "471",
+						"first-page": "1",
+						"year": "2015",
+						"journal-title": "Proc. R. Soc. London, Ser. A",
+						"DOI": "10.1098/rspa.2014.0792",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit37)/*[position()=1]",
+						"author": "Browne",
+						"volume": "4",
+						"first-page": "11397",
+						"year": "2016",
+						"journal-title": "J. Phys. Chem. A"
+					},
+					{
+						"key": "C8CC06410E-(cit38)/*[position()=1]",
+						"author": "Dionigi",
+						"volume": "6",
+						"first-page": "1600621",
+						"year": "2016",
+						"journal-title": "Adv. Energy Mater.",
+						"DOI": "10.1002/aenm.201600621",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit39)/*[position()=1]",
+						"author": "Michael",
+						"volume": "119",
+						"first-page": "11475",
+						"year": "2015",
+						"journal-title": "J. Phys. Chem. C",
+						"DOI": "10.1021/acs.jpcc.5b02458",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit40)/*[position()=1]",
+						"author": "Klaus",
+						"volume": "119",
+						"first-page": "18303",
+						"year": "2015",
+						"journal-title": "J. Phys. Chem. C",
+						"DOI": "10.1021/acs.jpcc.5b04776",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C8CC06410E-(cit41)/*[position()=1]",
+						"author": "Speck",
+						"volume": "2",
+						"first-page": "590",
+						"year": "2017",
+						"journal-title": "Chem",
+						"DOI": "10.1016/j.chempr.2017.03.006",
+						"doi-asserted-by": "crossref"
+					}
+				],
+				"container-title": ["Chemical Communications"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "http://pubs.rsc.org/en/content/articlepdf/2019/CC/C8CC06410E",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2019, 11, 7]],
+					"date-time": "2019-11-07T13:40:43Z",
+					"timestamp": 1573134043000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2019]] },
+				"references-count": 41,
+				"journal-issue": { "published-print": { "date-parts": [[2019, 1, 15]] }, "issue": "6" },
+				"URL": "http://dx.doi.org/10.1039/c8cc06410e",
+				"relation": { "cites": [] },
+				"ISSN": ["1359-7345", "1364-548X"],
+				"issn-type": [
+					{ "value": "1359-7345", "type": "print" },
+					{ "value": "1364-548X", "type": "electronic" }
+				],
+				"subject": [
+					"Materials Chemistry",
+					"Electronic, Optical and Magnetic Materials",
+					"General Chemistry",
+					"Surfaces, Coatings and Films",
+					"Metals and Alloys",
+					"Ceramics and Composites",
+					"Catalysis"
+				],
+				"assertion": [
+					{
+						"value": "This document is Similarity Check deposited",
+						"name": "similarity_check",
+						"explanation": { "URL": "https://www.crossref.org/services/similarity-check/" },
+						"group": { "name": "similarity_check", "label": "SIMILARITY CHECK" }
+					},
+					{
+						"value": "Supplementary Information",
+						"URL": "https://doi.org/10.1039/C8CC06410E",
+						"name": "related_data",
+						"group": { "name": "related_data", "label": "RELATED DATA" }
+					},
+					{
+						"value": "Mikaela G\u00f6rlin (ORCID)",
+						"URL": "http://orcid.org/0000-0003-4472-955X",
+						"name": "identifier",
+						"group": { "name": "author_identifiers", "label": "IDENTIFIERS" }
+					},
+					{
+						"value": "Cheuk-Wai Tai (ORCID)",
+						"URL": "http://orcid.org/0000-0001-7286-1211",
+						"name": "identifier",
+						"group": { "name": "author_identifiers", "label": "IDENTIFIERS" }
+					},
+					{
+						"value": "Cheuk-Wai Tai (ResearcherID)",
+						"URL": "http://www.researcherid.com/rid/C-5340-2008",
+						"name": "identifier",
+						"group": { "name": "author_identifiers", "label": "IDENTIFIERS" }
+					},
+					{
+						"value": "Marc Heggen (ORCID)",
+						"URL": "http://orcid.org/0000-0002-2646-0078",
+						"name": "identifier",
+						"group": { "name": "author_identifiers", "label": "IDENTIFIERS" }
+					},
+					{
+						"value": "Rafal Dunin-Borkowski (ORCID)",
+						"URL": "http://orcid.org/0000-0001-8082-0647",
+						"name": "identifier",
+						"group": { "name": "author_identifiers", "label": "IDENTIFIERS" }
+					},
+					{
+						"value": "Peter Strasser (ORCID)",
+						"URL": "http://orcid.org/0000-0002-3884-436X",
+						"name": "identifier",
+						"group": { "name": "author_identifiers", "label": "IDENTIFIERS" }
+					},
+					{
+						"value": "Holger Dau (ORCID)",
+						"URL": "http://orcid.org/0000-0001-6482-7494",
+						"name": "identifier",
+						"group": { "name": "author_identifiers", "label": "IDENTIFIERS" }
+					},
+					{
+						"value": "Authors can choose between single-blind and double-blind peer review",
+						"order": 2,
+						"name": "peer_review_method",
+						"group": { "name": "peer_review_method", "label": "PEER REVIEW METHOD" }
+					},
+					{
+						"value": "Received 7 August 2018; Accepted 12 December 2018; Accepted Manuscript published 12 December 2018; Advance Article published 21 December 2018; Version of Record published 15 January 2019",
+						"order": 1,
+						"name": "history",
+						"group": { "name": "publication_history", "label": "PUBLICATION HISTORY" }
+					}
+				]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998276
+				},
+				"reference-count": 12,
+				"publisher": "Emerald",
+				"issue": "1",
+				"license": [
+					{
+						"URL": "http://www.emeraldinsight.com/page/tdm",
+						"start": {
+							"date-parts": [[2002, 2, 1]],
+							"date-time": "2002-02-01T00:00:00Z",
+							"timestamp": 1012521600000
+						},
+						"delay-in-days": 0,
+						"content-version": "tdm"
+					}
+				],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["Management Decision"],
+				"published-print": { "date-parts": [[2002, 2]] },
+				"DOI": "10.1108/00251740210413370",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2002, 7, 28]],
+					"date-time": "2002-07-28T22:55:02Z",
+					"timestamp": 1027896902000
+				},
+				"page": "64-73",
+				"source": "Crossref",
+				"is-referenced-by-count": 23,
+				"title": ["Quantitative and qualitative decision\u2010making methods in simulation modelling"],
+				"prefix": "10.1108",
+				"volume": "40",
+				"author": [
+					{ "given": "Tillal", "family": "Eldabi", "sequence": "first", "affiliation": [] },
+					{ "given": "Zahir", "family": "Irani", "sequence": "additional", "affiliation": [] },
+					{ "given": "Ray J.", "family": "Paul", "sequence": "additional", "affiliation": [] },
+					{ "given": "Peter E.D.", "family": "Love", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "140",
+				"reference": [
+					{ "key": "B3", "DOI": "10.1007/BF02136828", "doi-asserted-by": "publisher" },
+					{ "key": "B9", "DOI": "10.1111/j.1365-2575.1996.tb00015.x", "doi-asserted-by": "publisher" },
+					{
+						"key": "B10",
+						"unstructured": "Chadwick, B.A., Bahr, H.M. and Albrecht, S.L. (1984), \u201cThe quality era\u201d, Journal of Geography in Higher Education, Vol. 8 No. 2, pp. 163\u20107."
+					},
+					{ "key": "B13", "DOI": "10.1057/palgrave.jors.2600881", "doi-asserted-by": "publisher" },
+					{ "key": "B15", "DOI": "10.1057/ejis.1994.12", "doi-asserted-by": "publisher" },
+					{ "key": "B16", "DOI": "10.1504/IJCAT.1999.000203", "doi-asserted-by": "publisher" },
+					{ "key": "B17", "DOI": "10.1057/palgrave.jors.2600669", "doi-asserted-by": "publisher" },
+					{ "key": "B19", "DOI": "10.2307/249133", "doi-asserted-by": "publisher" },
+					{ "key": "B21", "DOI": "10.2307/248698", "doi-asserted-by": "publisher" },
+					{ "key": "B25", "DOI": "10.2307/2392365", "doi-asserted-by": "publisher" },
+					{ "key": "B27", "DOI": "10.1007/BF02136825", "doi-asserted-by": "publisher" },
+					{ "key": "B33", "DOI": "10.1111/j.1365-2575.1996.tb00009.x", "doi-asserted-by": "publisher" }
+				],
+				"container-title": ["Management Decision"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "http://www.emeraldinsight.com/doi/full-xml/10.1108/00251740210413370",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "http://www.emeraldinsight.com/doi/full/10.1108/00251740210413370",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2019, 9, 3]],
+					"date-time": "2019-09-03T22:03:23Z",
+					"timestamp": 1567548203000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2002, 2]] },
+				"references-count": 12,
+				"journal-issue": { "published-print": { "date-parts": [[2002, 2]] }, "issue": "1" },
+				"alternative-id": ["10.1108/00251740210413370"],
+				"URL": "http://dx.doi.org/10.1108/00251740210413370",
+				"relation": { "cites": [] },
+				"ISSN": ["0025-1747"],
+				"issn-type": [{ "value": "0025-1747", "type": "print" }]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998276
+				},
+				"reference-count": 39,
+				"publisher": "Wiley",
+				"issue": "4",
+				"license": [
+					{
+						"URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+						"start": {
+							"date-parts": [[2019, 5, 2]],
+							"date-time": "2019-05-02T00:00:00Z",
+							"timestamp": 1556755200000
+						},
+						"delay-in-days": 0,
+						"content-version": "vor"
+					},
+					{
+						"URL": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+						"start": {
+							"date-parts": [[2019, 5, 2]],
+							"date-time": "2019-05-02T00:00:00Z",
+							"timestamp": 1556755200000
+						},
+						"delay-in-days": 0,
+						"content-version": "tdm"
+					}
+				],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["Psych J"],
+				"published-print": { "date-parts": [[2019, 12]] },
+				"DOI": "10.1002/pchj.269",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2019, 5, 3]],
+					"date-time": "2019-05-03T01:43:17Z",
+					"timestamp": 1556847797000
+				},
+				"page": "503-512",
+				"source": "Crossref",
+				"is-referenced-by-count": 1,
+				"title": [
+					"Lyrics only or lyrics with music? The effect of different lyric conditions on prosocial\u2010related outcomes"
+				],
+				"prefix": "10.1002",
+				"volume": "8",
+				"author": [
+					{
+						"ORCID": "http://orcid.org/0000-0002-7101-1650",
+						"authenticated-orcid": false,
+						"given": "Yue",
+						"family": "Yu",
+						"sequence": "first",
+						"affiliation": [
+							{
+								"name": "Key Laboratory of Mental Health, Institute of PsychologyChinese Academy of Sciences Beijing China"
+							},
+							{ "name": "Department of PsychologyCapital Normal University Beijing China" }
+						]
+					},
+					{
+						"ORCID": "http://orcid.org/0000-0003-0228-5284",
+						"authenticated-orcid": false,
+						"given": "Di",
+						"family": "Wu",
+						"sequence": "additional",
+						"affiliation": [{ "name": "Department of PsychologyCapital Normal University Beijing China" }]
+					},
+					{
+						"given": "Jian\u2010Xin",
+						"family": "Zhang",
+						"sequence": "additional",
+						"affiliation": [
+							{
+								"name": "Key Laboratory of Mental Health, Institute of PsychologyChinese Academy of Sciences Beijing China"
+							}
+						]
+					},
+					{
+						"given": "Ping",
+						"family": "Fang",
+						"sequence": "additional",
+						"affiliation": [{ "name": "Department of PsychologyCapital Normal University Beijing China" }]
+					}
+				],
+				"member": "311",
+				"published-online": { "date-parts": [[2019, 5, 2]] },
+				"reference": [
+					{
+						"key": "e_1_2_11_2_1",
+						"DOI": "10.1111/j.1529-1006.2003.pspi_1433.x",
+						"doi-asserted-by": "publisher"
+					},
+					{ "key": "e_1_2_11_3_1", "DOI": "10.1111/1467-9280.00366", "doi-asserted-by": "publisher" },
+					{
+						"key": "e_1_2_11_4_1",
+						"doi-asserted-by": "crossref",
+						"first-page": "51",
+						"DOI": "10.1146/annurev.psych.53.100901.135231",
+						"article-title": "Human aggression",
+						"volume": "53",
+						"author": "Anderson C. A.",
+						"year": "2002",
+						"journal-title": "Annual Review of Psychology"
+					},
+					{ "key": "e_1_2_11_5_1", "DOI": "10.1126/science.1070765", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_6_1", "DOI": "10.1037/0022-3514.78.4.772", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_7_1", "DOI": "10.1016/j.jesp.2007.10.003", "doi-asserted-by": "publisher" },
+					{
+						"key": "e_1_2_11_8_1",
+						"author": "Buckley K. E.",
+						"first-page": "363",
+						"year": "2006",
+						"volume-title": "Playing video games: Motives, responses, and consequences"
+					},
+					{ "key": "e_1_2_11_9_1", "DOI": "10.1177/014616702237649", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_10_1", "DOI": "10.1001/archpedi.160.4.348", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_11_1", "DOI": "10.1016/j.jesp.2008.06.006", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_12_1", "DOI": "10.1177/0146167206288670", "doi-asserted-by": "publisher" },
+					{
+						"key": "e_1_2_11_13_1",
+						"DOI": "10.1111/j.1539-6924.2010.01538.x",
+						"doi-asserted-by": "publisher"
+					},
+					{
+						"key": "e_1_2_11_14_1",
+						"first-page": "1",
+						"article-title": "Music's effect on mood and helping behavior",
+						"volume": "13",
+						"author": "Ganser J.",
+						"year": "2010",
+						"journal-title": "Journal of Undergraduate Research"
+					},
+					{
+						"key": "e_1_2_11_15_1",
+						"DOI": "10.1111/j.1467-9280.2009.02340.x",
+						"doi-asserted-by": "publisher"
+					},
+					{ "key": "e_1_2_11_16_1", "DOI": "10.1080/15213260801906489", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_17_1", "DOI": "10.1016/j.jesp.2008.08.003", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_18_1", "DOI": "10.1177/0146167209341648", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_19_1", "DOI": "10.1177/0963721411415229", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_20_1", "DOI": "10.1177/0146167213505872", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_21_1", "DOI": "10.1037/a0016997", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_22_1", "DOI": "10.1080/00224540903365588", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_23_1", "DOI": "10.1037/a0020194", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_24_1", "DOI": "10.1016/j.chb.2012.03.009", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_25_1", "DOI": "10.1177/0305735609360428", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_26_1", "DOI": "10.1016/j.ijhm.2010.02.004", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_27_1", "DOI": "10.1037/0096-1523.26.6.1797", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_28_1", "DOI": "10.1017/S0140525X08005293", "doi-asserted-by": "publisher" },
+					{
+						"key": "e_1_2_11_29_1",
+						"DOI": "10.1016/j.evolhumbehav.2010.04.004",
+						"doi-asserted-by": "publisher"
+					},
+					{ "key": "e_1_2_11_30_1", "DOI": "10.1016/j.jesp.2011.02.006", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_31_1", "DOI": "10.1037/0022-3514.52.1.81", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_32_1", "DOI": "10.1111/jasp.12282", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_33_1", "DOI": "10.1177/0013916503256263", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_34_1", "DOI": "10.1037/0021-9010.71.3.492", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_35_1", "DOI": "10.1027/1864-1105/a000144", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_36_1", "DOI": "10.1037/0022-3514.84.6.1236", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_37_1", "DOI": "10.1371/journal.pone.0055003", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_38_1", "DOI": "10.1177/0305735616652226", "doi-asserted-by": "publisher" },
+					{ "key": "e_1_2_11_39_1", "DOI": "10.1027/1864-1105/a000060", "doi-asserted-by": "publisher" },
+					{
+						"key": "e_1_2_11_40_1",
+						"DOI": "10.1111/j.1471-6402.1997.tb00127.x",
+						"doi-asserted-by": "publisher"
+					}
+				],
+				"container-title": ["PsyCh Journal"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fpchj.269",
+						"content-type": "application/pdf",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/pchj.269",
+						"content-type": "application/pdf",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "https://onlinelibrary.wiley.com/doi/full-xml/10.1002/pchj.269",
+						"content-type": "application/xml",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/pchj.269",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2019, 12, 2]],
+					"date-time": "2019-12-02T16:05:25Z",
+					"timestamp": 1575302725000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2019, 5, 2]] },
+				"references-count": 39,
+				"journal-issue": {
+					"published-online": { "date-parts": [[2019, 5, 20]] },
+					"published-print": { "date-parts": [[2019, 12]] },
+					"issue": "4"
+				},
+				"alternative-id": ["10.1002/pchj.269"],
+				"URL": "http://dx.doi.org/10.1002/pchj.269",
+				"archive": ["Portico"],
+				"relation": { "cites": [] },
+				"ISSN": ["2046-0252", "2046-0260"],
+				"issn-type": [
+					{ "value": "2046-0252", "type": "print" },
+					{ "value": "2046-0260", "type": "electronic" }
+				]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 11,
+				"publisher": "Elsevier BV",
+				"issue": "5-6",
+				"license": [
+					{
+						"URL": "https://www.elsevier.com/tdm/userlicense/1.0/",
+						"start": {
+							"date-parts": [[2018, 11, 1]],
+							"date-time": "2018-11-01T00:00:00Z",
+							"timestamp": 1541030400000
+						},
+						"delay-in-days": 0,
+						"content-version": "tdm"
+					}
+				],
+				"content-domain": {
+					"domain": ["clinicalkey.fr", "em-consulte.com", "elsevier.com", "sciencedirect.com"],
+					"crossmark-restriction": true
+				},
+				"short-container-title": ["Annales de Chirurgie Plastique Esth\u00e9tique"],
+				"published-print": { "date-parts": [[2018, 11]] },
+				"DOI": "10.1016/j.anplas.2018.09.003",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2018, 9, 20]],
+					"date-time": "2018-09-20T18:15:16Z",
+					"timestamp": 1537467316000
+				},
+				"page": "580-584",
+				"update-policy": "http://dx.doi.org/10.1016/elsevier_cm_policy",
+				"source": "Crossref",
+				"is-referenced-by-count": 2,
+				"title": [
+					"Les indications des reconstructions mammaires apr\u00e8s mastectomie selon la situation carcinologique"
+				],
+				"prefix": "10.1016",
+				"volume": "63",
+				"author": [
+					{ "given": "C.", "family": "Mathelin", "sequence": "first", "affiliation": [] },
+					{ "given": "C.", "family": "Bruant-Rodier", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "78",
+				"container-title": ["Annales de Chirurgie Plastique Esth\u00e9tique"],
+				"language": "fr",
+				"link": [
+					{
+						"URL": "https://api.elsevier.com/content/article/PII:S029412601830150X?httpAccept=text/xml",
+						"content-type": "text/xml",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "https://api.elsevier.com/content/article/PII:S029412601830150X?httpAccept=text/plain",
+						"content-type": "text/plain",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2018, 10, 9]],
+					"date-time": "2018-10-09T16:00:53Z",
+					"timestamp": 1539100853000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2018, 11]] },
+				"references-count": 11,
+				"journal-issue": { "published-print": { "date-parts": [[2018, 11]] }, "issue": "5-6" },
+				"alternative-id": ["S029412601830150X"],
+				"URL": "http://dx.doi.org/10.1016/j.anplas.2018.09.003",
+				"ISSN": ["0294-1260"],
+				"issn-type": [{ "value": "0294-1260", "type": "print" }],
+				"subject": ["Surgery"],
+				"assertion": [
+					{ "value": "Elsevier", "name": "publisher", "label": "This article is maintained by" },
+					{
+						"value": "Les indications des reconstructions mammaires apr\u00e8s mastectomie selon la situation carcinologique",
+						"name": "articletitle",
+						"label": "Article Title"
+					},
+					{
+						"value": "Annales de Chirurgie Plastique Esth\u00e9tique",
+						"name": "journaltitle",
+						"label": "Journal Title"
+					},
+					{
+						"value": "https://doi.org/10.1016/j.anplas.2018.09.003",
+						"name": "articlelink",
+						"label": "CrossRef DOI link to publisher maintained version"
+					},
+					{ "value": "article", "name": "content_type", "label": "Content Type" },
+					{
+						"value": "\u00a9 2018 Elsevier Masson SAS. All rights reserved.",
+						"name": "copyright",
+						"label": "Copyright"
+					}
+				]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 0,
+				"publisher": "Wiley",
+				"issue": "8",
+				"license": [
+					{
+						"URL": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+						"start": {
+							"date-parts": [[2015, 9, 1]],
+							"date-time": "2015-09-01T00:00:00Z",
+							"timestamp": 1441065600000
+						},
+						"delay-in-days": 4687,
+						"content-version": "tdm"
+					}
+				],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["The European Journal of Surgery"],
+				"published-print": { "date-parts": [[2002, 11, 1]] },
+				"DOI": "10.1080/110241502321116532",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2003, 2, 20]],
+					"date-time": "2003-02-20T22:31:44Z",
+					"timestamp": 1045780304000
+				},
+				"page": "500-506",
+				"source": "Crossref",
+				"is-referenced-by-count": 28,
+				"title": [
+					"Dexamethasone Down-Regulates Endothelial Expression of Intercellular Adhesion Molecule and Impairs the Healing of Bowel Anastomoses"
+				],
+				"prefix": "10.1002",
+				"volume": "168",
+				"author": [
+					{ "given": "Ay\u015fe", "family": "Polat", "sequence": "first", "affiliation": [] },
+					{ "given": "Ali", "family": "Nayci", "sequence": "additional", "affiliation": [] },
+					{ "given": "Gurbuz", "family": "Polat", "sequence": "additional", "affiliation": [] },
+					{ "given": "Selim", "family": "Aks\u00f6yek", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "311",
+				"container-title": ["The European Journal of Surgery"],
+				"link": [
+					{
+						"URL": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1080%2F110241502321116532",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "https://onlinelibrary.wiley.com/doi/full/10.1080/110241502321116532",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2018, 7, 31]],
+					"date-time": "2018-07-31T11:07:08Z",
+					"timestamp": 1533035228000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2002, 11, 1]] },
+				"references-count": 0,
+				"journal-issue": { "published-print": { "date-parts": [[2002, 11, 1]] }, "issue": "8" },
+				"alternative-id": ["48M76W19PG2Y4D6Q"],
+				"URL": "http://dx.doi.org/10.1080/110241502321116532",
+				"ISSN": ["1102-4151"],
+				"issn-type": [{ "value": "1102-4151", "type": "print" }]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 0,
+				"publisher": "Springer Science and Business Media LLC",
+				"issue": "1",
+				"license": [
+					{
+						"URL": "http://www.springer.com/tdm",
+						"start": {
+							"date-parts": [[2006, 1, 5]],
+							"date-time": "2006-01-05T00:00:00Z",
+							"timestamp": 1136419200000
+						},
+						"delay-in-days": 0,
+						"content-version": "tdm"
+					}
+				],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["Found Comput Math"],
+				"published-print": { "date-parts": [[2006, 2]] },
+				"DOI": "10.1007/s10208-004-0136-z",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2006, 1, 25]],
+					"date-time": "2006-01-25T09:44:29Z",
+					"timestamp": 1138182269000
+				},
+				"page": "59-79",
+				"source": "Crossref",
+				"is-referenced-by-count": 57,
+				"title": ["Hyperbolic Programs, and Their Derivative Relaxations"],
+				"prefix": "10.1007",
+				"volume": "6",
+				"author": [{ "given": "James", "family": "Renegar", "sequence": "first", "affiliation": [] }],
+				"member": "297",
+				"published-online": { "date-parts": [[2006, 1, 5]] },
+				"container-title": ["Foundations of Computational Mathematics"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "http://link.springer.com/content/pdf/10.1007/s10208-004-0136-z.pdf",
+						"content-type": "application/pdf",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "http://link.springer.com/article/10.1007/s10208-004-0136-z/fulltext.html",
+						"content-type": "text/html",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "http://link.springer.com/content/pdf/10.1007/s10208-004-0136-z",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2019, 5, 29]],
+					"date-time": "2019-05-29T11:05:08Z",
+					"timestamp": 1559127908000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2006, 1, 5]] },
+				"references-count": 0,
+				"journal-issue": { "published-print": { "date-parts": [[2006, 2]] }, "issue": "1" },
+				"alternative-id": ["136"],
+				"URL": "http://dx.doi.org/10.1007/s10208-004-0136-z",
+				"ISSN": ["1615-3375", "1615-3383"],
+				"issn-type": [
+					{ "value": "1615-3375", "type": "print" },
+					{ "value": "1615-3383", "type": "electronic" }
+				]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 117,
+				"publisher": "Oxford University Press (OUP)",
+				"issue": "5",
+				"license": [
+					{
+						"URL": "http://academic.oup.com/journals/pages/about_us/legal/notices",
+						"start": {
+							"date-parts": [[2017, 12, 2]],
+							"date-time": "2017-12-02T00:00:00Z",
+							"timestamp": 1512172800000
+						},
+						"delay-in-days": 0,
+						"content-version": "vor"
+					}
+				],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"published-print": { "date-parts": [[2018, 5, 1]] },
+				"DOI": "10.1093/dote/dox135",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2017, 12, 2]],
+					"date-time": "2017-12-02T10:38:13Z",
+					"timestamp": 1512211093000
+				},
+				"source": "Crossref",
+				"is-referenced-by-count": 12,
+				"title": [
+					"Perioperative benefit and outcome of thoracic epidural in esophageal surgery: a clinical review"
+				],
+				"prefix": "10.1093",
+				"volume": "31",
+				"author": [
+					{
+						"given": "P",
+						"family": "Feltracco",
+						"sequence": "first",
+						"affiliation": [{ "name": "Departments of Medicine, UO Anesthesia and Intensive Care" }]
+					},
+					{
+						"given": "A",
+						"family": "Bortolato",
+						"sequence": "additional",
+						"affiliation": [{ "name": "Departments of Medicine, UO Anesthesia and Intensive Care" }]
+					},
+					{
+						"given": "S",
+						"family": "Barbieri",
+						"sequence": "additional",
+						"affiliation": [{ "name": "Departments of Medicine, UO Anesthesia and Intensive Care" }]
+					},
+					{
+						"given": "E",
+						"family": "Michieletto",
+						"sequence": "additional",
+						"affiliation": [{ "name": "Departments of Medicine, UO Anesthesia and Intensive Care" }]
+					},
+					{
+						"given": "E",
+						"family": "Serra",
+						"sequence": "additional",
+						"affiliation": [{ "name": "Departments of Medicine, UO Anesthesia and Intensive Care" }]
+					},
+					{
+						"given": "A",
+						"family": "Ruol",
+						"sequence": "additional",
+						"affiliation": [
+							{
+								"name": "Surgical, Oncological and Gastroenterological Sciences, School of Medicine, Clinica Chirurgica, University of Padova, Padova, Italy"
+							}
+						]
+					},
+					{
+						"given": "S",
+						"family": "Merigliano",
+						"sequence": "additional",
+						"affiliation": [
+							{
+								"name": "Surgical, Oncological and Gastroenterological Sciences, School of Medicine, Clinica Chirurgica, University of Padova, Padova, Italy"
+							}
+						]
+					},
+					{
+						"given": "C",
+						"family": "Ori",
+						"sequence": "additional",
+						"affiliation": [{ "name": "Departments of Medicine, UO Anesthesia and Intensive Care" }]
+					}
+				],
+				"member": "286",
+				"published-online": { "date-parts": [[2017, 12, 2]] },
+				"reference": [
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib1",
+						"doi-asserted-by": "crossref",
+						"first-page": "689",
+						"DOI": "10.1213/01.ane.0000255040.71600.41",
+						"article-title": "Effect of postoperative analgesia on major postoperative complications: a systematic update of the evidence",
+						"volume": "104",
+						"author": "Liu",
+						"year": "2007",
+						"journal-title": "Anesth Analg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib2",
+						"doi-asserted-by": "crossref",
+						"first-page": "160",
+						"DOI": "10.1097/EJA.0000000000000366",
+						"article-title": "Current issues in postoperative pain management",
+						"volume": "33",
+						"author": "Rawal",
+						"year": "2016",
+						"journal-title": "Eur J Anaesthesiol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib3",
+						"doi-asserted-by": "crossref",
+						"first-page": "406",
+						"DOI": "10.1097/ALN.0b013e3181aae897",
+						"article-title": "Clonidine as an adjuvant to local anesthetics for peripheral nerve and plexus blocks: a meta-analysis of randomized trials",
+						"volume": "111",
+						"author": "P\u00f6pping",
+						"year": "2009",
+						"journal-title": "Anesthesiology"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib4",
+						"doi-asserted-by": "crossref",
+						"first-page": "1056",
+						"DOI": "10.1097/SLA.0000000000000237",
+						"article-title": "Impact of epidural analgesia on mortality and morbidity after surgery: systematic review and meta-analysis of randomized controlled trials",
+						"volume": "259",
+						"author": "P\u00f6pping",
+						"year": "2014",
+						"journal-title": "Ann Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib5",
+						"doi-asserted-by": "crossref",
+						"first-page": "990",
+						"DOI": "10.1001/archsurg.143.10.990",
+						"article-title": "Protective effects of epidural analgesia on pulmonary complications after abdominal and thoracic surgery: a meta-analysis",
+						"volume": "143",
+						"author": "P\u00f6pping",
+						"year": "2008",
+						"journal-title": "Arch Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib6",
+						"first-page": "530",
+						"article-title": "Epidural anaesthesia and analgesia: better outcome after major surgery?",
+						"volume": "319",
+						"author": "Buggy",
+						"year": "1999",
+						"journal-title": "Growing Evidence Suggests so.BMJ"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib7",
+						"first-page": "228",
+						"article-title": "A multimodal approach to control postoperative pathophysiology and rehabilitation in patients undergoing abdominothoracic esophagectomy",
+						"volume": "86",
+						"author": "Brodner",
+						"year": "1998",
+						"journal-title": "Anesth Analg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib8",
+						"doi-asserted-by": "crossref",
+						"first-page": "29",
+						"DOI": "10.1097/00001503-200502000-00006",
+						"article-title": "Non-analgetic effects of thoracic epidural anaesthesia",
+						"volume": "18",
+						"author": "Kozian",
+						"year": "2005",
+						"journal-title": "Curr Opin Anaesthesiol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib9",
+						"doi-asserted-by": "crossref",
+						"first-page": "517",
+						"DOI": "10.1213/00000539-199709000-00008",
+						"article-title": "Thoracic epidural anesthesia and the patient with heart disease: benefits, risks, and controversies",
+						"volume": "85",
+						"author": "Meissner",
+						"year": "1997",
+						"journal-title": "Anesth Analg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib10",
+						"first-page": "1",
+						"article-title": "Postoperative pain management after esophagectomy: a systematic review and meta-analysis",
+						"volume": "30",
+						"author": "Visser",
+						"year": "2017",
+						"journal-title": "Dis Esophagus"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib11",
+						"doi-asserted-by": "crossref",
+						"first-page": "310",
+						"DOI": "10.1097/AAP.0b013e31825735c6",
+						"article-title": "Epidural technique for postoperative pain: gold standard no more?",
+						"volume": "37",
+						"author": "Rawal",
+						"year": "2012",
+						"journal-title": "Reg Anesth Pain Med"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib12",
+						"first-page": "69",
+						"article-title": "Short-term outcomes after conventional transthoracic esophagectomy",
+						"volume": "78",
+						"author": "Niwa",
+						"year": "2016",
+						"journal-title": "Nagoya J Med Sci"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib13",
+						"first-page": "1",
+						"article-title": "Paravertebral block versus thoracic epidural for patients undergoing thoracotomy",
+						"volume": "2",
+						"author": "Yeung",
+						"year": "2016",
+						"journal-title": "Cochrane Database Syst Rev"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib14",
+						"doi-asserted-by": "crossref",
+						"first-page": "1",
+						"DOI": "10.1111/j.1365-2044.2007.05407.x",
+						"article-title": "Epidural analgesia: first do no harm",
+						"volume": "63",
+						"author": "Low",
+						"year": "2008",
+						"journal-title": "Anaesthesia"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib15",
+						"doi-asserted-by": "crossref",
+						"first-page": "451",
+						"DOI": "10.1002/ejp.567",
+						"article-title": "A systematic review of therapeutic interventions to reduce acute and chronic post-surgical pain after amputation, thoracotomy or mastectomy",
+						"volume": "19",
+						"author": "Humble",
+						"year": "2015",
+						"journal-title": "Eur J Pain"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib16",
+						"first-page": "549",
+						"article-title": "The physiological effects of thoracic epidural anesthesia and analgesia on the cardiovascular, respiratory and gastrointestinal systems",
+						"volume": "74",
+						"author": "Clemente",
+						"year": "2008",
+						"journal-title": "Minerva Anestesiol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib17",
+						"doi-asserted-by": "crossref",
+						"first-page": "199",
+						"DOI": "10.1054/clnu.2001.0514",
+						"article-title": "Epidural anaesthesia and analgesia\u2014effects on surgical stress responses and implications for postoperative nutrition",
+						"volume": "21",
+						"author": "Holte",
+						"year": "2002",
+						"journal-title": "Clin Nutr"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib18",
+						"doi-asserted-by": "crossref",
+						"first-page": "201",
+						"DOI": "10.1016/j.bpa.2004.12.001",
+						"article-title": "Update in thoracic epidural anaesthesia",
+						"volume": "19",
+						"author": "Waurick",
+						"year": "2005",
+						"journal-title": "Best Pract Res Clin Anaesthesiol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib19",
+						"author": "Kobayashi",
+						"volume": "51",
+						"first-page": "1376",
+						"year": "2004",
+						"article-title": "Responses of cytokines and coagulation-fibrinolytic states to surgical stress following esophagectomy hepatogastroenterology"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib20",
+						"doi-asserted-by": "crossref",
+						"first-page": "817",
+						"DOI": "10.1053/j.jvca.2010.08.003",
+						"article-title": "Thoracic epidural analgesia with levobupivacaine for 6 postoperative days attenuates sympathetic activation after thoracic surgery",
+						"volume": "25",
+						"author": "Simeoforidou",
+						"year": "2011",
+						"journal-title": "J Cardiothorac Vasc Anesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib21",
+						"first-page": "305",
+						"article-title": "Effect of thoracic epidural analgesia on proinflammatory cytokines in patients subjected to protective lung ventilation during Ivor Lewis esophagectomy",
+						"volume": "17",
+						"author": "Fares",
+						"year": "2014",
+						"journal-title": "Pain Physician"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib22",
+						"doi-asserted-by": "crossref",
+						"first-page": "190",
+						"DOI": "10.3892/mco.2014.405",
+						"article-title": "Effects of epidural anesthesia and postoperative epidural analgesia on immune function in esophageal carcinoma patients undergoing thoracic surgery",
+						"volume": "3",
+						"author": "Gu",
+						"year": "2015",
+						"journal-title": "Mol Clin Oncol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib23",
+						"author": "Neelam",
+						"volume": "5",
+						"year": "2016",
+						"article-title": "Combined general and thoracic epidural anaesthesia with levobupivacaine 0.5% versus general anaesthesia for upper abdominal surgeries: a comparative study. IJSR"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib24",
+						"doi-asserted-by": "crossref",
+						"first-page": "3461",
+						"DOI": "10.1378/chest.128.5.3461",
+						"article-title": "Perioperative risk factors for anastomotic leakage after esophagectomy: influence of thoracic epidural analgesia",
+						"volume": "128",
+						"author": "Michelet",
+						"year": "2005",
+						"journal-title": "Chest"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib25",
+						"doi-asserted-by": "crossref",
+						"first-page": "587",
+						"DOI": "10.1111/j.1399-6576.2007.01290.x",
+						"article-title": "Effect of thoracic epidural analgesia on gastric blood flow after oesophagectomy",
+						"volume": "51",
+						"author": "Michelet",
+						"year": "2007",
+						"journal-title": "Acta Anaesthesiol Scand"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib26",
+						"doi-asserted-by": "crossref",
+						"first-page": "552",
+						"DOI": "10.1093/bja/aeh235",
+						"article-title": "Effects of thoracic epidural anaesthesia on microvascular gastric mucosal oxygenation in physiological and compromised circulatory conditions in dogs",
+						"volume": "93",
+						"author": "Schwarte",
+						"year": "2004",
+						"journal-title": "Br J Anaesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib27",
+						"doi-asserted-by": "crossref",
+						"first-page": "828",
+						"DOI": "10.1002/bjs.4607",
+						"article-title": "Epidural analgesia in gastrointestinal surgery",
+						"volume": "91",
+						"author": "Fotiadis",
+						"year": "2004",
+						"journal-title": "Br J Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib28",
+						"doi-asserted-by": "crossref",
+						"first-page": "185",
+						"DOI": "10.1007/s13304-016-0369-9",
+						"article-title": "Intra-operative hypotensive episodes may be associated with post-operative esophageal anastomotic leak",
+						"volume": "68",
+						"author": "Fumagalli",
+						"year": "2016",
+						"journal-title": "Updates Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib29",
+						"doi-asserted-by": "crossref",
+						"first-page": "604",
+						"DOI": "10.1097/00000542-199509000-00020",
+						"article-title": "Region of epidural blockade determines sympathetic and mesenteric capacitance effects in rabbits",
+						"volume": "83",
+						"author": "Hogan",
+						"year": "1995",
+						"journal-title": "Anesthesiology"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib30",
+						"doi-asserted-by": "crossref",
+						"first-page": "884",
+						"DOI": "10.1213/ane.0b013e318164f153",
+						"article-title": "The effect of thoracic epidural bupivacaine and an intravenous adrenaline infusion on gastric tube blood flow during esophagectomy",
+						"volume": "106",
+						"author": "Al-Rawi",
+						"year": "2008",
+						"journal-title": "Anesth Analg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib31",
+						"doi-asserted-by": "crossref",
+						"first-page": "130",
+						"DOI": "10.1093/ejcts/ezs644",
+						"article-title": "Phenylephrine infusion improves blood flow to the stomach during oesophagectomy in the presence of a thoracic epidural analgesia",
+						"volume": "44",
+						"author": "Pathak",
+						"year": "2013",
+						"journal-title": "Eur J Cardiothorac Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib32",
+						"doi-asserted-by": "crossref",
+						"first-page": "541",
+						"DOI": "10.1213/ANE.0b013e3181c84e33",
+						"article-title": "The effect of perfusion pressure on gastric tissue blood flow in an experimental gastric tube model",
+						"volume": "110",
+						"author": "Klijn",
+						"year": "2010",
+						"journal-title": "Anesth Analg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib33",
+						"doi-asserted-by": "crossref",
+						"first-page": "262",
+						"DOI": "10.1007/s00104-001-0398-9",
+						"article-title": "Effect of thoracic epidural analgesia on the early postoperative phase after interventions on the gastrointestinal tract",
+						"volume": "73",
+						"author": "Z\u00fcgel",
+						"year": "2002",
+						"journal-title": "Chirurg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib34",
+						"doi-asserted-by": "crossref",
+						"first-page": "164",
+						"DOI": "10.1002/jso.24621",
+						"article-title": "Risk factors for anastomotic leakage following esophagectomy: impact of thoracic epidural analgesia",
+						"volume": "116",
+						"author": "Wang",
+						"year": "2017",
+						"journal-title": "J Surg Oncol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib35",
+						"doi-asserted-by": "crossref",
+						"first-page": "2455",
+						"DOI": "10.1001/jama.290.18.2455",
+						"article-title": "Efficacy of postoperative epidural analgesia: a meta-analysis",
+						"volume": "12",
+						"author": "Block",
+						"year": "2003",
+						"journal-title": "JAMA"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib36",
+						"doi-asserted-by": "crossref",
+						"first-page": "472",
+						"DOI": "10.1016/S0002-9610(97)00014-7",
+						"article-title": "Postoperative analgesia reduces mortality and morbidity after esophagectomy",
+						"volume": "173",
+						"author": "Tsui",
+						"year": "1997",
+						"journal-title": "Am J Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib37",
+						"first-page": "146",
+						"article-title": "Patient-controlled drug delivery for acute postoperative pain management: a review of current and emerging technologies",
+						"volume": "33",
+						"author": "Viscusi",
+						"year": "2008",
+						"journal-title": "Reg Anesth Pain Med"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib38",
+						"doi-asserted-by": "crossref",
+						"first-page": "181",
+						"DOI": "10.1097/ALN.0b013e318220847c",
+						"article-title": "Thoracic epidural analgesia and acute pain management",
+						"volume": "115",
+						"author": "Manion",
+						"year": "2011",
+						"journal-title": "Anesthesiology"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib39",
+						"author": "Hughes",
+						"year": "2017",
+						"article-title": "Systematic review and meta-analysis of epidural analgesia versus different analgesic regimes following oesophagogastric resection",
+						"journal-title": "World J Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib40",
+						"doi-asserted-by": "crossref",
+						"first-page": "S705",
+						"DOI": "10.21037/jtd.2017.03.153",
+						"article-title": "Anaesthesia during oesophagectomy",
+						"volume": "9",
+						"author": "Veelo",
+						"year": "2017",
+						"journal-title": "J Thorac Dis"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib41",
+						"doi-asserted-by": "crossref",
+						"first-page": "1521",
+						"DOI": "10.1213/01.ANE.0000184287.15086.1E",
+						"article-title": "The effects of continuous epidural anesthesia and analgesia on stress response and immune function in patients undergoing radical esophagectomy",
+						"volume": "101",
+						"author": "Yokoyama",
+						"year": "2005",
+						"journal-title": "Anesth Analg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib42",
+						"doi-asserted-by": "crossref",
+						"first-page": "395",
+						"DOI": "10.1016/j.jamcollsurg.2005.11.023",
+						"article-title": "Association of no epidural analgesia with postoperative morbidity and mortality after transthoracic esophageal cancer resection",
+						"volume": "202",
+						"author": "Cense",
+						"year": "2006",
+						"journal-title": "J Am Coll Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib43",
+						"doi-asserted-by": "crossref",
+						"first-page": "413",
+						"DOI": "10.1097/SLA.0000000000000349",
+						"article-title": "Enhanced recovery for esophagectomy: a systematic review and evidence-based guidelines",
+						"volume": "259",
+						"author": "Findlay",
+						"year": "2014",
+						"journal-title": "Ann Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib44",
+						"doi-asserted-by": "crossref",
+						"first-page": "1356",
+						"DOI": "10.1056/NEJMra1515442",
+						"article-title": "Antiemetic prophylaxis for chemotherapy-induced nausea and vomiting",
+						"volume": "374",
+						"author": "Navari",
+						"year": "2016",
+						"journal-title": "N Engl J Med"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib45",
+						"doi-asserted-by": "crossref",
+						"first-page": "270",
+						"DOI": "10.1093/bja/aem146",
+						"article-title": "Epidural naloxone reduces postoperative nausea and vomiting in patients receiving epidural sufentanil for postoperative analgesia",
+						"volume": "99",
+						"author": "Kim",
+						"year": "2007",
+						"journal-title": "Br J Anaesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib46",
+						"doi-asserted-by": "crossref",
+						"first-page": "303",
+						"DOI": "10.4103/0970-9185.117045",
+						"article-title": "Neuraxial opioid-induced pruritus: an update",
+						"volume": "29",
+						"author": "Kumar",
+						"year": "2013",
+						"journal-title": "J Anaesthesiol Clin Pharmacol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib47",
+						"doi-asserted-by": "crossref",
+						"first-page": "1807",
+						"DOI": "10.2165/11596250-000000000-00000",
+						"article-title": "Neuraxial morphine and respiratory depression: finding the right balance",
+						"volume": "71",
+						"author": "Sultan",
+						"year": "2011",
+						"journal-title": "Drugs"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib48",
+						"doi-asserted-by": "crossref",
+						"first-page": "1313",
+						"DOI": "10.1111/j.1399-6576.2008.01734.x",
+						"article-title": "Could benefits of epidural analgesia following oesophagectomy be measured by perceived perioperative patient workload?",
+						"volume": "52",
+						"author": "Bartha",
+						"year": "2008",
+						"journal-title": "Acta Anaesthesiol Scand"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib49",
+						"doi-asserted-by": "crossref",
+						"first-page": "566",
+						"DOI": "10.1097/00003643-200009000-00005",
+						"article-title": "Acute pain management: analysis, implications and consequences after prospective experience with 6349 surgical patients",
+						"volume": "17",
+						"author": "Brodner",
+						"year": "2000",
+						"journal-title": "Eur J Anaesthesiol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib50",
+						"doi-asserted-by": "crossref",
+						"first-page": "355",
+						"DOI": "10.1016/j.anclin.2008.01.007",
+						"article-title": "Postthoracotomy pain management problems",
+						"volume": "26",
+						"author": "Gerner",
+						"year": "2008",
+						"journal-title": "Anesthesiol Clin"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib51",
+						"first-page": "CD007105",
+						"article-title": "Local anaesthetics and regional anaesthesia for preventing chronic pain after surgery",
+						"volume": "10",
+						"author": "Andreae",
+						"year": "2012",
+						"journal-title": "Cochrane Database Syst Rev"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib52",
+						"first-page": "520",
+						"article-title": "Analgesia following thoracotomy: a survey of Australian practice",
+						"volume": "25",
+						"author": "Cook",
+						"year": "1997",
+						"journal-title": "Anaesth Intensive Care"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib53",
+						"doi-asserted-by": "crossref",
+						"first-page": "282",
+						"DOI": "10.1053/jcan.2001.23270",
+						"article-title": "Pain relief after esophagectomy: thoracic epidural analgesia is better than parenteral opioids",
+						"volume": "15",
+						"author": "Flisberg",
+						"year": "2001",
+						"journal-title": "J Cardiothorac Vasc Anesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib54",
+						"doi-asserted-by": "crossref",
+						"first-page": "42",
+						"DOI": "10.1007/s10388-015-0487-3",
+						"article-title": "Combination of continuous paravertebral block and epidural anesthesia in postoperative pain control after esophagectomy",
+						"volume": "13",
+						"author": "Niwa",
+						"year": "2016",
+						"journal-title": "Esophagus"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib55",
+						"doi-asserted-by": "crossref",
+						"first-page": "837",
+						"DOI": "10.1213/00000539-199804000-00029",
+						"article-title": "Epidural anesthesia and gastrointestinal motility",
+						"volume": "86",
+						"author": "Steinbrook",
+						"year": "1998",
+						"journal-title": "Anesth Analg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib56",
+						"doi-asserted-by": "crossref",
+						"first-page": "663",
+						"DOI": "10.1097/01.sla.0000094300.36689.ad",
+						"article-title": "The role of epidural anesthesia and analgesia in surgical practice",
+						"volume": "238",
+						"author": "Moraca",
+						"year": "2003",
+						"journal-title": "Ann Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib57",
+						"first-page": "1009",
+						"article-title": "The effect of epidural analgesia on the return of peristalsis and the length of stay after elective colonic surgery",
+						"volume": "61",
+						"author": "Lehman",
+						"year": "1995",
+						"journal-title": "Am Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib58",
+						"doi-asserted-by": "crossref",
+						"first-page": "111",
+						"DOI": "10.1097/00115550-200103000-00004",
+						"article-title": "Epidural analgesia and risk of anastomotic leakage",
+						"volume": "26",
+						"author": "Holte",
+						"year": "2001",
+						"journal-title": "Reg Anesth Pain Med"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib59",
+						"first-page": "219",
+						"article-title": "Continuous lumbar epidural bupivacaine plus morphine versus epidural morphine after major abdominal surgery",
+						"volume": "7",
+						"author": "Bisgaard",
+						"year": "1990",
+						"journal-title": "Eur J Anaesthesiol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib60",
+						"first-page": "CD001893",
+						"article-title": "Epidural local anaesthetics versus opioid-based analgesic regimens for postoperative gastrointestinal paralysis, vomiting and pain after abdominal surgery",
+						"volume": "7",
+						"author": "Guay",
+						"year": "2016",
+						"journal-title": "Cochrane Database Syst Rev"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib61",
+						"doi-asserted-by": "crossref",
+						"first-page": "1460",
+						"DOI": "10.1245/s10434-010-1474-5",
+						"article-title": "Factors associated with postoperative pulmonary morbidity after esophagectomy for cancer",
+						"volume": "18",
+						"author": "Zingg",
+						"year": "2011",
+						"journal-title": "Ann Surg Oncol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib62",
+						"doi-asserted-by": "crossref",
+						"first-page": "1662",
+						"DOI": "10.1056/NEJMoa022343",
+						"article-title": "Extended transthoracic resection compared with limited transhiatal resection for adenocarcinoma of the esophagus",
+						"volume": "347",
+						"author": "Hulscher",
+						"year": "2002",
+						"journal-title": "N Engl J Med"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib63",
+						"doi-asserted-by": "crossref",
+						"first-page": "265",
+						"DOI": "10.1510/icvts.2010.252148",
+						"article-title": "Transthoracic versus transhiatal esophagectomy for distal esophageal cancer: which is superior?",
+						"volume": "12",
+						"author": "Colvin",
+						"year": "2011",
+						"journal-title": "Interact Cardiovasc Thorac Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib64",
+						"doi-asserted-by": "crossref",
+						"first-page": "363",
+						"DOI": "10.1097/SLA.0b013e31814697f2",
+						"article-title": "Two thousand transhiatal esophagectomies: changing trends, lessons learned",
+						"volume": "246",
+						"author": "Orringer",
+						"year": "2007",
+						"journal-title": "Ann Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib65",
+						"doi-asserted-by": "crossref",
+						"first-page": "367",
+						"DOI": "10.1002/bjs.1800800335",
+						"article-title": "Oesophagectomy by a transhiatal approach or thoracotomy: a prospective randomized trial",
+						"volume": "80",
+						"author": "Goldminc",
+						"year": "1993",
+						"journal-title": "Br J Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib66",
+						"doi-asserted-by": "crossref",
+						"first-page": "320",
+						"DOI": "10.1016/S0002-9610(97)00105-0",
+						"article-title": "A prospective randomized comparison of transhiatal and transthoracic resection for lower-third esophageal carcinoma",
+						"volume": "174",
+						"author": "Chu",
+						"year": "1997",
+						"journal-title": "Am J Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib67",
+						"doi-asserted-by": "crossref",
+						"first-page": "3804",
+						"DOI": "10.3748/wjg.v16.i30.3804",
+						"article-title": "Transhiatal versus transthoracic esophagectomy for esophageal cancer",
+						"volume": "16",
+						"author": "Barreto",
+						"year": "2010",
+						"journal-title": "World J Gastroenterol"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib68",
+						"doi-asserted-by": "crossref",
+						"first-page": "1015",
+						"DOI": "10.1097/00000539-200104000-00039",
+						"article-title": "The effects of thoracic epidural analgesia with bupivacaine 0.25% on ventilatory mechanics in patients with severe chronic obstructive pulmonary disease",
+						"volume": "92",
+						"author": "Gruber",
+						"year": "2001",
+						"journal-title": "Anesth Analg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib69",
+						"doi-asserted-by": "crossref",
+						"first-page": "290",
+						"DOI": "10.1007/s00540-006-0425-6",
+						"article-title": "Epidural anesthesia and pulmonary function",
+						"volume": "20",
+						"author": "Groeben",
+						"year": "2006",
+						"journal-title": "J Anesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib70",
+						"doi-asserted-by": "crossref",
+						"first-page": "1142",
+						"DOI": "10.1111/j.1399-6576.1997.tb04856.x",
+						"article-title": "Effect of thoracic epidural anaesthesia on ventilation-perfusion distribution and intrathoracic blood volume before and after induction of general anaesthesia",
+						"volume": "41",
+						"author": "Hachenberg",
+						"year": "1997",
+						"journal-title": "Acta Anaesthesiol Scand"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib71",
+						"doi-asserted-by": "crossref",
+						"first-page": "598",
+						"DOI": "10.1213/00000539-199803000-00032",
+						"article-title": "The comparative effects of postoperative analgesic therapies on pulmonary outcome: cumulative meta-analyses of randomized, controlled trials",
+						"volume": "86",
+						"author": "Ballantyne",
+						"year": "1998",
+						"journal-title": "Anesth Analg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib72",
+						"doi-asserted-by": "crossref",
+						"first-page": "523",
+						"DOI": "10.1097/00000542-200309000-00004",
+						"article-title": "Thoracic epidural anesthesia: more than just anesthesia/analgesia",
+						"volume": "99",
+						"author": "Sielenk\u00e4mper",
+						"year": "2003",
+						"journal-title": "Anesthesiology"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib73",
+						"doi-asserted-by": "crossref",
+						"first-page": "1493",
+						"DOI": "10.1136/bmj.321.7275.1493",
+						"article-title": "Reduction of postoperative mortality and morbidity with epidural or spinal anaesthesia: results from overview of randomised trials",
+						"volume": "321",
+						"author": "Rodgers",
+						"year": "2000",
+						"journal-title": "BMJ"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib74",
+						"doi-asserted-by": "crossref",
+						"first-page": "379",
+						"DOI": "10.1097/00000542-198803000-00010",
+						"article-title": "Improvement of diaphragmatic function by a thoracic extradural block after upper abdominal surgery",
+						"volume": "68",
+						"author": "Manikian",
+						"year": "1988",
+						"journal-title": "Anesthesiology"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib75",
+						"doi-asserted-by": "crossref",
+						"first-page": "e0154380",
+						"DOI": "10.1371/journal.pone.0154380",
+						"article-title": "Short and long-term outcomes of epidural or intravenous analgesia after esophagectomy: a propensity-matched cohort study",
+						"volume": "11",
+						"author": "Li",
+						"year": "2016",
+						"journal-title": "PLoS One"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib76",
+						"doi-asserted-by": "crossref",
+						"first-page": "359",
+						"DOI": "10.1016/S0039-6060(97)90304-4",
+						"article-title": "Administration of epidural bupivacaine combined with epidural morphine after esophageal surgery",
+						"volume": "121",
+						"author": "Terai",
+						"year": "1997",
+						"journal-title": "Surgery"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib77",
+						"doi-asserted-by": "crossref",
+						"first-page": "2037",
+						"DOI": "10.1016/j.athoracsur.2006.07.024",
+						"article-title": "Feasibility and outcomes of an early extubation policy after esophagectomy",
+						"volume": "82",
+						"author": "Lanuti",
+						"year": "2006",
+						"journal-title": "Ann Thorac Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib78",
+						"doi-asserted-by": "crossref",
+						"first-page": "474",
+						"DOI": "10.1093/bja/aeg091",
+						"article-title": "Immediate extubation and epidural analgesia allow safe management in a high-dependency unit after two-stage oesophagectomy. Results of eight years of experience in a specialized upper gastrointestinal unit in a district general hospital",
+						"volume": "90",
+						"author": "Chandrashekar",
+						"year": "2003",
+						"journal-title": "Br J Anaesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib79",
+						"doi-asserted-by": "crossref",
+						"first-page": "19",
+						"DOI": "10.1007/s00423-014-1248-9",
+						"article-title": "Short- and long term effects of epidural analgesia on morbidity and mortality of esophageal cancer surgery",
+						"volume": "400",
+						"author": "Heinrich",
+						"year": "2015",
+						"journal-title": "Langenbecks Arch Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib80",
+						"doi-asserted-by": "crossref",
+						"first-page": "633",
+						"DOI": "10.1093/bja/86.5.633",
+						"article-title": "Peri-operative risk factors for acute lung injury after elective oesophagectomy",
+						"volume": "86",
+						"author": "Tandon",
+						"year": "2001",
+						"journal-title": "Br J Anaesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib81",
+						"doi-asserted-by": "crossref",
+						"first-page": "338",
+						"DOI": "10.1097/00000658-200103000-00006",
+						"article-title": "Analysis of reduced death and complication rates after esophageal resection",
+						"volume": "233",
+						"author": "Whooley",
+						"year": "2001",
+						"journal-title": "Ann Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib82",
+						"doi-asserted-by": "crossref",
+						"first-page": "497",
+						"DOI": "10.1016/S1010-7940(01)01165-4",
+						"article-title": "Detection of thoracotomy-induced alterations in cell- and humoral-mediated immune response",
+						"volume": "21",
+						"author": "Isitmangil",
+						"year": "2002",
+						"journal-title": "Eur J Cardiothorac Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib83",
+						"doi-asserted-by": "crossref",
+						"first-page": "301",
+						"DOI": "10.1126/science.1071059",
+						"article-title": "The danger model: a renewed sense of self",
+						"volume": "296",
+						"author": "Martzinger",
+						"year": "2002",
+						"journal-title": "Science"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib84",
+						"doi-asserted-by": "crossref",
+						"first-page": "180",
+						"DOI": "10.1159/000338196",
+						"article-title": "Surgical trauma and postoperative immune dysfunction",
+						"volume": "48",
+						"author": "Menges",
+						"year": "2012",
+						"journal-title": "Eur Surg Res"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib85",
+						"doi-asserted-by": "crossref",
+						"first-page": "259",
+						"DOI": "10.1097/QCO.0b013e32833939cb",
+						"article-title": "Effect of major abdominal surgery on the host immune response to infection",
+						"volume": "23",
+						"author": "Buttenschoen",
+						"year": "2010",
+						"journal-title": "Curr Opin Infect Dis"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib86",
+						"doi-asserted-by": "crossref",
+						"first-page": "880",
+						"DOI": "10.1002/(SICI)1097-0215(19990315)80:6<880::AID-IJC14>3.0.CO;2-Y",
+						"article-title": "Evidence that stress and surgical interventions promote tumor development by suppressing natural killer cell activity",
+						"volume": "80",
+						"author": "Ben-Eliyahu",
+						"year": "1999",
+						"journal-title": "Int J Cancer"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib87",
+						"doi-asserted-by": "crossref",
+						"first-page": "14",
+						"DOI": "10.1097/SPC.0b013e3282f5272e",
+						"article-title": "Opioid-induced immunosuppression",
+						"volume": "2",
+						"author": "Sacerdote",
+						"year": "2008",
+						"journal-title": "Curr Opin Support Palliat Care"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib88",
+						"first-page": "MS47",
+						"article-title": "Pain, immunity, opiate, and opioid compounds and health",
+						"volume": "11",
+						"author": "Stefano",
+						"year": "2005",
+						"journal-title": "Med Sci Monit"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib89",
+						"doi-asserted-by": "crossref",
+						"first-page": "781",
+						"DOI": "10.1093/bja/aen287",
+						"article-title": "Intraoperative thoracic epidural anaesthesia attenuates stress-induced immunosuppression in patients undergoing major abdominal surgery",
+						"volume": "101",
+						"author": "Ahlers",
+						"year": "2008",
+						"journal-title": "Br J Anaesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib90",
+						"doi-asserted-by": "crossref",
+						"first-page": "859",
+						"DOI": "10.1093/bja/aer339",
+						"article-title": "Risks and benefits of thoracic epidural anaesthesia",
+						"volume": "107",
+						"author": "Freise",
+						"year": "2011",
+						"journal-title": "Br J Anaesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib91",
+						"doi-asserted-by": "crossref",
+						"first-page": "822",
+						"DOI": "10.1213/01.ANE.0000078586.82810.3B",
+						"article-title": "The effects of postoperative pain management on immune response to surgery",
+						"volume": "97",
+						"author": "Beilin",
+						"year": "2003",
+						"journal-title": "Anesth Analg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib92",
+						"doi-asserted-by": "crossref",
+						"first-page": "122",
+						"DOI": "10.1002/bjs.1800700223",
+						"article-title": "Attenuation of adrenocortical response to upper abdominal surgery with epidural blockade",
+						"volume": "70",
+						"author": "Tsuji",
+						"year": "1983",
+						"journal-title": "Br J Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib93",
+						"first-page": "75",
+						"article-title": "The effects of epidural anesthesia on the neuroendocrine response to major surgical stress: a randomized prospective trial",
+						"volume": "63",
+						"author": "Norman",
+						"year": "1997",
+						"journal-title": "Am Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib94",
+						"doi-asserted-by": "crossref",
+						"first-page": "196",
+						"DOI": "10.1093/bja/ael334",
+						"article-title": "Effects of epidural anaesthesia on surgical stress-induced immunosuppression during upper abdominal surgery",
+						"volume": "98",
+						"author": "Kawasaki",
+						"year": "2007",
+						"journal-title": "Br J Anaesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib95",
+						"doi-asserted-by": "crossref",
+						"first-page": "1474",
+						"DOI": "10.1097/00000542-199506000-00019",
+						"article-title": "Epidural anesthesia and analgesia. Their role in postoperative outcome",
+						"volume": "82",
+						"author": "Liu",
+						"year": "1995",
+						"journal-title": "Anesthesiology"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib96",
+						"doi-asserted-by": "crossref",
+						"first-page": "1276",
+						"DOI": "10.1016/S0140-6736(02)08266-1",
+						"article-title": "MASTER Anaethesia Trial Study Group. Epidural anaesthesia and analgesia and outcome of major surgery: a randomised trial",
+						"volume": "359",
+						"author": "Rigg",
+						"year": "2002",
+						"journal-title": "Lancet"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib97",
+						"doi-asserted-by": "crossref",
+						"first-page": "81",
+						"DOI": "10.1001/2013.jamasurg.5",
+						"article-title": "Thromboprophylaxis and major oncologic surgery performed with epidural analgesia",
+						"volume": "148",
+						"author": "Shouhed",
+						"year": "2013",
+						"journal-title": "JAMA Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib98",
+						"doi-asserted-by": "crossref",
+						"first-page": "62",
+						"DOI": "10.1093/bja/87.1.62",
+						"article-title": "Effect of postoperative analgesia on surgical outcome",
+						"volume": "87",
+						"author": "Kehlet",
+						"year": "2001",
+						"journal-title": "Br J Anaesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib99",
+						"doi-asserted-by": "crossref",
+						"first-page": "338",
+						"DOI": "10.1097/00000658-200103000-00006",
+						"article-title": "Analysis of reduced death and complication rates after esophageal resection",
+						"volume": "233",
+						"author": "Whooley",
+						"year": "2001",
+						"journal-title": "Ann Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib100",
+						"first-page": "4491",
+						"article-title": "Morphine stimulates angiogenesis by activating proangiogenic and survival-promoting signaling and promotes breast tumor growth",
+						"volume": "62",
+						"author": "Gupta",
+						"year": "2002",
+						"journal-title": "Cancer Res"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib101",
+						"doi-asserted-by": "crossref",
+						"first-page": "500",
+						"DOI": "10.1097/00000542-199509000-00008",
+						"article-title": "Morphine inhibits spontaneous and cytokine-enhanced natural killer cell cytotoxicity in volunteers",
+						"volume": "83",
+						"author": "Yeager",
+						"year": "1995",
+						"journal-title": "Anesthesiology"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib102",
+						"doi-asserted-by": "crossref",
+						"first-page": "ii34",
+						"DOI": "10.1093/bja/aev375",
+						"article-title": "Regional anaesthesia and analgesia: relationship to cancer recurrence and survival",
+						"volume": "115",
+						"author": "Tedore",
+						"year": "2015",
+						"journal-title": "Br J Anaesth"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib103",
+						"doi-asserted-by": "crossref",
+						"first-page": "281",
+						"DOI": "10.1111/aas.12255",
+						"article-title": "Perioperative epidural analgesia reduces cancer recurrence after gastro-oesophageal surgery",
+						"volume": "58",
+						"author": "Hiller",
+						"year": "2014",
+						"journal-title": "Acta Anaesthesiol Scand"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib104",
+						"doi-asserted-by": "crossref",
+						"first-page": "289",
+						"DOI": "10.1111/aas.12651",
+						"article-title": "Enhanced recovery after surgery (ERAS) for gastrointestinal surgery, part 2: consensus statement for anaesthesia practice",
+						"volume": "60",
+						"author": "Feldheiser",
+						"year": "2016",
+						"journal-title": "Acta Anaesthesiol Scand"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib105",
+						"doi-asserted-by": "crossref",
+						"first-page": "105",
+						"DOI": "10.1002/bjs.8974",
+						"article-title": "Impact of a multidisciplinary standardized clinical pathway on perioperative outcomes in patients with oesophageal cancer",
+						"volume": "100",
+						"author": "Preston",
+						"year": "2013",
+						"journal-title": "Br J Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib106",
+						"doi-asserted-by": "crossref",
+						"first-page": "714",
+						"DOI": "10.1002/bjs.6942",
+						"article-title": "Effectiveness of a written clinical pathway for enhanced recovery after transthoracic (Ivor Lewis) oesophagectomy",
+						"volume": "97",
+						"author": "Munitiz",
+						"year": "2010",
+						"journal-title": "Br J Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib107",
+						"doi-asserted-by": "crossref",
+						"first-page": "606",
+						"DOI": "10.1016/j.surg.2012.07.021",
+						"article-title": "An enhanced recovery pathway decreases duration of stay after esophagectomy",
+						"volume": "152",
+						"author": "Li",
+						"year": "2012",
+						"journal-title": "Surgery"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib108",
+						"doi-asserted-by": "crossref",
+						"first-page": "e0174382",
+						"DOI": "10.1371/journal.pone.0174382",
+						"article-title": "Enhanced recovery after surgery protocol in oesophageal cancer surgery: systematic review and meta-analysis",
+						"volume": "12",
+						"author": "Pisarska",
+						"year": "2017",
+						"journal-title": "PLoS One"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib109",
+						"doi-asserted-by": "crossref",
+						"first-page": "567",
+						"DOI": "10.1111/dote.12234",
+						"article-title": "The effect of formalizing enhanced recovery after esophagectomy with a protocol",
+						"volume": "28",
+						"author": "Findlay",
+						"year": "2015",
+						"journal-title": "Dis Esophagus"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib110",
+						"doi-asserted-by": "crossref",
+						"first-page": "614",
+						"DOI": "10.1007/s11605-017-3363-8",
+						"article-title": "South coast cancer collaboration-oesophago-gastric (SC-OG). The development, application and analysis of an enhanced recovery programme for major oesophagogastric resection",
+						"volume": "21",
+						"author": "Underwood",
+						"year": "2017",
+						"journal-title": "J Gastrointest Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib111",
+						"doi-asserted-by": "crossref",
+						"first-page": "468",
+						"DOI": "10.1111/dote.12214",
+						"article-title": "Enhanced recovery pathways lead to an improvement in postoperative outcomes following esophagectomy: systematic review and pooled analysis",
+						"volume": "28",
+						"author": "Markar",
+						"year": "2015",
+						"journal-title": "Dis Esophagus"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib112",
+						"doi-asserted-by": "crossref",
+						"first-page": "1395",
+						"DOI": "10.1007/s11605-007-0265-1",
+						"article-title": "Esophagectomy-it's not just about mortality anymore: standardized perioperative clinical pathways improve outcomes in patients with esophageal cancer",
+						"volume": "11",
+						"author": "Low",
+						"year": "2007",
+						"journal-title": "J Gastrointest Surg"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib113",
+						"doi-asserted-by": "crossref",
+						"first-page": "1187",
+						"DOI": "10.1378/chest.126.4.1187",
+						"article-title": "Fast tracking after Ivor Lewis esophagogastrectomy",
+						"volume": "126",
+						"author": "Cerfolio",
+						"year": "2004",
+						"journal-title": "Chest"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib114",
+						"doi-asserted-by": "crossref",
+						"first-page": "44",
+						"DOI": "10.1093/bjaceaccp/mkh014",
+						"article-title": "Benefit and outcome after epidural analgesia",
+						"volume": "4",
+						"author": "Nimmo",
+						"year": "2004",
+						"journal-title": "Continuing Education in Anaesthesia, Critical Care & Pain"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib115",
+						"doi-asserted-by": "crossref",
+						"first-page": "1148",
+						"DOI": "10.1046/j.1365-2044.1998.00636.x",
+						"article-title": "Side-effects of epidural infusions of opioid bupivacaine mixtures",
+						"volume": "53",
+						"author": "Gedney",
+						"year": "1998",
+						"journal-title": "Anaesthesia"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib116",
+						"doi-asserted-by": "crossref",
+						"first-page": "177",
+						"DOI": "10.5055/jom.2012.0114",
+						"article-title": "A review of epidural and intrathecal opioids used in the management of postoperative pain",
+						"volume": "8",
+						"author": "Bujedo",
+						"year": "2012",
+						"journal-title": "J Opioid Manag"
+					},
+					{
+						"key": "key\n\t\t\t\t20180514030534_bib117",
+						"doi-asserted-by": "crossref",
+						"first-page": "335",
+						"DOI": "10.1111/j.1365-2044.2007.04992.x",
+						"article-title": "Major complications of epidural analgesia after surgery: results of a six-year survey",
+						"volume": "62",
+						"author": "Christie",
+						"year": "2007",
+						"journal-title": "Anaesthesia"
+					}
+				],
+				"container-title": ["Diseases of the Esophagus"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "http://academic.oup.com/dote/article-pdf/31/5/dox135/24810329/dox135.pdf",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2019, 10, 7]],
+					"date-time": "2019-10-07T08:52:53Z",
+					"timestamp": 1570438373000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2017, 12, 2]] },
+				"references-count": 117,
+				"journal-issue": {
+					"published-online": { "date-parts": [[2017, 12, 2]] },
+					"published-print": { "date-parts": [[2018, 5, 1]] },
+					"issue": "5"
+				},
+				"URL": "http://dx.doi.org/10.1093/dote/dox135",
+				"relation": { "cites": [] },
+				"ISSN": ["1120-8694", "1442-2050"],
+				"issn-type": [
+					{ "value": "1120-8694", "type": "print" },
+					{ "value": "1442-2050", "type": "electronic" }
+				]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"publisher-location": "ethics of war / William H. Shaw.Description: Abingdon, Oxon ; New",
+				"edition-number": "1",
+				"reference-count": 0,
+				"publisher": "Routledge",
+				"isbn-type": [{ "value": "9780203538333", "type": "electronic" }],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"DOI": "10.4324/9780203538333",
+				"type": "book",
+				"created": {
+					"date-parts": [[2016, 6, 26]],
+					"date-time": "2016-06-26T02:07:19Z",
+					"timestamp": 1466906839000
+				},
+				"source": "Crossref",
+				"is-referenced-by-count": 4,
+				"title": ["Utilitarianism and the Ethics of War"],
+				"prefix": "10.4324",
+				"author": [{ "given": "William H.", "family": "Shaw", "sequence": "first", "affiliation": [] }],
+				"member": "301",
+				"published-online": { "date-parts": [[2016, 2, 15]] },
+				"deposited": {
+					"date-parts": [[2019, 11, 25]],
+					"date-time": "2019-11-25T00:09:06Z",
+					"timestamp": 1574640546000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2016, 2, 15]] },
+				"ISBN": ["9780203538333"],
+				"references-count": 0,
+				"URL": "http://dx.doi.org/10.4324/9780203538333"
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 40,
+				"publisher": "Royal Society of Chemistry (RSC)",
+				"issue": "60",
+				"content-domain": { "domain": ["rsc.org"], "crossmark-restriction": true },
+				"short-container-title": ["RSC Adv."],
+				"abstract": "<p>Detailed molecular-level information on dissolved and solid cellulose in aqueous dissolution media with ionic liquids by polarization transfer solid-state NMR.</p>",
+				"DOI": "10.1039/c4ra04415k",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2014, 7, 11]],
+					"date-time": "2014-07-11T09:07:03Z",
+					"timestamp": 1405069623000
+				},
+				"page": "31836-31839",
+				"update-policy": "http://dx.doi.org/10.1039/rsc_crossmark_policy",
+				"source": "Crossref",
+				"is-referenced-by-count": 10,
+				"title": ["Polarization transfer solid-state NMR: a new method for studying cellulose dissolution"],
+				"prefix": "10.1039",
+				"volume": "4",
+				"author": [
+					{
+						"given": "S.",
+						"family": "Gustavsson",
+						"sequence": "first",
+						"affiliation": [
+							{ "name": "Division of Physical Chemistry" },
+							{ "name": "Department of Chemistry" },
+							{ "name": "Lund University" },
+							{ "name": "Lund, Sweden" }
+						]
+					},
+					{
+						"given": "L.",
+						"family": "Alves",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "Department of Chemistry" },
+							{ "name": "University of Coimbra" },
+							{ "name": "Coimbra, Portugal" }
+						]
+					},
+					{
+						"given": "B.",
+						"family": "Lindman",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "Division of Physical Chemistry" },
+							{ "name": "Department of Chemistry" },
+							{ "name": "Lund University" },
+							{ "name": "Lund, Sweden" },
+							{ "name": "Department of Chemistry" }
+						]
+					},
+					{
+						"given": "D.",
+						"family": "Topgaard",
+						"sequence": "additional",
+						"affiliation": [
+							{ "name": "Division of Physical Chemistry" },
+							{ "name": "Department of Chemistry" },
+							{ "name": "Lund University" },
+							{ "name": "Lund, Sweden" }
+						]
+					}
+				],
+				"member": "292",
+				"published-online": { "date-parts": [[2014]] },
+				"reference": [
+					{
+						"key": "C4RA04415K-(cit1)/*[position()=1]",
+						"author": "Bodvik",
+						"volume": "354",
+						"first-page": "162",
+						"year": "2010",
+						"journal-title": "Colloids Surf., A",
+						"DOI": "10.1016/j.colsurfa.2009.09.040",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit2)/*[position()=1]",
+						"author": "Zhang",
+						"volume": "40",
+						"first-page": "1521",
+						"year": "2002",
+						"journal-title": "J. Polym. Sci., Part B: Polym. Phys.",
+						"DOI": "10.1002/polb.10215",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit3)/*[position()=1]",
+						"author": "Glasser",
+						"volume": "19",
+						"first-page": "589",
+						"year": "2012",
+						"journal-title": "Cellulose",
+						"DOI": "10.1007/s10570-012-9691-7",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit4)/*[position()=1]",
+						"author": "Lindman",
+						"volume": "156",
+						"first-page": "76",
+						"year": "2010",
+						"journal-title": "J. Mol. Liq.",
+						"DOI": "10.1016/j.molliq.2010.04.016",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit5)/*[position()=1]",
+						"author": "Medronho",
+						"volume": "19",
+						"first-page": "581",
+						"year": "2012",
+						"journal-title": "Cellulose",
+						"DOI": "10.1007/s10570-011-9644-6",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit6)/*[position()=1]",
+						"author": "Isogai",
+						"volume": "5",
+						"first-page": "309",
+						"year": "1998",
+						"journal-title": "Cellulose",
+						"DOI": "10.1023/A:1009272632367",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit7)/*[position()=1]",
+						"author": "Sun",
+						"volume": "11",
+						"first-page": "646",
+						"year": "2009",
+						"journal-title": "Green Chem.",
+						"DOI": "10.1039/b822702k",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit8)/*[position()=1]",
+						"author": "Abe",
+						"volume": "48",
+						"first-page": "1808",
+						"year": "2012",
+						"journal-title": "Chem. Commun.",
+						"DOI": "10.1039/c2cc16203b",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit9)/*[position()=1]",
+						"author": "Labb\u00e9",
+						"volume": "39",
+						"first-page": "61",
+						"year": "2005",
+						"journal-title": "Wood Sci. Technol.",
+						"DOI": "10.1007/s00226-004-0274-0",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit10)/*[position()=1]",
+						"author": "Mansikkam\u00e4ki",
+						"volume": "12",
+						"first-page": "233",
+						"year": "2005",
+						"journal-title": "Cellulose",
+						"DOI": "10.1007/s10570-004-3132-1",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit11)/*[position()=1]",
+						"author": "Langan",
+						"volume": "2",
+						"first-page": "410",
+						"year": "2001",
+						"journal-title": "Biomacromolecules",
+						"DOI": "10.1021/bm005612q",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit12)/*[position()=1]",
+						"author": "Luo",
+						"volume": "48",
+						"first-page": "6283",
+						"year": "2012",
+						"journal-title": "Chem. Commun.",
+						"DOI": "10.1039/c2cc31483e",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit13)/*[position()=1]",
+						"author": "Li",
+						"volume": "154",
+						"first-page": "305",
+						"year": "1992",
+						"journal-title": "J. Colloid Interface Sci.",
+						"DOI": "10.1016/0021-9797(92)90145-C",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit14)/*[position()=1]",
+						"author": "Wada",
+						"volume": "18",
+						"first-page": "191",
+						"year": "2011",
+						"journal-title": "Cellulose",
+						"DOI": "10.1007/s10570-010-9488-5",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit15)/*[position()=1]",
+						"author": "Keeler",
+						"year": "2005",
+						"unstructured": "J. Keeler , in Understanding NMR spectroscopy, Wiley, 2005",
+						"volume-title": "Understanding NMR spectroscopy"
+					},
+					{
+						"key": "C4RA04415K-(cit16)/*[position()=1]",
+						"author": "Duer",
+						"year": "2004",
+						"unstructured": "M. Duer , in Introduction to solid-state NMR spectroscopy, Blackwell Publishing Ltd, Oxford, 2004",
+						"volume-title": "Introduction to solid-state NMR spectroscopy"
+					},
+					{
+						"key": "C4RA04415K-(cit17)/*[position()=1]",
+						"author": "Gast",
+						"volume": "84",
+						"first-page": "137",
+						"year": "1980",
+						"journal-title": "Carbohydr. Res.",
+						"DOI": "10.1016/S0008-6215(00)85437-3",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit18)/*[position()=1]",
+						"author": "Kamide",
+						"volume": "16",
+						"first-page": "857",
+						"year": "1984",
+						"journal-title": "Polym. J.",
+						"DOI": "10.1295/polymj.16.857",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit19)/*[position()=1]",
+						"author": "Earl",
+						"volume": "14",
+						"first-page": "570",
+						"year": "1981",
+						"journal-title": "Macromolecules",
+						"DOI": "10.1021/ma50004a023",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit20)/*[position()=1]",
+						"author": "Atalla",
+						"volume": "15",
+						"first-page": "1",
+						"year": "1999",
+						"journal-title": "Solid State Nucl. Magn. Reson.",
+						"DOI": "10.1016/S0926-2040(99)00042-9",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit21)/*[position()=1]",
+						"author": "Nowacka",
+						"volume": "26",
+						"first-page": "16848",
+						"year": "2010",
+						"journal-title": "Langmuir",
+						"DOI": "10.1021/la102935t",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit22)/*[position()=1]",
+						"author": "Nowacka",
+						"volume": "230",
+						"first-page": "165",
+						"year": "2013",
+						"journal-title": "J. Magn. Reson.",
+						"DOI": "10.1016/j.jmr.2013.02.016",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit23)/*[position()=1]",
+						"author": "Nowacka",
+						"volume": "8",
+						"first-page": "1482",
+						"year": "2012",
+						"journal-title": "Soft Matter",
+						"DOI": "10.1039/C1SM06273E",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit24)/*[position()=1]",
+						"author": "Hellstrand",
+						"volume": "8",
+						"first-page": "e77235",
+						"year": "2013",
+						"journal-title": "PLoS One",
+						"DOI": "10.1371/journal.pone.0077235",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit25)/*[position()=1]",
+						"author": "Bj\u00f6rklund",
+						"volume": "104",
+						"first-page": "2639",
+						"year": "2013",
+						"journal-title": "Biophys. J.",
+						"DOI": "10.1016/j.bpj.2013.05.008",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit26)/*[position()=1]",
+						"author": "Bj\u00f6rklund",
+						"volume": "8",
+						"first-page": "e61889",
+						"year": "2013",
+						"journal-title": "PLoS One",
+						"DOI": "10.1371/journal.pone.0061889",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit27)/*[position()=1]",
+						"author": "Bj\u00f6rklund",
+						"volume": "10",
+						"first-page": "4535",
+						"year": "2014",
+						"journal-title": "Soft Matter",
+						"DOI": "10.1039/c4sm00137k",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit28)/*[position()=1]",
+						"author": "Pines",
+						"volume": "56",
+						"first-page": "1776",
+						"year": "1972",
+						"journal-title": "J. Chem. Phys.",
+						"DOI": "10.1063/1.1677439",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit29)/*[position()=1]",
+						"author": "Morris",
+						"volume": "101",
+						"first-page": "760",
+						"year": "1979",
+						"journal-title": "J. Am. Chem. Soc.",
+						"DOI": "10.1021/ja00497a058",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit30)/*[position()=1]",
+						"author": "Schaefer",
+						"volume": "8",
+						"first-page": "291",
+						"year": "1975",
+						"journal-title": "Macromolecules",
+						"DOI": "10.1021/ma60045a010",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit31)/*[position()=1]",
+						"author": "Kamide",
+						"volume": "17",
+						"first-page": "701",
+						"year": "1985",
+						"journal-title": "Polym. J.",
+						"DOI": "10.1295/polymj.17.701",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit32)/*[position()=1]",
+						"author": "VanderHart",
+						"volume": "17",
+						"first-page": "1465",
+						"year": "1984",
+						"journal-title": "Macromolecules",
+						"DOI": "10.1021/ma00138a009",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit33)/*[position()=1]",
+						"author": "Kono",
+						"volume": "36",
+						"first-page": "5131",
+						"year": "2003",
+						"journal-title": "Macromolecules",
+						"DOI": "10.1021/ma021769u",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit34)/*[position()=1]",
+						"author": "Bos",
+						"year": "2004",
+						"unstructured": "M. E. Bos , in Encyclopedia of Reagents for Organic Synthesis, ed. L. Paquette, 2004",
+						"volume-title": "Encyclopedia of Reagents for Organic Synthesis"
+					},
+					{
+						"key": "C4RA04415K-(cit35)/*[position()=1]",
+						"author": "Kono",
+						"volume": "37",
+						"first-page": "5310",
+						"year": "2004",
+						"journal-title": "Macromolecules",
+						"DOI": "10.1021/ma030465k",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit36)/*[position()=1]",
+						"author": "Bennett",
+						"volume": "103",
+						"first-page": "6951",
+						"year": "1995",
+						"journal-title": "J. Chem. Phys.",
+						"DOI": "10.1063/1.470372",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit37)/*[position()=1]",
+						"author": "Metz",
+						"volume": "110",
+						"first-page": "219",
+						"year": "1994",
+						"journal-title": "J. Magn. Reson., Ser. A",
+						"DOI": "10.1006/jmra.1994.1208",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit38)/*[position()=1]",
+						"author": "S\u00f8rensen",
+						"volume": "51",
+						"first-page": "477",
+						"year": "1983",
+						"journal-title": "J. Magn. Reson."
+					},
+					{
+						"key": "C4RA04415K-(cit39)/*[position()=1]",
+						"author": "Chen",
+						"volume": "158",
+						"first-page": "164",
+						"year": "2002",
+						"journal-title": "J. Magn. Reson.",
+						"DOI": "10.1016/S1090-7807(02)00069-1",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "C4RA04415K-(cit40)/*[position()=1]",
+						"author": "van Beek",
+						"volume": "187",
+						"first-page": "19",
+						"year": "2007",
+						"journal-title": "J. Magn. Reson.",
+						"DOI": "10.1016/j.jmr.2007.03.017",
+						"doi-asserted-by": "crossref"
+					}
+				],
+				"container-title": ["RSC Adv."],
+				"language": "en",
+				"link": [
+					{
+						"URL": "http://pubs.rsc.org/en/content/articlepdf/2014/RA/C4RA04415K",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2017, 6, 24]],
+					"date-time": "2017-06-24T22:51:02Z",
+					"timestamp": 1498344662000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2014]] },
+				"references-count": 40,
+				"journal-issue": { "published-print": { "date-parts": [[2014]] }, "issue": "60" },
+				"URL": "http://dx.doi.org/10.1039/c4ra04415k",
+				"relation": { "cites": [] },
+				"ISSN": ["2046-2069"],
+				"issn-type": [{ "value": "2046-2069", "type": "electronic" }],
+				"subject": ["General Chemistry", "General Chemical Engineering"],
+				"assertion": [
+					{
+						"value": "This document is CrossCheck deposited",
+						"name": "crosscheck",
+						"explanation": { "URL": "http://www.crossref.org/crosscheck/index.html" },
+						"group": { "name": "crosscheck", "label": "CROSSCHECK" }
+					},
+					{
+						"value": "The Royal Society of Chemistry has an exclusive publication licence for this journal",
+						"name": "copyright_licence",
+						"group": { "name": "copyright_licensing", "label": "COPYRIGHT AND LICENSING" }
+					},
+					{
+						"value": "The accepted version of this article will be made freely available after a 12 month embargo period",
+						"name": "copyright_licence",
+						"label": "OPEN ACCESS",
+						"group": { "name": "copyright_licensing", "label": "COPYRIGHT AND LICENSING" }
+					},
+					{
+						"value": "Received 12 May 2014; Accepted 11 July 2014;  Accepted Manuscript published 11 July 2014;  Version of Record published 23 July 2014",
+						"order": 1,
+						"name": "history",
+						"group": { "name": "publication_history", "label": "PUBLICATION HISTORY" }
+					}
+				]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 0,
+				"publisher": "Weston Medical Publishing",
+				"issue": "3",
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["J of Opioid Management"],
+				"abstract": "<jats:p>Objective: To investigate the effect of preoperative intravenous oxycodone on sufentanil consumption by patient-controlled intravenous analgesia (PCIA) after laparoscopic radical gastrectomy.Methodology: Forty-six patients scheduled for laparoscopic radical gastrectomy were randomly divided into two groups: group O (n = 23) received intravenous oxycodone (0.1 mg/kg) 10 minutes before surgery over 2 minutes and group C (n = 23) received normal saline as a placebo. A standardized general anesthesia and intravenous sufentanil PCIA were applied to all patients. Postoperative sufentanil doses delivered by PCIA, rescue analgesia, Ramsay sedation scale, visual analog scale (VAS) scores at rest, the overall satisfaction, and side effects were assessed.Results: The numbers of sufentanil doses delivered by PCIA were significantly fewer and VAS scores at rest were significantly lower in group O than in group C at various time points after operation. The overall satisfaction degree was higher in group O than in group C. The incidences of side effects were similar between the two groups.Conclusions: Preoperative intravenous oxycodone can reduce postoperative pain and sufentanil consumption after laparoscopic radical gastrectomy without an increase of side effects.</jats:p>",
+				"DOI": "10.5055/jom.2016.0330",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2018, 2, 2]],
+					"date-time": "2018-02-02T14:17:06Z",
+					"timestamp": 1517581026000
+				},
+				"page": "181",
+				"source": "Crossref",
+				"is-referenced-by-count": 2,
+				"title": [
+					"Effect of preoperative intravenous oxycodone on sufentanil consumption after laparoscopic radical gastrectomy"
+				],
+				"prefix": "10.5055",
+				"volume": "12",
+				"author": [
+					{ "given": "Jinguo", "family": "Wang, MD, PhD", "sequence": "first", "affiliation": [] },
+					{ "given": "Yaowen", "family": "Fu, MD, PhD", "sequence": "additional", "affiliation": [] },
+					{ "given": "Honglan", "family": "Zhou, MD, PhD", "sequence": "additional", "affiliation": [] },
+					{ "given": "Na", "family": "Wang, MD, PhD", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "3008",
+				"published-online": { "date-parts": [[2016, 5, 1]] },
+				"container-title": ["Journal of Opioid Management"],
+				"link": [
+					{
+						"URL": "http://www.wmpllc.org/ojs-2.4.2/index.php/jom/article/viewFile/312/275",
+						"content-type": "application/pdf",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "http://www.wmpllc.org/ojs-2.4.2/index.php/jom/article/viewFile/312/275",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2019, 10, 7]],
+					"date-time": "2019-10-07T16:06:34Z",
+					"timestamp": 1570464394000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2016, 5, 1]] },
+				"references-count": 0,
+				"journal-issue": { "published-online": { "date-parts": [[2016, 5, 1]] }, "issue": "3" },
+				"URL": "http://dx.doi.org/10.5055/jom.2016.0330",
+				"ISSN": ["1551-7489", "1551-7489"],
+				"issn-type": [
+					{ "value": "1551-7489", "type": "print" },
+					{ "value": "1551-7489", "type": "electronic" }
+				]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 23,
+				"publisher": "Elsevier BV",
+				"license": [
+					{
+						"URL": "https://www.elsevier.com/tdm/userlicense/1.0/",
+						"start": {
+							"date-parts": [[2017, 11, 1]],
+							"date-time": "2017-11-01T00:00:00Z",
+							"timestamp": 1509494400000
+						},
+						"delay-in-days": 0,
+						"content-version": "tdm"
+					}
+				],
+				"content-domain": { "domain": ["elsevier.com", "sciencedirect.com"], "crossmark-restriction": true },
+				"short-container-title": ["Linear Algebra and its Applications"],
+				"published-print": { "date-parts": [[2017, 11]] },
+				"DOI": "10.1016/j.laa.2017.06.043",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2017, 7, 5]],
+					"date-time": "2017-07-05T20:01:41Z",
+					"timestamp": 1499284901000
+				},
+				"page": "347-363",
+				"update-policy": "http://dx.doi.org/10.1016/elsevier_cm_policy",
+				"source": "Crossref",
+				"is-referenced-by-count": 3,
+				"title": ["A bound on the Carath\u00e9odory number"],
+				"prefix": "10.1016",
+				"volume": "532",
+				"author": [
+					{ "given": "Masaru", "family": "Ito", "sequence": "first", "affiliation": [] },
+					{ "given": "Bruno F.", "family": "Louren\u00e7o", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "78",
+				"container-title": ["Linear Algebra and its Applications"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "https://api.elsevier.com/content/article/PII:S002437951730407X?httpAccept=text/xml",
+						"content-type": "text/xml",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "https://api.elsevier.com/content/article/PII:S002437951730407X?httpAccept=text/plain",
+						"content-type": "text/plain",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2019, 12, 4]],
+					"date-time": "2019-12-04T06:02:22Z",
+					"timestamp": 1575439342000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2017, 11]] },
+				"references-count": 23,
+				"alternative-id": ["S002437951730407X"],
+				"URL": "http://dx.doi.org/10.1016/j.laa.2017.06.043",
+				"ISSN": ["0024-3795"],
+				"issn-type": [{ "value": "0024-3795", "type": "print" }],
+				"assertion": [
+					{ "value": "Elsevier", "name": "publisher", "label": "This article is maintained by" },
+					{
+						"value": "A bound on the Carath\u00e9odory number",
+						"name": "articletitle",
+						"label": "Article Title"
+					},
+					{
+						"value": "Linear Algebra and its Applications",
+						"name": "journaltitle",
+						"label": "Journal Title"
+					},
+					{
+						"value": "https://doi.org/10.1016/j.laa.2017.06.043",
+						"name": "articlelink",
+						"label": "CrossRef DOI link to publisher maintained version"
+					},
+					{ "value": "article", "name": "content_type", "label": "Content Type" },
+					{
+						"value": "\u00a9 2017 Elsevier Inc. All rights reserved.",
+						"name": "copyright",
+						"label": "Copyright"
+					}
+				]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 42,
+				"publisher": "American Geophysical Union (AGU)",
+				"issue": "9",
+				"license": [
+					{
+						"URL": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+						"start": {
+							"date-parts": [[2017, 9, 1]],
+							"date-time": "2017-09-01T00:00:00Z",
+							"timestamp": 1504224000000
+						},
+						"delay-in-days": 0,
+						"content-version": "tdm"
+					},
+					{
+						"URL": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+						"start": {
+							"date-parts": [[2017, 9, 21]],
+							"date-time": "2017-09-21T00:00:00Z",
+							"timestamp": 1505952000000
+						},
+						"delay-in-days": 20,
+						"content-version": "vor"
+					}
+				],
+				"funder": [
+					{
+						"DOI": "10.13039/501100004663",
+						"name": "Ministry of Science and Technology, Taiwan",
+						"doi-asserted-by": "publisher",
+						"award": ["106-2116-M-001-013", "105-2116-M-001-016"]
+					},
+					{
+						"DOI": "10.13039/501100009076",
+						"name": "University of Science and Technology of China",
+						"doi-asserted-by": "publisher",
+						"award": []
+					},
+					{ "name": "RISH Fellowship of the Kyoto University", "award": [] }
+				],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["J. Geophys. Res. Solid Earth"],
+				"published-print": { "date-parts": [[2017, 9]] },
+				"DOI": "10.1002/2017jb014405",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2017, 8, 29]],
+					"date-time": "2017-08-29T15:48:55Z",
+					"timestamp": 1504021735000
+				},
+				"page": "7437-7448",
+				"source": "Crossref",
+				"is-referenced-by-count": 4,
+				"title": ["Dynamics of the inner core wobble under mantle-inner core gravitational interactions"],
+				"prefix": "10.1029",
+				"volume": "122",
+				"author": [
+					{
+						"ORCID": "http://orcid.org/0000-0002-0495-6785",
+						"authenticated-orcid": false,
+						"given": "Benjamin F.",
+						"family": "Chao",
+						"sequence": "first",
+						"affiliation": [{ "name": "Institute of Earth Sciences; Academia Sinica; Taipei Taiwan" }]
+					}
+				],
+				"member": "13",
+				"published-online": { "date-parts": [[2017, 9, 21]] },
+				"reference": [
+					{
+						"key": "10.1002/2017JB014405-BIB0001|jgrb52297-cit-0002",
+						"doi-asserted-by": "crossref",
+						"first-page": "162",
+						"DOI": "10.1111/j.1365-246X.2010.04842.x",
+						"article-title": "Steady and fluctuating inner core rotation in numerical geodynamo models",
+						"volume": "184",
+						"author": "Aubert",
+						"year": "2011",
+						"journal-title": "Geophys. J. Int."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0002|jgrb52297-cit-0003",
+						"doi-asserted-by": "crossref",
+						"first-page": "111",
+						"DOI": "10.1016/S0031-9201(99)00091-6",
+						"article-title": "Control of inner core rotation by electromagnetic, gravitational and mechanical torques",
+						"volume": "117",
+						"author": "Aurnou",
+						"year": "2000",
+						"journal-title": "Phys. Earth Planet. Inter."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0003|jgrb52297-cit-0004",
+						"author": "Backus",
+						"year": "1996",
+						"volume-title": "Foundations of Geomagnetism"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0004|jgrb52297-cit-0005",
+						"doi-asserted-by": "crossref",
+						"first-page": "2279",
+						"DOI": "10.1029/96GL02083",
+						"article-title": "Gravitational oscillations in the length of day",
+						"volume": "23",
+						"author": "Buffett",
+						"year": "1996",
+						"journal-title": "Geophys. Res. Lett."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0040|jgrb52297-cit-0041",
+						"doi-asserted-by": "crossref",
+						"first-page": "571",
+						"DOI": "10.1038/41534",
+						"article-title": "Geodynamic estimates of the viscosity of the Earth's inner core",
+						"volume": "388",
+						"author": "Buffett",
+						"year": "1997",
+						"journal-title": "Nature"
+					},
+					{
+						"issue": "19",
+						"key": "10.1002/2017JB014405-BIB0005|jgrb52297-cit-0006",
+						"doi-asserted-by": "crossref",
+						"first-page": "3125",
+						"DOI": "10.1029/2000GL011705",
+						"article-title": "Gravitational braking of inner-core rotation in geodynamo simulations",
+						"volume": "27",
+						"author": "Buffett",
+						"year": "2000",
+						"journal-title": "Geophys. Res. Lett."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0006|jgrb52297-cit-0007",
+						"author": "Bullen",
+						"year": "1975",
+						"volume-title": "The Earth's Density",
+						"DOI": "10.1007/978-94-009-5700-8",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0007|jgrb52297-cit-0008",
+						"author": "Busse",
+						"first-page": "88",
+						"year": "1970",
+						"volume-title": "Earthquake Displacement Fields and the Rotation of the Earth",
+						"DOI": "10.1007/978-94-010-3308-4_9",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0008|jgrb52297-cit-0009",
+						"doi-asserted-by": "crossref",
+						"first-page": "295",
+						"DOI": "10.1111/j.1365-246X.1982.tb04902.x",
+						"article-title": "Excitation of normal modes on non-rotating and rotating Earth models",
+						"volume": "68",
+						"author": "Chao",
+						"year": "1982",
+						"journal-title": "Geophys. J. R. Astron. Soc."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0009|jgrb52297-cit-0010",
+						"doi-asserted-by": "publisher",
+						"first-page": "560",
+						"DOI": "10.1002/2016JB013515",
+						"article-title": "Dynamics of axial torsional libration under the mantle-inner core gravitational interaction",
+						"volume": "121",
+						"author": "Chao",
+						"year": "2016",
+						"journal-title": "J. Geophys. Res. Solid Earth"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0010|jgrb52297-cit-0011",
+						"author": "Chao",
+						"year": "2017",
+						"article-title": "On rotational normal modes of the Earth: Resonance, excitation, convolution, deconvolution and all that",
+						"journal-title": "J. Geodesy Geodynamics",
+						"DOI": "10.1016/j.geog.2017.03.014",
+						"doi-asserted-by": "publisher"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0011|jgrb52297-cit-0012",
+						"doi-asserted-by": "crossref",
+						"first-page": "569",
+						"DOI": "10.1111/j.1365-246X.1987.tb01659.x",
+						"article-title": "Changes in the Earth's rotation and low-degree gravitational field induced by earthquakes",
+						"volume": "91",
+						"author": "Chao",
+						"year": "1987",
+						"journal-title": "Geophys. J. R. Astron. Soc."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0012|jgrb52297-cit-0013",
+						"doi-asserted-by": "publisher",
+						"first-page": "483",
+						"DOI": "10.1016/j.epsl.2015.10.010",
+						"article-title": "The Earth's free core nutation: Formulation of dynamics and estimation of eigenperiod from the very-long-baseline interferometry data",
+						"volume": "432",
+						"author": "Chao",
+						"year": "2015",
+						"journal-title": "Earth Planet. Sci. Lett."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0013|jgrb52297-cit-0014",
+						"author": "Dahlen",
+						"year": "1998",
+						"volume-title": "Theoretical Global Seismology"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0014|jgrb52297-cit-0015",
+						"author": "Dehant",
+						"first-page": "295",
+						"year": "2015",
+						"volume-title": "Treatise on Geophysics"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0015|jgrb52297-cit-0016",
+						"doi-asserted-by": "publisher",
+						"first-page": "903",
+						"DOI": "10.1111/j.1365-246X.2007.03653.x",
+						"article-title": "Gravitational torque on the inner core and decadal polar motion",
+						"volume": "172",
+						"author": "Dumberry",
+						"year": "2008",
+						"journal-title": "Geophys. J. Int."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0016|jgrb52297-cit-0017",
+						"doi-asserted-by": "crossref",
+						"first-page": "377",
+						"DOI": "10.1046/j.1365-246X.2002.01756.x",
+						"article-title": "Inner core tilt and polar motion",
+						"volume": "151",
+						"author": "Dumberry",
+						"year": "2002",
+						"journal-title": "Geophys. J. Int."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0017|jgrb52297-cit-0018",
+						"doi-asserted-by": "publisher",
+						"first-page": "417",
+						"DOI": "10.1111/j.1356-246X.2004.02402.x",
+						"article-title": "Variations in the Earth's gravity field caused by torsional oscillations in the core",
+						"volume": "159",
+						"author": "Dumberry",
+						"year": "2004",
+						"journal-title": "Geophys. J. Int."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0018|jgrb52297-cit-0019",
+						"doi-asserted-by": "publisher",
+						"first-page": "297",
+						"DOI": "10.1016/0031-9201(81)90046",
+						"article-title": "Preliminary reference Earth model",
+						"volume": "25",
+						"author": "Dziewonski",
+						"year": "1981",
+						"journal-title": "Phys. Earth Planet. Inter."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0019|jgrb52297-cit-0020",
+						"doi-asserted-by": "crossref",
+						"first-page": "273",
+						"DOI": "10.1016/0031-9201(95)03025-R",
+						"article-title": "Core mantle coupling and polar motion",
+						"volume": "91",
+						"author": "Greff-Lefftz",
+						"year": "1995",
+						"journal-title": "Phys. Earth Planet. Inter."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0020|jgrb52297-cit-0021",
+						"doi-asserted-by": "crossref",
+						"first-page": "27",
+						"DOI": "10.1046/j.1365-246x.2001.00319.x",
+						"article-title": "Relative wobble of the Earth's inner core derived from polar motion and associated gravity variations",
+						"volume": "144",
+						"author": "Greiner-Mai",
+						"year": "2001",
+						"journal-title": "Geophys. J. Int."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0021|jgrb52297-cit-0022",
+						"author": "Gross",
+						"first-page": "239",
+						"year": "2015",
+						"volume-title": "Treatise on Geophysics"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0022|jgrb52297-cit-0023",
+						"author": "Jackson",
+						"year": "1962",
+						"volume-title": "Classical Electrodynamics"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0023|jgrb52297-cit-0024",
+						"author": "Jeffreys",
+						"year": "1976",
+						"volume-title": "The Earth, Its Origin, History and Physical Constitution"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0024|jgrb52297-cit-0025",
+						"first-page": "357",
+						"article-title": "Is the nutation of the solid inner core responsible for the 24-year liberation of the pole?",
+						"volume": "27",
+						"author": "Kakuta",
+						"year": "1975",
+						"journal-title": "Publ. Astr. Soc. Jpn."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0041|jgrb52297-cit-0042",
+						"doi-asserted-by": "crossref",
+						"first-page": "1871",
+						"DOI": "10.1029/2000GL012237",
+						"article-title": "Topographic core-mantle coupling in geodynamo modeling",
+						"volume": "28",
+						"author": "Kuang",
+						"year": "2001",
+						"journal-title": "Geophys. Res. Lett."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0025|jgrb52297-cit-0026",
+						"author": "Kuang",
+						"first-page": "193",
+						"year": "2003",
+						"volume-title": "Earth's Core: Dynamics, Structure, Rotation, Geodynamics Series 31",
+						"DOI": "10.1029/GD031p0193",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0026|jgrb52297-cit-0027",
+						"author": "Landau",
+						"year": "1965",
+						"series-title": "Volume 3 of A Course of Theoretical Physics",
+						"volume-title": "Quantum Mechanics"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0027|jgrb52297-cit-0028",
+						"author": "Landau",
+						"year": "1969",
+						"series-title": "Volume 1 of A Course of Theoretical Physics",
+						"volume-title": "Mechanics"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0028|jgrb52297-cit-0029",
+						"author": "Markowitz",
+						"first-page": "25",
+						"year": "1968",
+						"volume-title": "Continental Drift, Secular Motion of the Pole and Rotation of the Earth",
+						"DOI": "10.1007/978-94-010-3281-0_6",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0029|jgrb52297-cit-0030",
+						"doi-asserted-by": "publisher",
+						"first-page": "8219",
+						"DOI": "10.1029/90JB01955",
+						"article-title": "Forced nutations of the Earth: Influence of inner core dynamics: 1. Theory",
+						"volume": "96",
+						"author": "Mathews",
+						"year": "1991a",
+						"journal-title": "J. Geophys. Res."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0030|jgrb52297-cit-0031",
+						"doi-asserted-by": "publisher",
+						"first-page": "8243",
+						"DOI": "10.1029/90JB01956",
+						"article-title": "Forced nutations of the Earth: Influence of inner core dynamics: 2. Numerical results and comparisons",
+						"volume": "96",
+						"author": "Mathews",
+						"year": "1991b",
+						"journal-title": "J. Geophys. Res."
+					},
+					{
+						"issue": "B4",
+						"key": "10.1002/2017JB014405-BIB0031|jgrb52297-cit-0032",
+						"doi-asserted-by": "publisher",
+						"first-page": "ETG 3-1-3-26",
+						"DOI": "10.1029/2001JB000390",
+						"article-title": "Modeling of nutation and precession: New nutation series for non-rigid Earth, and insights into the Earth's interior",
+						"volume": "107",
+						"author": "Mathews",
+						"year": "2002",
+						"journal-title": "J. Geophys. Res."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0032|jgrb52297-cit-0033",
+						"doi-asserted-by": "publisher",
+						"first-page": "721",
+						"DOI": "10.1111/j.1365-246X.2004.02495.x",
+						"article-title": "Electromagnetic torques in the core and resonant excitation of decadal polar motion",
+						"volume": "160",
+						"author": "Mound",
+						"year": "2005",
+						"journal-title": "Geophys. J. Int."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0042|jgrb52297-cit-0043",
+						"doi-asserted-by": "crossref",
+						"first-page": "383",
+						"DOI": "10.1016/j.epsl.2006.01.043",
+						"article-title": "Detection of gravitational oscillation in length-of-day",
+						"volume": "243",
+						"author": "Mound",
+						"year": "2006",
+						"journal-title": "Earth Planet. Sc. Lett."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0033|jgrb52297-cit-0034",
+						"author": "Munk",
+						"year": "1960",
+						"volume-title": "The Rotation of the Earth: A Geophysical Discussion"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0034|jgrb52297-cit-0035",
+						"series-title": "AGU Ref. Shelf",
+						"doi-asserted-by": "crossref",
+						"first-page": "218",
+						"DOI": "10.1029/RF002p0218",
+						"volume-title": "Mineral Physics and Crystallography: A Handbook of Physical Constants",
+						"volume": "2",
+						"author": "Secco",
+						"year": "1995"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0035|jgrb52297-cit-0036",
+						"doi-asserted-by": "crossref",
+						"first-page": "103",
+						"DOI": "10.1111/j.1365-246X.1977.tb01326.x",
+						"article-title": "Wobble and nutation of the Earth",
+						"volume": "50",
+						"author": "Smith",
+						"year": "1977",
+						"journal-title": "Geophys. J. R. Astron. Soc."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0036|jgrb52297-cit-0037",
+						"doi-asserted-by": "crossref",
+						"first-page": "223",
+						"DOI": "10.1111/j.1365-246X.1981.tb02667.x",
+						"article-title": "The period and Q of the Chandler wobble",
+						"volume": "64",
+						"author": "Smith",
+						"year": "1981",
+						"journal-title": "Geophys. J. R. Astron. Soc."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0037|jgrb52297-cit-0038",
+						"doi-asserted-by": "crossref",
+						"first-page": "855",
+						"DOI": "10.1088/0034-4885/47/7/002",
+						"article-title": "The dynamics of the Earth's inner and outer cores",
+						"volume": "47",
+						"author": "Smylie",
+						"year": "1984",
+						"journal-title": "Rep. Prog. Phys."
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0038|jgrb52297-cit-0039",
+						"doi-asserted-by": "crossref",
+						"first-page": "573",
+						"DOI": "10.1098/rstl.1863.0027",
+						"article-title": "On the rigidity of the Earth",
+						"volume": "153",
+						"author": "Thomson",
+						"year": "1863",
+						"journal-title": "Philos. Trans. R. Soc. London"
+					},
+					{
+						"key": "10.1002/2017JB014405-BIB0039|jgrb52297-cit-0040",
+						"doi-asserted-by": "crossref",
+						"first-page": "95",
+						"DOI": "10.1016/0031-9201(96)03157-3",
+						"article-title": "Gravitational coupling within the Earth: Comparison and reconciliation",
+						"volume": "97",
+						"author": "Xu",
+						"year": "1996",
+						"journal-title": "Phys. Earth Planet. Inter."
+					}
+				],
+				"container-title": ["Journal of Geophysical Research: Solid Earth"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2F2017JB014405",
+						"content-type": "application/pdf",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "http://onlinelibrary.wiley.com/wol1/doi/10.1002/2017JB014405/fullpdf",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2018, 4, 3]],
+					"date-time": "2018-04-03T14:50:42Z",
+					"timestamp": 1522767042000
+				},
+				"score": 1.0,
+				"subtitle": ["Inner Core Wobble Dynamics"],
+				"issued": { "date-parts": [[2017, 9]] },
+				"references-count": 42,
+				"journal-issue": { "published-print": { "date-parts": [[2017, 9]] }, "issue": "9" },
+				"URL": "http://dx.doi.org/10.1002/2017jb014405",
+				"archive": ["Portico"],
+				"relation": { "cites": [] },
+				"ISSN": ["2169-9313"],
+				"issn-type": [{ "value": "2169-9313", "type": "print" }]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 21,
+				"publisher": "Elsevier BV",
+				"issue": "2",
+				"license": [
+					{
+						"URL": "https://www.elsevier.com/tdm/userlicense/1.0/",
+						"start": {
+							"date-parts": [[1989, 9, 1]],
+							"date-time": "1989-09-01T00:00:00Z",
+							"timestamp": 620611200000
+						},
+						"delay-in-days": 0,
+						"content-version": "tdm"
+					}
+				],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["Research in Veterinary Science"],
+				"published-print": { "date-parts": [[1989, 9]] },
+				"DOI": "10.1016/s0034-5288(18)31216-5",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2018, 9, 4]],
+					"date-time": "2018-09-04T08:42:34Z",
+					"timestamp": 1536050554000
+				},
+				"page": "257-262",
+				"source": "Crossref",
+				"is-referenced-by-count": 13,
+				"title": [
+					"Sensitisation of preruminant calves and piglets to antigenic protein in early weaning diets: control of the systemic antibody responses"
+				],
+				"prefix": "10.1016",
+				"volume": "47",
+				"author": [
+					{ "given": "L.M.J.", "family": "HEPPELL", "sequence": "first", "affiliation": [] },
+					{ "given": "J.W.", "family": "SISSONS", "sequence": "additional", "affiliation": [] },
+					{ "given": "S.M.", "family": "BANKS", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "78",
+				"container-title": ["Research in Veterinary Science"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "https://api.elsevier.com/content/article/PII:S0034528818312165?httpAccept=text/xml",
+						"content-type": "text/xml",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "https://api.elsevier.com/content/article/PII:S0034528818312165?httpAccept=text/plain",
+						"content-type": "text/plain",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2018, 12, 13]],
+					"date-time": "2018-12-13T15:40:03Z",
+					"timestamp": 1544715603000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[1989, 9]] },
+				"references-count": 21,
+				"journal-issue": { "published-print": { "date-parts": [[1989, 9]] }, "issue": "2" },
+				"alternative-id": ["S0034528818312165"],
+				"URL": "http://dx.doi.org/10.1016/s0034-5288(18)31216-5",
+				"ISSN": ["0034-5288"],
+				"issn-type": [{ "value": "0034-5288", "type": "print" }]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998278
+				},
+				"reference-count": 10,
+				"publisher": "Springer Science and Business Media LLC",
+				"issue": "4",
+				"license": [
+					{
+						"URL": "http://www.springer.com/tdm",
+						"start": {
+							"date-parts": [[2018, 1, 30]],
+							"date-time": "2018-01-30T00:00:00Z",
+							"timestamp": 1517270400000
+						},
+						"delay-in-days": 0,
+						"content-version": "tdm"
+					}
+				],
+				"content-domain": { "domain": ["link.springer.com"], "crossmark-restriction": false },
+				"short-container-title": ["World J Surg"],
+				"published-print": { "date-parts": [[2018, 4]] },
+				"DOI": "10.1007/s00268-018-4481-5",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2018, 1, 30]],
+					"date-time": "2018-01-30T16:47:22Z",
+					"timestamp": 1517330842000
+				},
+				"page": "950-952",
+				"update-policy": "http://dx.doi.org/10.1007/springer_crossmark_policy",
+				"source": "Crossref",
+				"is-referenced-by-count": 6,
+				"title": ["Enhanced Recovery After Surgery for Low- and Middle-Income Countries"],
+				"prefix": "10.1007",
+				"volume": "42",
+				"author": [
+					{ "given": "K.", "family": "McQueen", "sequence": "first", "affiliation": [] },
+					{ "given": "R.", "family": "Oodit", "sequence": "additional", "affiliation": [] },
+					{ "given": "M.", "family": "Derbew", "sequence": "additional", "affiliation": [] },
+					{ "given": "P.", "family": "Banguti", "sequence": "additional", "affiliation": [] },
+					{ "given": "O.", "family": "Ljungqvist", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "297",
+				"published-online": { "date-parts": [[2018, 1, 30]] },
+				"reference": [
+					{
+						"issue": "3",
+						"key": "4481_CR1",
+						"doi-asserted-by": "publisher",
+						"first-page": "292",
+						"DOI": "10.1001/jamasurg.2016.4952",
+						"volume": "152",
+						"author": "O Ljungqvist",
+						"year": "2017",
+						"unstructured": "Ljungqvist O, Scott M, Fearon KC (2017) Enhanced recovery after surgery: a review. JAMA Surg 152(3):292\u2013298",
+						"journal-title": "JAMA Surg"
+					},
+					{
+						"key": "4481_CR2",
+						"unstructured": "Debas HT, Donkor P, Gawande A, Jamison DT, Kruk ME, Mock CN, eds. Essential surgery. Disease control priorities. Vol 1. 3rd ed. Washington, DC: The International Bank for Reconstruction and Development/The World Bank; 2015. Available at: \n                    http://documents.worldbank.org/curated/en/655391468130824512/Essential-surgery\n                    \n                  . Accessed 23 Nov 2016",
+						"DOI": "10.1596/978-1-4648-0346-8",
+						"doi-asserted-by": "crossref"
+					},
+					{
+						"key": "4481_CR3",
+						"doi-asserted-by": "publisher",
+						"first-page": "569",
+						"DOI": "10.1016/S0140-6736(15)60160-X",
+						"volume": "386",
+						"author": "JG Meara",
+						"year": "2015",
+						"unstructured": "Meara JG, Leather AJ, Hagander L et al (2015) Global surgery 2030: evidence and solutions for achieving health, welfare, and eco-nomic development. Lancet 386:569\u2013624",
+						"journal-title": "Lancet"
+					},
+					{
+						"key": "4481_CR4",
+						"unstructured": "WHA Resolution 68.15 (2015) Strengthening emergency and essential surgical care and anaesthesia as a component of universal health coverage. World Health Assembly, Geneva. Available at: \n                    http://apps.who.int/medicinedocs/documents/s21904en/s21904en.pdf\n                    \n                  . Accessed 29 Oct 2017"
+					},
+					{
+						"issue": "6",
+						"key": "4481_CR5",
+						"first-page": "28",
+						"volume": "102",
+						"author": "S Mukhopadhyay",
+						"year": "2017",
+						"unstructured": "Mukhopadhyay S, Lin Y, Mwaba P et al (2017) Implementing World Health Assembly Resoltion 68.15: national surgical, obstetric and anesthesia strategic plan development\u2014the Zambian experience. Bull Am Coll Surg 102(6):28\u201335",
+						"journal-title": "Bull Am Coll Surg"
+					},
+					{
+						"issue": "12",
+						"key": "4481_CR6",
+						"doi-asserted-by": "publisher",
+						"first-page": "3038",
+						"DOI": "10.1007/s00268-017-4271-5",
+						"volume": "41",
+						"author": "D Burssa",
+						"year": "2017",
+						"unstructured": "Burssa D, Teshome A, Iverson K et al (2017) Safe surgery for all: early lessons from implementing a national government-driven surgical plan in Ethiopia. World J Surg 41(12):3038\u20133045. \n                    https://doi.org/10.1007/s00268-017-4271-5",
+						"journal-title": "World J Surg"
+					},
+					{
+						"key": "4481_CR7",
+						"doi-asserted-by": "publisher",
+						"first-page": "466",
+						"DOI": "10.1016/j.clnu.2005.02.002",
+						"volume": "24",
+						"author": "KCH Fearon",
+						"year": "2005",
+						"unstructured": "Fearon KCH, Ljungqvist O, Von Meyenfeldt M, Nygren J, Hausel J, Soop M (2005) Enhanced recovery after surgery: a consensus review of clinical care for patients undergoing colonic resection. Clin Nutr 24:466\u2013477",
+						"journal-title": "Clin Nutr"
+					},
+					{
+						"issue": "6",
+						"key": "4481_CR8",
+						"doi-asserted-by": "publisher",
+						"first-page": "1531",
+						"DOI": "10.1007/s00268-013-2416-8",
+						"volume": "38",
+						"author": "M Greco",
+						"year": "2014",
+						"unstructured": "Greco M, Capretti G, Beretta L, Gemma M, Pecorelli N, Braga M (2014) Enhanced recovery program in colorectal surgery: a meta-analysis of randomized controlled trials. World J Surg 38(6):1531\u20131541",
+						"journal-title": "World J Surg"
+					},
+					{
+						"issue": "5",
+						"key": "4481_CR9",
+						"doi-asserted-by": "publisher",
+						"first-page": "608",
+						"DOI": "10.1002/jso.24820",
+						"volume": "116",
+						"author": "O Ljungqvist",
+						"year": "2017",
+						"unstructured": "Ljungqvist O, Nguyen XT, Nelson G (2017) ERAS\u2014value based surgery. J Surg Oncol 116(5):608\u2013612",
+						"journal-title": "J Surg Oncol"
+					},
+					{
+						"issue": "6",
+						"key": "4481_CR10",
+						"doi-asserted-by": "publisher",
+						"first-page": "6716",
+						"DOI": "10.1503/cjs.006716",
+						"volume": "59",
+						"author": "NX Thanh",
+						"year": "2016",
+						"unstructured": "Thanh NX, Chuck AW, Wasylak T, Lawrence J, Faris P, Ljungqvist O, Nelson G, Gramlich LM (2016) An economic evaluation of the Enhanced Recovery After Surgery (ERAS) multisite implementation program for colorectal surgery in Alberta. Can J Surg 59(6):6716",
+						"journal-title": "Can J Surg"
+					}
+				],
+				"container-title": ["World Journal of Surgery"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "http://link.springer.com/article/10.1007/s00268-018-4481-5/fulltext.html",
+						"content-type": "text/html",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "http://link.springer.com/content/pdf/10.1007/s00268-018-4481-5.pdf",
+						"content-type": "application/pdf",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "http://link.springer.com/content/pdf/10.1007/s00268-018-4481-5.pdf",
+						"content-type": "application/pdf",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2019, 1, 30]],
+					"date-time": "2019-01-30T00:41:11Z",
+					"timestamp": 1548808871000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2018, 1, 30]] },
+				"references-count": 10,
+				"journal-issue": { "published-print": { "date-parts": [[2018, 4]] }, "issue": "4" },
+				"alternative-id": ["4481"],
+				"URL": "http://dx.doi.org/10.1007/s00268-018-4481-5",
+				"relation": { "cites": [] },
+				"ISSN": ["0364-2313", "1432-2323"],
+				"issn-type": [
+					{ "value": "0364-2313", "type": "print" },
+					{ "value": "1432-2323", "type": "electronic" }
+				],
+				"assertion": [
+					{
+						"value": "30 January 2018",
+						"order": 1,
+						"name": "first_online",
+						"label": "First Online",
+						"group": { "name": "ArticleHistory", "label": "Article History" }
+					}
+				]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 27,
+				"publisher": "Elsevier BV",
+				"issue": "2",
+				"license": [
+					{
+						"URL": "https://www.elsevier.com/tdm/userlicense/1.0/",
+						"start": {
+							"date-parts": [[2006, 2, 1]],
+							"date-time": "2006-02-01T00:00:00Z",
+							"timestamp": 1138752000000
+						},
+						"delay-in-days": 0,
+						"content-version": "tdm"
+					},
+					{
+						"URL": "https://www.elsevier.com/open-access/userlicense/1.0/",
+						"start": {
+							"date-parts": [[2013, 8, 22]],
+							"date-time": "2013-08-22T00:00:00Z",
+							"timestamp": 1377129600000
+						},
+						"delay-in-days": 2759,
+						"content-version": "vor"
+					}
+				],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["Journal of Vascular Surgery"],
+				"published-print": { "date-parts": [[2006, 2]] },
+				"DOI": "10.1016/j.jvs.2005.10.040",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2006, 2, 11]],
+					"date-time": "2006-02-11T12:14:40Z",
+					"timestamp": 1139660080000
+				},
+				"page": "305-312",
+				"source": "Crossref",
+				"is-referenced-by-count": 79,
+				"title": ["Management of in-sent restenosis after carotid artery stenting in high-risk patients"],
+				"prefix": "10.1016",
+				"volume": "43",
+				"author": [
+					{ "given": "Wei", "family": "Zhou", "sequence": "first", "affiliation": [] },
+					{ "given": "Peter H.", "family": "Lin", "sequence": "additional", "affiliation": [] },
+					{ "given": "Ruth L.", "family": "Bush", "sequence": "additional", "affiliation": [] },
+					{ "given": "Eric K.", "family": "Peden", "sequence": "additional", "affiliation": [] },
+					{ "given": "Marlon A.", "family": "Guerrero", "sequence": "additional", "affiliation": [] },
+					{ "given": "Panagiotis", "family": "Kougias", "sequence": "additional", "affiliation": [] },
+					{ "given": "Alan B.", "family": "Lumsden", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "78",
+				"container-title": ["Journal of Vascular Surgery"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "https://api.elsevier.com/content/article/PII:S0741521405018550?httpAccept=text/xml",
+						"content-type": "text/xml",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "https://api.elsevier.com/content/article/PII:S0741521405018550?httpAccept=text/plain",
+						"content-type": "text/plain",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2019, 4, 16]],
+					"date-time": "2019-04-16T21:48:36Z",
+					"timestamp": 1555451316000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2006, 2]] },
+				"references-count": 27,
+				"journal-issue": { "published-print": { "date-parts": [[2006, 2]] }, "issue": "2" },
+				"alternative-id": ["S0741521405018550"],
+				"URL": "http://dx.doi.org/10.1016/j.jvs.2005.10.040",
+				"ISSN": ["0741-5214"],
+				"issn-type": [{ "value": "0741-5214", "type": "print" }]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998276
+				},
+				"reference-count": 63,
+				"publisher": "Elsevier",
+				"isbn-type": [{ "value": "9780444508751", "type": "print" }],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"published-print": { "date-parts": [[2006]] },
+				"DOI": "10.1016/s1872-0978(06)01001-5",
+				"type": "book-chapter",
+				"created": {
+					"date-parts": [[2012, 2, 16]],
+					"date-time": "2012-02-16T00:55:53Z",
+					"timestamp": 1329353753000
+				},
+				"page": "1-23",
+				"source": "Crossref",
+				"is-referenced-by-count": 10,
+				"title": ["Chapter 1 Enterprise-Wide Asset and Liability Management: Issues, Institutions, and Models"],
+				"prefix": "10.1016",
+				"author": [
+					{ "given": "Dan", "family": "Rosen", "sequence": "first", "affiliation": [] },
+					{ "given": "Stavros A.", "family": "Zenios", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "78",
+				"container-title": ["Theory and Methodology", "Handbook of Asset and Liability Management"],
+				"deposited": {
+					"date-parts": [[2019, 6, 23]],
+					"date-time": "2019-06-23T19:51:41Z",
+					"timestamp": 1561319501000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2006]] },
+				"ISBN": ["9780444508751"],
+				"references-count": 63,
+				"URL": "http://dx.doi.org/10.1016/s1872-0978(06)01001-5",
+				"ISSN": ["1872-0978"],
+				"issn-type": [{ "value": "1872-0978", "type": "print" }]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998276
+				},
+				"reference-count": 55,
+				"publisher": "Elsevier BV",
+				"issue": "6",
+				"license": [
+					{
+						"URL": "https://www.elsevier.com/tdm/userlicense/1.0/",
+						"start": {
+							"date-parts": [[2012, 12, 1]],
+							"date-time": "2012-12-01T00:00:00Z",
+							"timestamp": 1354320000000
+						},
+						"delay-in-days": 0,
+						"content-version": "tdm"
+					}
+				],
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["Journal of Hepatology"],
+				"published-print": { "date-parts": [[2012, 12]] },
+				"DOI": "10.1016/j.jhep.2012.08.004",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2012, 8, 11]],
+					"date-time": "2012-08-11T03:33:23Z",
+					"timestamp": 1344656003000
+				},
+				"page": "1268-1275",
+				"source": "Crossref",
+				"is-referenced-by-count": 14,
+				"title": ["Pulmonary embolism after elective liver resection: A prospective analysis of risk factors"],
+				"prefix": "10.1016",
+				"volume": "57",
+				"author": [
+					{ "given": "Emmanuel", "family": "Melloul", "sequence": "first", "affiliation": [] },
+					{
+						"given": "F\u00e9d\u00e9rica",
+						"family": "Dond\u00e9ro",
+						"sequence": "additional",
+						"affiliation": []
+					},
+					{ "given": "Val\u00e9rie", "family": "Vilgrain", "sequence": "additional", "affiliation": [] },
+					{ "given": "Dimitri A.", "family": "Raptis", "sequence": "additional", "affiliation": [] },
+					{ "given": "Catherine", "family": "Paugam-Burtz", "sequence": "additional", "affiliation": [] },
+					{ "given": "Jacques", "family": "Belghiti", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "78",
+				"container-title": ["Journal of Hepatology"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "https://api.elsevier.com/content/article/PII:S0168827812006253?httpAccept=text/xml",
+						"content-type": "text/xml",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					},
+					{
+						"URL": "https://api.elsevier.com/content/article/PII:S0168827812006253?httpAccept=text/plain",
+						"content-type": "text/plain",
+						"content-version": "vor",
+						"intended-application": "text-mining"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2019, 7, 2]],
+					"date-time": "2019-07-02T15:17:18Z",
+					"timestamp": 1562080638000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2012, 12]] },
+				"references-count": 55,
+				"journal-issue": { "published-print": { "date-parts": [[2012, 12]] }, "issue": "6" },
+				"alternative-id": ["S0168827812006253"],
+				"URL": "http://dx.doi.org/10.1016/j.jhep.2012.08.004",
+				"ISSN": ["0168-8278"],
+				"issn-type": [{ "value": "0168-8278", "type": "print" }]
+			},
+			{
+				"indexed": {
+					"date-parts": [[2020, 3, 30]],
+					"date-time": "2020-03-30T19:03:18Z",
+					"timestamp": 1585594998277
+				},
+				"reference-count": 17,
+				"publisher": "Oxford University Press (OUP)",
+				"issue": "5",
+				"content-domain": { "domain": [], "crossmark-restriction": false },
+				"short-container-title": ["European Journal of Cardio-Thoracic Surgery"],
+				"published-print": { "date-parts": [[2012, 5, 1]] },
+				"DOI": "10.1093/ejcts/ezr171",
+				"type": "journal-article",
+				"created": {
+					"date-parts": [[2012, 2, 24]],
+					"date-time": "2012-02-24T01:19:23Z",
+					"timestamp": 1330046363000
+				},
+				"page": "1083-1087",
+				"source": "Crossref",
+				"is-referenced-by-count": 30,
+				"title": [
+					"Does fast-tracking increase the readmission rate after pulmonary resection? A case-matched study"
+				],
+				"prefix": "10.1093",
+				"volume": "41",
+				"author": [
+					{ "given": "M.", "family": "Salati", "sequence": "first", "affiliation": [] },
+					{ "given": "A.", "family": "Brunelli", "sequence": "additional", "affiliation": [] },
+					{ "given": "F.", "family": "Xiume", "sequence": "additional", "affiliation": [] },
+					{ "given": "M.", "family": "Refai", "sequence": "additional", "affiliation": [] },
+					{ "given": "C.", "family": "Pompili", "sequence": "additional", "affiliation": [] },
+					{ "given": "A.", "family": "Sabbatini", "sequence": "additional", "affiliation": [] }
+				],
+				"member": "286",
+				"published-online": { "date-parts": [[2012, 2, 22]] },
+				"reference": [
+					{
+						"issue": "2",
+						"key": "1_19248760",
+						"doi-asserted-by": "publisher",
+						"first-page": "221",
+						"DOI": "10.1016/j.thorsurg.2005.01.007",
+						"volume": "15",
+						"author": "Lin",
+						"year": "2005",
+						"journal-title": "Thoracic surgery clinics",
+						"ISSN": "http://id.crossref.org/issn/1547-4127",
+						"issn-type": "print"
+					},
+					{
+						"issue": "2",
+						"key": "2_11258369",
+						"doi-asserted-by": "publisher",
+						"first-page": "318",
+						"DOI": "10.1067/mtc.2001.114352",
+						"volume": "122",
+						"author": "Cerfolio",
+						"year": "2001",
+						"journal-title": "The Journal of Thoracic and Cardiovascular Surgery",
+						"ISSN": "http://id.crossref.org/issn/0022-5223",
+						"issn-type": "print"
+					},
+					{
+						"issue": "6",
+						"key": "3_11472982",
+						"doi-asserted-by": "publisher",
+						"first-page": "1855",
+						"DOI": "10.1016/S0003-4975(01)03247-7",
+						"volume": "72",
+						"author": "Handy",
+						"year": "2001",
+						"journal-title": "The Annals of Thoracic Surgery",
+						"ISSN": "http://id.crossref.org/issn/0003-4975",
+						"issn-type": "print"
+					},
+					{
+						"issue": "10",
+						"key": "4_5766978",
+						"doi-asserted-by": "publisher",
+						"first-page": "1044",
+						"DOI": "10.1097/00005650-199710000-00006",
+						"volume": "35",
+						"author": "Ashton",
+						"year": "1997",
+						"journal-title": "Medical care",
+						"ISSN": "http://id.crossref.org/issn/0025-7079",
+						"issn-type": "print"
+					},
+					{
+						"issue": "6",
+						"key": "5_41194824",
+						"doi-asserted-by": "publisher",
+						"first-page": "1043",
+						"DOI": "10.1016/j.ejcts.2010.09.039",
+						"volume": "39",
+						"year": "2011",
+						"journal-title": "European Journal of Cardio-Thoracic Surgery",
+						"ISSN": "http://id.crossref.org/issn/1010-7940",
+						"issn-type": "print"
+					},
+					{
+						"issue": "1",
+						"key": "6_41223676",
+						"doi-asserted-by": "publisher",
+						"first-page": "32",
+						"DOI": "10.1016/j.ejcts.2008.09.009",
+						"volume": "35",
+						"year": "2009",
+						"journal-title": "European Journal of Cardio-Thoracic Surgery",
+						"ISSN": "http://id.crossref.org/issn/1010-7940",
+						"issn-type": "print"
+					},
+					{
+						"issue": "4",
+						"key": "7_6453419",
+						"doi-asserted-by": "publisher",
+						"first-page": "461",
+						"DOI": "10.1161/01.CIR.101.4.461",
+						"volume": "101",
+						"author": "Every",
+						"year": "2000",
+						"journal-title": "Circulation",
+						"ISSN": "http://id.crossref.org/issn/0009-7322",
+						"issn-type": "print"
+					},
+					{
+						"issue": "1",
+						"key": "8_41192298",
+						"doi-asserted-by": "publisher",
+						"first-page": "56",
+						"DOI": "10.1016/j.ejcts.2009.05.006",
+						"volume": "37",
+						"year": "2010",
+						"journal-title": "European Journal of Cardio-Thoracic Surgery",
+						"ISSN": "http://id.crossref.org/issn/1010-7940",
+						"issn-type": "print"
+					},
+					{
+						"issue": "3",
+						"key": "9_41287059",
+						"doi-asserted-by": "publisher",
+						"first-page": "494",
+						"DOI": "10.1016/j.ejcts.2004.05.035",
+						"volume": "26",
+						"year": "2004",
+						"journal-title": "European Journal of Cardio-Thoracic Surgery",
+						"ISSN": "http://id.crossref.org/issn/1010-7940",
+						"issn-type": "print"
+					},
+					{
+						"issue": "1",
+						"key": "10_11468718",
+						"doi-asserted-by": "publisher",
+						"first-page": "8",
+						"DOI": "10.1067/mtc.2002.120329",
+						"volume": "123",
+						"author": "Blackstone",
+						"year": "2002",
+						"journal-title": "The Journal of Thoracic and Cardiovascular Surgery",
+						"ISSN": "http://id.crossref.org/issn/0022-5223",
+						"issn-type": "print"
+					},
+					{
+						"key": "11_41898058",
+						"volume": "3",
+						"first-page": "199",
+						"year": "2008",
+						"journal-title": "CARD SURG ADULT"
+					},
+					{
+						"issue": "1",
+						"key": "12_5096073",
+						"doi-asserted-by": "crossref",
+						"first-page": "53",
+						"DOI": "10.1056/NEJM198901053200110",
+						"volume": "320",
+						"author": "Berwick",
+						"year": "1989",
+						"journal-title": "New England Journal of Medicine",
+						"ISSN": "http://id.crossref.org/issn/0028-4793",
+						"issn-type": "print"
+					},
+					{
+						"issue": "2",
+						"key": "13_5703615",
+						"doi-asserted-by": "publisher",
+						"first-page": "299",
+						"DOI": "10.1016/S0003-4975(97)00548-1",
+						"volume": "64",
+						"author": "Wright",
+						"year": "1997",
+						"journal-title": "The Annals of Thoracic Surgery",
+						"ISSN": "http://id.crossref.org/issn/0003-4975",
+						"issn-type": "print"
+					},
+					{
+						"issue": "3",
+						"key": "14_6178973",
+						"doi-asserted-by": "publisher",
+						"first-page": "914",
+						"DOI": "10.1016/S0003-4975(98)00662-6",
+						"volume": "66",
+						"author": "Zehr",
+						"year": "1998",
+						"journal-title": "The Annals of Thoracic Surgery",
+						"ISSN": "http://id.crossref.org/issn/0003-4975",
+						"issn-type": "print"
+					},
+					{
+						"issue": "3",
+						"key": "15_32077091",
+						"doi-asserted-by": "publisher",
+						"first-page": "301",
+						"DOI": "10.1016/j.thorsurg.2008.05.002",
+						"volume": "18",
+						"author": "Cerfolio",
+						"year": "2008",
+						"journal-title": "Thoracic surgery clinics",
+						"ISSN": "http://id.crossref.org/issn/1547-4127",
+						"issn-type": "print"
+					},
+					{
+						"issue": "1",
+						"key": "16_30825372",
+						"doi-asserted-by": "publisher",
+						"first-page": "113",
+						"DOI": "10.1016/j.thorsurg.2007.10.002",
+						"volume": "18",
+						"author": "Bryant",
+						"year": "2008",
+						"journal-title": "Thoracic surgery clinics",
+						"ISSN": "http://id.crossref.org/issn/1547-4127",
+						"issn-type": "print"
+					},
+					{
+						"issue": "5",
+						"key": "17_29744742",
+						"doi-asserted-by": "publisher",
+						"first-page": "1663",
+						"DOI": "10.1016/j.athoracsur.2007.05.058",
+						"volume": "84",
+						"author": "McKenna",
+						"year": "2007",
+						"journal-title": "The Annals of Thoracic Surgery",
+						"ISSN": "http://id.crossref.org/issn/0003-4975",
+						"issn-type": "print"
+					}
+				],
+				"container-title": ["European Journal of Cardio-Thoracic Surgery"],
+				"language": "en",
+				"link": [
+					{
+						"URL": "http://academic.oup.com/ejcts/article-pdf/41/5/1083/6051889/ezr171.pdf",
+						"content-type": "unspecified",
+						"content-version": "vor",
+						"intended-application": "similarity-checking"
+					}
+				],
+				"deposited": {
+					"date-parts": [[2017, 8, 22]],
+					"date-time": "2017-08-22T20:11:09Z",
+					"timestamp": 1503432669000
+				},
+				"score": 1.0,
+				"issued": { "date-parts": [[2012, 2, 22]] },
+				"references-count": 17,
+				"journal-issue": {
+					"published-online": { "date-parts": [[2012, 4, 16]] },
+					"published-print": { "date-parts": [[2012, 5, 1]] },
+					"issue": "5"
+				},
+				"URL": "http://dx.doi.org/10.1093/ejcts/ezr171",
+				"relation": { "cites": [] },
+				"ISSN": ["1010-7940", "1873-734X"],
+				"issn-type": [
+					{ "value": "1010-7940", "type": "print" },
+					{ "value": "1873-734X", "type": "electronic" }
+				]
+			}
+		],
+		"items-per-page": 20,
+		"query": { "start-index": 0, "search-terms": null }
+	}
+}

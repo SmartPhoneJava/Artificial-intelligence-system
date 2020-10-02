@@ -16,3 +16,7 @@ func (a Animes) Top(n int) Animes {
 	}
 	return a[:n]
 }
+
+func (a Animes) Len() int           { return len(a) }
+func (a Animes) Less(i, j int) bool { return a[i].D < a[j].D }
+func (a Animes) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
