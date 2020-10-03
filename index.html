@@ -155,6 +155,14 @@
             {{end}}
 
             {{end}}
+
+            {{if .Page.Tabs.IsRec}}
+
+            <a href="/set?rectype=collaborate?users=10" class="b-anime_status_tag other other-active" data-text="Коллаборативная фильтрация на 10 юзеров"></a>
+            <a href="/set?rectype=collaborate?users=20" class="b-anime_status_tag other other-active" data-text="20"></a>
+            <a href="/set?rectype=collaborate?users=50" class="b-anime_status_tag other other-active" data-text="50"></a>
+            <a href="/set?rectype=collaborate?users=100" class="b-anime_status_tag other other-active" data-text="100"></a>
+            {{end}}
         </div>
         <!-- <div class="filter-container">
             <div class="line">
@@ -183,6 +191,7 @@
             </div>
         </div> -->
         {{$isCompare := .Page.Tabs.IsCompare}}
+        {{$IsRec := .Page.Tabs.IsRec}}
         {{if .Page.Tabs.IsCompare}}
         {{if .Distances.OK}}
         <div class="subheadline linkheadline"><a href="https://shikimori.one/animes/status/ongoing">
@@ -524,6 +533,30 @@
                                                 {{else}}
                                                 <div class="key">{{.C}}</div>
                                                 {{end}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ end }}
+                    {{ if $IsRec}}
+                    <div class="cc-info">
+                        <div class="cc">
+                            <div class="c-info-left">
+                                <div class="subheadline">Метрики</div>
+                                <div class="block">
+                                    <div class="b-entry-info">
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">У {{.K}} в списках</div>
+                                            </div>
+                                        </div>
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Оценка других пользователей:</div>
+                                                <div class="value">{{.D}}</div>
                                             </div>
                                         </div>
                                     </div>

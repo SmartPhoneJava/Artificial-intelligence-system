@@ -44,7 +44,8 @@ func (pg *PageSettings) SetTabs(tab string) {
 }
 
 type PageSettings struct {
-	Tag, Search string
-	Tabs        Tabs
-	Panels      Panels
+	Tag, Search, RecomendType string
+	RecomendUsers             int
+	Tabs                      Tabs
+	Panels                    Panels
 }

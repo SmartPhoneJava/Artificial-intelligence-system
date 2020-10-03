@@ -90,8 +90,8 @@ func router(
 					animes, err := compare.NewCollaborativeFiltering(
 						ANIMES.Animes(),
 						SCORES.Get(),
-						SCORES.Get()[0],
-					).Recomend(100)
+						myScores,
+					).Recomend(page.Settings.RecomendUsers)
 					if err != nil {
 						local = ANIMES
 						log.Println("cant get recomendations because", err)
@@ -114,7 +114,7 @@ func router(
 				Page      page.PageSettings
 				Distances compare.AnimeAllDistances
 			}{
-				Animes:    animesFound.Top(10),
+				Animes:    animesFound.Top(30),
 				Page:      page.Settings,
 				Distances: DISTS,
 			})
@@ -127,6 +127,7 @@ func router(
 	r.HandleFunc("/tab_recomend",
 		func(w http.ResponseWriter, r *http.Request) {
 			(&page.Settings).SetTabs("Рекомендации")
+			page.Settings.RecomendUsers = 10
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/tab_favourite",
@@ -158,7 +159,17 @@ func router(
 				case "search":
 					page.Settings.Search = v[0]
 					break
+				case "rectype":
+					page.Settings.RecomendType = v[0]
+					break
+				case "users":
+					i, err := strconv.Atoi(v[0])
+					if err == nil {
+						page.Settings.RecomendUsers = i
+					}
+					break
 				}
+
 			}
 
 			http.Redirect(w, r, "/", http.StatusSeeOther)

@@ -2,11 +2,14 @@ package compare
 
 import (
 	"errors"
-	"shiki/internal/amath"
+	"log"
 	"shiki/internal/models"
 	"sort"
+
+	"gonum.org/v1/gonum/floats"
 )
 
+// https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.107.2790&rep=rep1&type=pdf
 type CollaborativeFiltering struct {
 	animes     models.Animes
 	userScores models.UsersScoreMap
@@ -25,7 +28,7 @@ func NewCollaborativeFiltering(
 	}
 }
 
-func (filterring *CollaborativeFiltering) removeMyAnimes() models.Animes {
+func (filterring *CollaborativeFiltering) exceptMyAnimes() models.Animes {
 	var newAnimes = make([]models.Anime, 0)
 	for _, a := range filterring.animes {
 		if filterring.myScore.Scores[int(a.ID)] == 0 {
@@ -35,63 +38,83 @@ func (filterring *CollaborativeFiltering) removeMyAnimes() models.Animes {
 	return newAnimes
 }
 
+func (filterring *CollaborativeFiltering) aggregation(
+	anime *models.Anime,
+	scores []models.UserScoreMap,
+	del float64,
+) {
+	var (
+		r float64
+		n float64
+		c int
+	)
+	if del == 0 {
+		del = 1
+	}
+	for _, cs := range scores {
+		score := cs.Scores[int(anime.ID)]
+		if score > 0 {
+			var (
+				weight = 1 - (cs.D/del)*4/5
+			)
+
+			r += weight * float64(score)
+			n += weight
+			c += 1
+		}
+	}
+	if n == 0 {
+		return
+	}
+
+	anime.D = floats.Round(r/n, 2)
+	anime.C = r
+	anime.K = float64(c)
+	log.Printf("-- %s - %.3f %.3f %.3f", anime.Name, anime.D, anime.C, anime.K)
+}
+
 func (filterring *CollaborativeFiltering) Recomend(
 	usersCount int,
 ) (models.Animes, error) {
-	newAnimes := filterring.removeMyAnimes()
-	if len(newAnimes) == 0 {
-		return newAnimes, nil
-	}
+
 	if usersCount < 1 {
-		return newAnimes, errors.New("usersCount < 1")
+		return models.Animes{}, errors.New("usersCount < 1")
 	}
 
+	// компаратор для определения похожих юзеров
 	comparator := NewUserComparator(
 		filterring.userScores,
 		filterring.myScore,
 	)
-	err := comparator.Sort(
-		func(twoVectore amath.Pairs) float64 {
-			return twoVectore.Euclidean()
-		},
-	)
-	if err != nil {
-		return newAnimes, err
-	}
-	animesCopy := make(models.Animes, len(newAnimes))
-	var scores []models.UserScoreMap
-	if usersCount >= len(comparator.peopleScores) {
-		scores = comparator.peopleScores
-	} else {
-		scores = comparator.peopleScores[:usersCount]
-	}
+
+	// отсортировали юзеров, по тому насколько их
+	// вкусы совпадают с текущим юзером
+	comparator.Sort(nil)
+
+	var scores = make([]models.UserScoreMap, usersCount)
+	copy(scores, comparator.peopleScores)
 
 	// для нормализаци дистанции
 	del := scores[len(scores)-1].D
 
-	copy(animesCopy, newAnimes)
-	for i, a := range animesCopy {
-		var (
-			summScore float64
-			count     float64
-		)
+	// тайтлы, которые юзер еще не видел
+	filterring.animes = filterring.exceptMyAnimes()
 
-		for _, s := range scores {
-			if s.Scores[int(a.ID)] > 0 {
-				var (
-					userK = 1 - s.D/del
-					score = userK * float64(s.Scores[int(a.ID)])
-				)
-				summScore += score
-				count++
-			}
-		}
-		if count > 0 {
-			animesCopy[i].D = summScore / count
-			animesCopy[i].C = summScore
-			animesCopy[i].K = count
-		}
+	if len(filterring.animes) == 0 {
+		return filterring.animes, nil
 	}
-	sort.Sort(animesCopy)
-	return animesCopy, nil
+
+	for i := range filterring.animes {
+		filterring.aggregation(&filterring.animes[i], scores, del)
+	}
+	sort.Sort(filterring)
+
+	return filterring.animes, nil
 }
+
+func (d *CollaborativeFiltering) Len() int { return len(d.animes) }
+func (d *CollaborativeFiltering) Less(i, j int) bool {
+	return d.animes[i].D > d.animes[j].D ||
+		(d.animes[i].D == d.animes[j].D && d.animes[i].C > d.animes[j].C)
+}
+func (d *CollaborativeFiltering) Swap(i, j int) { d.animes[i], d.animes[j] = d.animes[j], d.animes[i] }

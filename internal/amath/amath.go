@@ -1,7 +1,6 @@
 package amath
 
 import (
-	"errors"
 	"math"
 
 	"gonum.org/v1/gonum/stat"
@@ -21,17 +20,17 @@ import (
 
 type Pairs []float64
 
-func NewPairs(a, b []float64) (Pairs, error) {
+func NewPairs(a, b []float64) Pairs {
 	if len(a) != len(b) {
-		return Pairs{}, errors.New("len(a) not equal len(b)")
+		panic("amath: slice length mismatch")
 	}
 	pairs := make([]float64, len(a)*2)
-	for i := 0; i < len(a); i += 1 {
+	for i := 0; i < len(a); i++ {
 		pairs[i*2] = a[i]
 		pairs[i*2+1] = b[i]
 	}
 
-	return pairs, nil
+	return pairs
 }
 
 func (pairs Pairs) TwoVectors() ([]float64, []float64) {
@@ -151,5 +150,34 @@ func (pairs Pairs) Diff() float64 {
 // Correlation
 func (pairs Pairs) Correlation() float64 {
 	a, b := pairs.TwoVectors()
-	return stat.Correlation(a, b, nil)
+	return math.Abs(stat.Correlation(a, b, nil))
+}
+
+// Pearson correlation
+func (pairs Pairs) PCorrelation() float64 {
+	x, y := pairs.TwoVectors()
+
+	if len(x) != len(y) {
+		panic("amath: slice length mismatch")
+	}
+	xu := stat.Mean(x, nil)
+	yu := stat.Mean(y, nil)
+	var (
+		sxx           float64
+		syy           float64
+		xcompensation float64
+		ycompensation float64
+	)
+
+	for i, xv := range x {
+		yv := y[i]
+		xd := xv - xu
+		yd := yv - yu
+		sxx += xd * xd
+		syy += yd * yd
+		xcompensation += xd
+		ycompensation += yd
+	}
+
+	return xcompensation * ycompensation / math.Sqrt(sxx*syy)
 }
