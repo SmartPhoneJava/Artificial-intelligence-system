@@ -43,9 +43,15 @@ func (pg *PageSettings) SetTabs(tab string) {
 	pg.Tabs = NewTabs(tab)
 }
 
+type RecommendSettings struct {
+	Kind    string
+	Users   int
+	Percent float64
+}
+
 type PageSettings struct {
-	Tag, Search, RecomendType string
-	RecomendUsers             int
-	Tabs                      Tabs
-	Panels                    Panels
+	Tag, Search string
+	Recommend   RecommendSettings
+	Tabs        Tabs
+	Panels      Panels
 }

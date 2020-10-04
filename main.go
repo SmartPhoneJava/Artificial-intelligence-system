@@ -91,7 +91,7 @@ func router(
 						ANIMES.Animes(),
 						SCORES.Get(),
 						myScores,
-					).Recomend(page.Settings.RecomendUsers)
+					).Recommend(page.Settings.Recommend)
 					if err != nil {
 						local = ANIMES
 						log.Println("cant get recomendations because", err)
@@ -127,7 +127,11 @@ func router(
 	r.HandleFunc("/tab_recomend",
 		func(w http.ResponseWriter, r *http.Request) {
 			(&page.Settings).SetTabs("Рекомендации")
-			page.Settings.RecomendUsers = 10
+			page.Settings.Recommend = page.RecommendSettings{
+				Kind:    "collaborate",
+				Users:   10,
+				Percent: 0.5,
+			}
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/tab_favourite",
@@ -152,6 +156,7 @@ func router(
 				DISTS.SetFilter(compareType)
 			}
 			for k, v := range r.URL.Query() {
+				log.Println("kv is", k, v)
 				switch k {
 				case "tag":
 					page.Settings.Tag = v[0]
@@ -160,14 +165,21 @@ func router(
 					page.Settings.Search = v[0]
 					break
 				case "rectype":
-					page.Settings.RecomendType = v[0]
+					page.Settings.Recommend.Kind = v[0]
 					break
 				case "users":
 					i, err := strconv.Atoi(v[0])
 					if err == nil {
-						page.Settings.RecomendUsers = i
+						page.Settings.Recommend.Users = i
 					}
 					break
+				case "percent":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						page.Settings.Recommend.Percent = f
+					}
+					break
+
 				}
 
 			}

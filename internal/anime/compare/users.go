@@ -1,6 +1,7 @@
 package compare
 
 import (
+	"fmt"
 	"math"
 	"shiki/internal/amath"
 	"shiki/internal/models"
@@ -15,16 +16,19 @@ type UserComparator struct {
 	peopleScores models.UsersScoreMap
 	myscores     models.UserScoreMap
 
-	watched []kv
+	watched        []kv
+	percentWatched float64
 }
 
 func NewUserComparator(
 	peopleScores models.UsersScoreMap,
 	myscores models.UserScoreMap,
+	percentWatched float64,
 ) UserComparator {
 	var uc = UserComparator{
-		peopleScores: peopleScores,
-		myscores:     myscores,
+		peopleScores:   peopleScores,
+		myscores:       myscores,
+		percentWatched: percentWatched,
 	}
 	var (
 		arr = make([]kv, len(uc.myscores.Scores))
@@ -38,16 +42,33 @@ func NewUserComparator(
 	return uc
 }
 
-func (uc UserComparator) floats(scores models.UserScoreMap) []float64 {
+func (uc UserComparator) NewPairs(mine, other []float64) amath.Pairs {
+	pairs := make([]float64, 0, len(mine)*2)
+	for i := 0; i < len(mine); i++ {
+		if other[i] != 0 {
+			pairs = pairs[:len(pairs)+2]
+			pairs[len(pairs)-2] = mine[i]
+			pairs[len(pairs)-1] = other[i]
+		}
+	}
+
+	return pairs
+}
+
+func (uc UserComparator) floats(scores models.UserScoreMap) ([]float64, float64) {
 	var (
 		arr = make([]float64, len(uc.watched))
 		i   = 0
+		c   = len(uc.watched)
 	)
 	for _, v := range uc.watched {
 		arr[i] = float64(scores.Scores[v.key])
+		if arr[i] == 0 {
+			c--
+		}
 		i++
 	}
-	return arr
+	return arr, float64(c) / float64(len(uc.watched))
 }
 
 func (uc *UserComparator) Sort(
@@ -63,23 +84,29 @@ func (uc *UserComparator) Sort(
 		}
 	}
 	var (
-		mine = uc.floats(uc.myscores)
+		mine, _ = uc.floats(uc.myscores)
 	)
 
 	for i, v := range uc.peopleScores {
-		another := uc.floats(v)
+		another, count := uc.floats(v)
 
 		if len(another) == 0 {
-			uc.peopleScores[i].D = 1000
+			uc.peopleScores[i].D = 10000
+		} else if count < uc.percentWatched {
+			uc.peopleScores[i].D = 5000 + 5000*(1-uc.percentWatched)
 		} else {
-			twoVectors := amath.NewPairs(mine, another)
-			uc.peopleScores[i].D = getDistance(twoVectors)
+			twoVectors := uc.NewPairs(mine, another)
+			uc.peopleScores[i].D = (getDistance(twoVectors) + 1) * ((1 - count) + 0.001) * 1000
 			if math.IsNaN(uc.peopleScores[i].D) {
-				uc.peopleScores[i].D = 800
+				uc.peopleScores[i].D = 4000
 			}
 		}
 	}
 	sort.Sort(uc)
+	for _, v := range uc.peopleScores {
+		another, _ := uc.floats(v)
+		fmt.Println("lllllll ", v.D, another)
+	}
 }
 
 func (d *UserComparator) Len() int           { return len(d.peopleScores) }

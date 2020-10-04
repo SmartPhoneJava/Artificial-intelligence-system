@@ -2,8 +2,9 @@ package compare
 
 import (
 	"errors"
-	"log"
+	"fmt"
 	"shiki/internal/models"
+	"shiki/internal/page"
 	"sort"
 
 	"gonum.org/v1/gonum/floats"
@@ -70,14 +71,13 @@ func (filterring *CollaborativeFiltering) aggregation(
 	anime.D = floats.Round(r/n, 2)
 	anime.C = r
 	anime.K = float64(c)
-	log.Printf("-- %s - %.3f %.3f %.3f", anime.Name, anime.D, anime.C, anime.K)
 }
 
-func (filterring *CollaborativeFiltering) Recomend(
-	usersCount int,
+func (filterring *CollaborativeFiltering) Recommend(
+	settings page.RecommendSettings,
 ) (models.Animes, error) {
 
-	if usersCount < 1 {
+	if settings.Users < 1 {
 		return models.Animes{}, errors.New("usersCount < 1")
 	}
 
@@ -85,13 +85,14 @@ func (filterring *CollaborativeFiltering) Recomend(
 	comparator := NewUserComparator(
 		filterring.userScores,
 		filterring.myScore,
+		settings.Percent,
 	)
 
 	// отсортировали юзеров, по тому насколько их
 	// вкусы совпадают с текущим юзером
 	comparator.Sort(nil)
 
-	var scores = make([]models.UserScoreMap, usersCount)
+	var scores = make([]models.UserScoreMap, settings.Users)
 	copy(scores, comparator.peopleScores)
 
 	// для нормализаци дистанции
@@ -104,6 +105,7 @@ func (filterring *CollaborativeFiltering) Recomend(
 		return filterring.animes, nil
 	}
 
+	fmt.Println("del is", del)
 	for i := range filterring.animes {
 		filterring.aggregation(&filterring.animes[i], scores, del)
 	}

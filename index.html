@@ -108,61 +108,129 @@
         {{$Dc := .Distances.Dc}}
         {{$Cc := .Distances.Cc}}
         {{$Tc := .Distances.Tc}}
-        <div class="tags">
-            {{if .Page.Tabs.IsCatalog}}
-            <a href="/graph" class="b-anime_status_tag other" data-text="Перезагрузить списки "></a>
-            <a href="/update" class="b-anime_status_tag other" data-text="Обновить данные"></a>
-            <a href="/graph_visual" class="b-anime_status_tag other" data-text="Визуализировать данные"></a>
-            {{end}}
-            {{if .Page.Tabs.IsCompare}}
+        <div class="tags-flex">
+            <div class="tags">
+                {{if .Page.Tabs.IsCatalog}}
+                <a href="/graph" class="b-anime_status_tag other" data-text="Перезагрузить списки "></a>
+                <a href="/update" class="b-anime_status_tag other" data-text="Обновить данные"></a>
+                <a href="/graph_visual" class="b-anime_status_tag other" data-text="Визуализировать данные"></a>
+                {{end}}
+                {{if .Page.Tabs.IsCompare}}
 
-            {{if .Distances.Ec}}
-            <a href="/set?compare=e" class="b-anime_status_tag other other-active" data-text="Евклидово расстояние"></a>
-            {{else}}
-            <a href="/set?compare=e" class="b-anime_status_tag other other-passive"
-                data-text="Евклидово расстояние"></a>
-            {{end}}
+                {{if .Distances.Ec}}
+                <a href="/set?compare=e" class="b-anime_status_tag other other-active"
+                    data-text="Евклидово расстояние"></a>
+                {{else}}
+                <a href="/set?compare=e" class="b-anime_status_tag other other-passive"
+                    data-text="Евклидово расстояние"></a>
+                {{end}}
 
-            {{if .Distances.Mc}}
-            <a href="/set?compare=m" class="b-anime_status_tag other other-active" data-text="Расстояние кварталов"></a>
-            {{else}}
-            <a href="/set?compare=m" class="b-anime_status_tag other other-passive"
-                data-text="Расстояние кварталов"></a>
-            {{end}}
+                {{if .Distances.Mc}}
+                <a href="/set?compare=m" class="b-anime_status_tag other other-active"
+                    data-text="Расстояние кварталов"></a>
+                {{else}}
+                <a href="/set?compare=m" class="b-anime_status_tag other other-passive"
+                    data-text="Расстояние кварталов"></a>
+                {{end}}
 
-            {{if .Distances.Kc}}
-            <a href="/set?compare=k" class="b-anime_status_tag other other-active" data-text="Шахматное"></a>
-            {{else}}
-            <a href="/set?compare=k" class="b-anime_status_tag other other-passive" data-text="Шахматное"></a>
-            {{end}}
+                {{if .Distances.Kc}}
+                <a href="/set?compare=k" class="b-anime_status_tag other other-active" data-text="Шахматное"></a>
+                {{else}}
+                <a href="/set?compare=k" class="b-anime_status_tag other other-passive" data-text="Шахматное"></a>
+                {{end}}
 
-            {{if .Distances.Cc}}
-            <a href="/set?compare=c" class="b-anime_status_tag other other-active" data-text="Корреляция"></a>
-            {{else}}
-            <a href="/set?compare=c" class="b-anime_status_tag other other-passive" data-text="Корреляция"></a>
-            {{end}}
+                {{if .Distances.Cc}}
+                <a href="/set?compare=c" class="b-anime_status_tag other other-active" data-text="Корреляция"></a>
+                {{else}}
+                <a href="/set?compare=c" class="b-anime_status_tag other other-passive" data-text="Корреляция"></a>
+                {{end}}
 
-            {{if .Distances.Tc}}
-            <a href="/set?compare=t" class="b-anime_status_tag other other-active" data-text="Близость по дереву"></a>
-            {{else}}
-            <a href="/set?compare=t" class="b-anime_status_tag other other-passive" data-text="Близость по дереву"></a>
-            {{end}}
+                {{if .Distances.Tc}}
+                <a href="/set?compare=t" class="b-anime_status_tag other other-active"
+                    data-text="Близость по дереву"></a>
+                {{else}}
+                <a href="/set?compare=t" class="b-anime_status_tag other other-passive"
+                    data-text="Близость по дереву"></a>
+                {{end}}
 
-            {{if .Distances.Dc}}
-            <a href="/set?compare=d" class="b-anime_status_tag other other-active" data-text="Кол-во отличий"></a>
-            {{else}}
-            <a href="/set?compare=d" class="b-anime_status_tag other other-passive" data-text="Кол-во отличий"></a>
-            {{end}}
+                {{if .Distances.Dc}}
+                <a href="/set?compare=d" class="b-anime_status_tag other other-active" data-text="Кол-во отличий"></a>
+                {{else}}
+                <a href="/set?compare=d" class="b-anime_status_tag other other-passive" data-text="Кол-во отличий"></a>
+                {{end}}
 
-            {{end}}
+                {{end}}
 
-            {{if .Page.Tabs.IsRec}}
+                {{if .Page.Tabs.IsRec}}
 
-            <a href="/set?rectype=collaborate?users=10" class="b-anime_status_tag other other-active" data-text="Коллаборативная фильтрация на 10 юзеров"></a>
-            <a href="/set?rectype=collaborate?users=20" class="b-anime_status_tag other other-active" data-text="20"></a>
-            <a href="/set?rectype=collaborate?users=50" class="b-anime_status_tag other other-active" data-text="50"></a>
-            <a href="/set?rectype=collaborate?users=100" class="b-anime_status_tag other other-active" data-text="100"></a>
-            {{end}}
+                {{if eq .Page.Recommend.Kind "collaborate"}}
+                <a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-active"
+                    data-text="Коллаборативная фильтрация"></a>
+                {{else}}
+                <a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-passive"
+                    data-text="Коллаборативная фильтрация"></a>
+                {{end}}
+
+                <div> Количество юзеров&nbsp; </div>
+                {{if eq .Page.Recommend.Users 10}}
+                <a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-active">10</a>
+                {{else}}
+                <a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-passive">10</a>
+                {{end}}
+
+                {{if eq .Page.Recommend.Users 20}}
+                <a href="/set?rectype=collaborate&users=20" class="b-anime_status_tag other other-active">20</a>
+                {{else}}
+                <a href="/set?rectype=collaborate&users=20" class="b-anime_status_tag other other-passive">20</a>
+                {{end}}
+
+                {{if eq .Page.Recommend.Users 50}}
+                <a href="/set?rectype=collaborate&users=50" class="b-anime_status_tag other other-active">50</a>
+                {{else}}
+                <a href="/set?rectype=collaborate&users=50" class="b-anime_status_tag other other-passive">50</a>
+                {{end}}
+
+                {{if eq .Page.Recommend.Users 100}}
+                <a href="/set?rectype=collaborate&users=100" class="b-anime_status_tag other other-active">100</a>
+                {{else}}
+                <a href="/set?rectype=collaborate&users=100" class="b-anime_status_tag other other-passive">100</a>
+                {{end}}
+
+                {{end}}
+            </div>
+        </div>
+        <div class="tags-flex">
+            <div class="tags">
+                {{if .Page.Tabs.IsRec}}
+                <div> Учитывать пользователей, просмотревших минимум &nbsp; </div>
+
+                {{if eq .Page.Recommend.Percent 0.0}}
+                <a href="/set?rectype=collaborate&percent=0" class="b-anime_status_tag other other-active">5%</a>
+                {{else}}
+                <a href="/set?rectype=collaborate&percent=0" class="b-anime_status_tag other other-passive">5%</a>
+                {{end}}
+
+                {{if eq .Page.Recommend.Percent 0.2}}
+                <a href="/set?rectype=collaborate&percent=0.2" class="b-anime_status_tag other other-active">20%</a>
+                {{else}}
+                <a href="/set?rectype=collaborate&percent=0.2" class="b-anime_status_tag other other-passive">20%</a>
+                {{end}}
+
+                {{if eq .Page.Recommend.Percent 0.5}}
+                <a href="/set?rectype=collaborate&percent=0.5" class="b-anime_status_tag other other-active">50%</a>
+                {{else}}
+                <a href="/set?rectype=collaborate&percent=0.5" class="b-anime_status_tag other other-passive">50%</a>
+                {{end}}
+
+                {{if eq .Page.Recommend.Percent 0.85}}
+                <a href="/set?rectype=collaborate&percent=0.85" class="b-anime_status_tag other other-active">85%</a>
+                {{else}}
+                <a href="/set?rectype=collaborate&percent=0.85" class="b-anime_status_tag other other-passive">85%</a>
+                {{end}}
+
+                <div> моего списка </div>
+                {{end}}
+            </div>
         </div>
         <!-- <div class="filter-container">
             <div class="line">
@@ -334,51 +402,45 @@
                                     name="user_rate[target_type]" value="Anime"><input type="hidden"
                                     name="user_rate[status]" value="planned"><input type="hidden"
                                     name="user_rate[score]" value="0">
-                                <div class="trigger">
-                                    <div class="trigger-arrow"></div>
-                                    <div class="text add-trigger" data-status="planned">
-                                        <div class="plus"></div><span class="status-name"
-                                            data-text="Добавить в список"></span>
-                                    </div>
-                                </div>
+                               
                                 <div class="expanded-options" style="height: 185.966px; display: block;">
                                     <div class="option add-trigger" data-status="dropped">
                                         <div class="text">
-                                            <!-- <span class="status-name" data-text="Найти похожие">
-
-                                            </span> -->
+                
                                             <a href="/compare?id={{.ID}}" class="status-name"
                                                 data-text="Найти похожие"></a>
                                         </div>
                                     </div>
+                                    <div class="option add-trigger" data-status="dropped">
+                                        <div class="rating-wrapper">
+                                           
+                                            <div class="flex-only">
+                                                &nbsp;&nbsp;Моя оценка:&nbsp;
+                                                {{if .IsMine}}
+                                                {{ range .Scorea }}
+                                                {{if .V}}
+                                                <a href="/favourite_remove?id={{$ID}}" class="rating-mine">★</a>
+                                                {{else}}
+                                                <a href="/favourite_remove?id={{$ID}}" class="rating-mine">☆</a>
+                                                {{end}}
+                                                {{end}}
+                                                {{ else }}
+                                                {{ range .Scorea }}
+                                                {{if .V}}
+                                                <a href="/favourite_add?id={{$ID}}&score={{.I}}" class="rating-not-mine">★</a>
+                                                {{else}}
+                                                <a href="/favourite_add?id={{$ID}}&score={{.I}}" class="rating-not-mine">☆</a>
+                
+                                                {{end}}
+                                                {{end}}
+                                                {{end}}
+                                            </div>
+                
+                                        </div>
+                                    </div>
                                 </div>
+                                
                             </form>
-
-                        </div>
-
-
-                        <div class="rating-wrapper">
-
-                            <div class="flex-only">
-                                {{if .IsMine}}
-                                {{ range .Scorea }}
-                                {{if .V}}
-                                <a href="/favourite_remove?id={{$ID}}" class="rating-mine">★</a>
-                                {{else}}
-                                <a href="/favourite_remove?id={{$ID}}" class="rating-mine">☆</a>
-                                {{end}}
-                                {{end}}
-                                {{ else }}
-                                {{ range .Scorea }}
-                                {{if .V}}
-                                <a href="/favourite_add?id={{$ID}}&score={{.I}}" class="rating-not-mine">★</a>
-                                {{else}}
-                                <a href="/favourite_add?id={{$ID}}&score={{.I}}" class="rating-not-mine">☆</a>
-
-                                {{end}}
-                                {{end}}
-                                {{end}}
-                            </div>
 
                         </div>
                     </div>
