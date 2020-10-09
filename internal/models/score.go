@@ -32,6 +32,17 @@ func (usm UserScoreMap) Remove(id int) {
 	delete(usm.Scores, id)
 }
 
+func (usm UserScoreMap) ExceptMine(allAnimes Animes) Animes {
+	var newAnimes = make([]Anime, 0)
+	for _, a := range allAnimes {
+		if usm.Scores[int(a.ID)] == 0 {
+			newAnimes = append(newAnimes, a)
+		}
+	}
+	return newAnimes
+
+}
+
 func NewUserScoreMap(scores Scores) UserScoreMap {
 	if len(scores) == 0 {
 		return UserScoreMap{

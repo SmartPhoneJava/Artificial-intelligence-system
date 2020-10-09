@@ -28,6 +28,7 @@ func NewContentOriented(
 }
 
 func (c *ContentOriented) Recommend() (models.Animes, error) {
+	c.animes = c.myScore.ExceptMine(c.animes)
 	var m2m = c.processAllDistances()
 	var idWithScore = c.oneAnimeManyDistances(m2m)
 	c.updateD(idWithScore)
@@ -60,13 +61,8 @@ func (c *ContentOriented) oneAnimeManyDistances(m2m compare.ComparingAnimes) map
 	var animeDists = make(map[int32]float64, 0)
 	for _, animes := range m2m {
 		for _, danime := range animes.Dists {
-			//log.Println("danime is", danime)
 			animeDists[danime.Anime.ID] = danime.D * float64(11-animes.Score)
 		}
-	}
-
-	for _, anime := range m2m {
-		animeDists[int32(anime.ID)] = 1000000
 	}
 	return animeDists
 }

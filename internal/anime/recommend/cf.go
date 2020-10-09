@@ -34,16 +34,6 @@ func NewCollaborativeFiltering(
 	}
 }
 
-func (filterring *CollaborativeFiltering) exceptMyAnimes() models.Animes {
-	var newAnimes = make([]models.Anime, 0)
-	for _, a := range filterring.animes {
-		if filterring.myScore.Scores[int(a.ID)] == 0 {
-			newAnimes = append(newAnimes, a)
-		}
-	}
-	return newAnimes
-}
-
 func (filterring *CollaborativeFiltering) aggregation(
 	anime *models.Anime,
 	scores []models.UserScoreMap,
@@ -102,7 +92,7 @@ func (filterring *CollaborativeFiltering) Recommend() (models.Animes, error) {
 	del := scores[len(scores)-1].D
 
 	// тайтлы, которые юзер еще не видел
-	filterring.animes = filterring.exceptMyAnimes()
+	filterring.animes = filterring.myScore.ExceptMine(filterring.animes)
 
 	if len(filterring.animes) == 0 {
 		return filterring.animes, nil

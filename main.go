@@ -123,8 +123,9 @@ func router(
 				break
 			}
 
+			local.MarkMine(myScores)
 			animesFound := local.FindAnimes(Settings.Search)
-			log.Println("settigs are", Settings, Settings.Recommend)
+
 			tpl.Execute(w, struct {
 				Animes    models.Animes
 				Page      page.PageSettings
@@ -215,7 +216,6 @@ func router(
 			}
 
 			myScores.Add(id, score)
-			ANIMES.MarkMine(myScores)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/favourite_remove",
@@ -228,7 +228,7 @@ func router(
 			}
 
 			myScores.Remove(id)
-			ANIMES.MarkMine(myScores)
+
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/update",
