@@ -14,6 +14,7 @@ import (
 	"shiki/internal/anime"
 	"shiki/internal/anime/compare"
 	"shiki/internal/anime/eatree"
+	"shiki/internal/anime/recommend"
 	"shiki/internal/anime/shikimori"
 	"shiki/internal/anime/tree"
 	"shiki/internal/graphml"
@@ -21,6 +22,7 @@ import (
 	"shiki/internal/page"
 	"shiki/internal/score"
 	"shiki/internal/score/fs"
+	"shiki/internal/utils"
 )
 
 const (
@@ -33,6 +35,8 @@ const (
 	WriteTimeout = time.Second * 3600
 	IdleTimeout  = time.Second * 3600
 )
+
+var Settings = page.Settings
 
 var Token = shikimori.TokenResponse{
 	AccessToken:  "l5xR_Nl-tt4FdT_WX5sxLXnSCQ21B7JPQbI_QjRAYrw",
@@ -84,14 +88,25 @@ func router(
 			var (
 				local = ANIMES
 			)
-			switch page.Settings.Tabs.CurrentTab {
+			switch Settings.Tabs.CurrentTab {
 			case page.Rec:
 				{
-					animes, err := compare.NewCollaborativeFiltering(
-						ANIMES.Animes(),
-						SCORES.Get(),
-						myScores,
-					).Recommend(page.Settings.Recommend)
+					var recomendI recommend.RecomendI
+					if Settings.Recommend.Kind == "collaborate" {
+						recomendI = recommend.NewCollaborativeFiltering(
+							ANIMES.Animes(),
+							SCORES.Get(),
+							myScores,
+							*Settings.Recommend,
+						)
+					} else {
+						recomendI = recommend.NewContentOriented(
+							ANIMES.Animes(),
+							myScores,
+							nil,
+						)
+					}
+					animes, err := recomendI.Recommend()
 					if err != nil {
 						local = ANIMES
 						log.Println("cant get recomendations because", err)
@@ -108,75 +123,72 @@ func router(
 				break
 			}
 
-			animesFound := local.FindAnimes(page.Settings.Search)
+			animesFound := local.FindAnimes(Settings.Search)
+			log.Println("settigs are", Settings, Settings.Recommend)
 			tpl.Execute(w, struct {
 				Animes    models.Animes
 				Page      page.PageSettings
 				Distances compare.AnimeAllDistances
 			}{
 				Animes:    animesFound.Top(30),
-				Page:      page.Settings,
+				Page:      *Settings,
 				Distances: DISTS,
 			})
 		})
 	r.HandleFunc("/tab_catalog",
 		func(w http.ResponseWriter, r *http.Request) {
-			(&page.Settings).SetTabs("Каталог")
+			Settings.SetTabs(page.TabCatalog)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/tab_recomend",
 		func(w http.ResponseWriter, r *http.Request) {
-			(&page.Settings).SetTabs("Рекомендации")
-			page.Settings.Recommend = page.RecommendSettings{
-				Kind:    "collaborate",
-				Users:   10,
-				Percent: 0.5,
-			}
+			Settings.SetTabs(page.TabRecomendations)
+			Settings.Recommend = &page.DefaultRecommendSettings
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/tab_favourite",
 		func(w http.ResponseWriter, r *http.Request) {
-			(&page.Settings).SetTabs("Избранное")
+			Settings.SetTabs(page.TabFavourite)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/tab_compare",
 		func(w http.ResponseWriter, r *http.Request) {
-			(&page.Settings).SetTabs("Сравнение")
+			Settings.SetTabs(page.TabCompare)
 			var (
 				animeModels = ANIMES.Animes()
+				comparator  = compare.NewAnimeComparator(animeModels, nil)
 			)
-			var comparator = compare.NewAnimeComparator(animeModels, nil)
+
 			DISTS = comparator.DistanceAll(animeModels[0], true)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/set",
 		func(w http.ResponseWriter, r *http.Request) {
-			if page.Settings.Tabs.IsCompare {
+			if Settings.Tabs.IsCompare {
 				compareType := r.URL.Query().Get("compare")
 				DISTS.SetFilter(compareType)
 			}
 			for k, v := range r.URL.Query() {
-				log.Println("kv is", k, v)
 				switch k {
 				case "tag":
-					page.Settings.Tag = v[0]
+					Settings.Tag = v[0]
 					break
 				case "search":
-					page.Settings.Search = v[0]
+					Settings.Search = v[0]
 					break
 				case "rectype":
-					page.Settings.Recommend.Kind = v[0]
+					Settings.Recommend.Kind = v[0]
 					break
 				case "users":
 					i, err := strconv.Atoi(v[0])
 					if err == nil {
-						page.Settings.Recommend.Users = i
+						Settings.Recommend.Users = i
 					}
 					break
 				case "percent":
 					f, err := strconv.ParseFloat(v[0], 64)
 					if err == nil {
-						page.Settings.Recommend.Percent = f
+						Settings.Recommend.Percent = f
 					}
 					break
 
@@ -186,77 +198,36 @@ func router(
 
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
-	r.HandleFunc("/favourite",
+	r.HandleFunc("/favourite_add",
 		func(w http.ResponseWriter, r *http.Request) {
-			query := r.URL.Query()
-
-			id := query.Get("id")
-			if id == "" {
-				log.Println("/favourite post: no id given")
-				http.Redirect(w, r, "/", http.StatusSeeOther)
-				return
-			}
-			idI, err := strconv.Atoi(id)
+			id, err := utils.RequestInt(r, "id")
 			if err != nil {
 				log.Println("/favourite post: wrong id given")
 				http.Redirect(w, r, "/", http.StatusSeeOther)
 				return
 			}
 
-			score := query.Get("score")
-			if id == "" {
-				log.Println("/favourite post: no score given")
-				http.Redirect(w, r, "/", http.StatusSeeOther)
-				return
-			}
-			scoreI, err := strconv.Atoi(score)
+			score, err := utils.RequestInt(r, "score")
 			if err != nil {
 				log.Println("/favourite post: wrong score given")
 				http.Redirect(w, r, "/", http.StatusSeeOther)
 				return
 			}
 
-			myScores.Scores[idI] = scoreI
-
-			http.Redirect(w, r, "/", http.StatusSeeOther)
-		})
-	r.HandleFunc("/favourite_add",
-		func(w http.ResponseWriter, r *http.Request) {
-			log.Println("url is", r.URL)
-			query := r.URL.Query()
-
-			id := query.Get("id")
-			idI, err := strconv.Atoi(id)
-			if err != nil {
-				log.Println("/favourite_add: wrong id given", id)
-				http.Redirect(w, r, "/", http.StatusSeeOther)
-				return
-			}
-			score := query.Get("score")
-			scoreI, err := strconv.Atoi(score)
-			if err != nil {
-				log.Println("/favourite_add: wrong score given")
-				http.Redirect(w, r, "/", http.StatusSeeOther)
-				return
-			}
-
-			myScores.Add(idI, scoreI)
+			myScores.Add(id, score)
 			ANIMES.MarkMine(myScores)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/favourite_remove",
 		func(w http.ResponseWriter, r *http.Request) {
-			query := r.URL.Query()
-
-			id := query.Get("id")
-			idI, err := strconv.Atoi(id)
+			id, err := utils.RequestInt(r, "id")
 			if err != nil {
 				log.Println("/favourite_add: wrong id given")
 				http.Redirect(w, r, "/", http.StatusSeeOther)
 				return
 			}
 
-			myScores.Remove(idI)
+			myScores.Remove(id)
 			ANIMES.MarkMine(myScores)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
@@ -453,14 +424,14 @@ func router(
 
 	r.HandleFunc("/compare",
 		func(w http.ResponseWriter, r *http.Request) {
-			id := r.URL.Query().Get("id")
-			(&page.Settings).SetTabs("Сравнение")
-			var comparator = compare.NewAnimeComparator(ANIMES.Animes(), nil)
-			idInt, err := strconv.Atoi(id)
+			idInt, err := utils.RequestInt(r, "id")
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
 				return
 			}
+
+			Settings.SetTabs("Сравнение")
+			var comparator = compare.NewAnimeComparator(ANIMES.Animes(), nil)
 
 			DISTS = comparator.DistanceAll(ANIMES.FindAnimeByID(int32(idInt)))
 			http.Redirect(w, r, "/", http.StatusSeeOther)

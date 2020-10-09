@@ -1,7 +1,6 @@
 package compare
 
 import (
-	"fmt"
 	"math"
 	"shiki/internal/amath"
 	"shiki/internal/models"
@@ -24,8 +23,8 @@ func NewUserComparator(
 	peopleScores models.UsersScoreMap,
 	myscores models.UserScoreMap,
 	percentWatched float64,
-) UserComparator {
-	var uc = UserComparator{
+) *UserComparator {
+	var uc = &UserComparator{
 		peopleScores:   peopleScores,
 		myscores:       myscores,
 		percentWatched: percentWatched,
@@ -42,7 +41,7 @@ func NewUserComparator(
 	return uc
 }
 
-func (uc UserComparator) NewPairs(mine, other []float64) amath.Pairs {
+func (uc UserComparator) newPairs(mine, other []float64) amath.Pairs {
 	pairs := make([]float64, 0, len(mine)*2)
 	for i := 0; i < len(mine); i++ {
 		if other[i] != 0 {
@@ -73,7 +72,7 @@ func (uc UserComparator) floats(scores models.UserScoreMap) ([]float64, float64)
 
 func (uc *UserComparator) Sort(
 	getDistance func(amath.Pairs) float64,
-) {
+) models.UsersScoreMap {
 	if getDistance == nil {
 		getDistance = func(twoVectore amath.Pairs) float64 {
 			if len(twoVectore) < 20 {
@@ -95,7 +94,7 @@ func (uc *UserComparator) Sort(
 		} else if count < uc.percentWatched {
 			uc.peopleScores[i].D = 5000 + 5000*(1-uc.percentWatched)
 		} else {
-			twoVectors := uc.NewPairs(mine, another)
+			twoVectors := uc.newPairs(mine, another)
 			uc.peopleScores[i].D = (getDistance(twoVectors) + 1) * ((1 - count) + 0.001) * 1000
 			if math.IsNaN(uc.peopleScores[i].D) {
 				uc.peopleScores[i].D = 4000
@@ -103,10 +102,11 @@ func (uc *UserComparator) Sort(
 		}
 	}
 	sort.Sort(uc)
-	for _, v := range uc.peopleScores {
-		another, _ := uc.floats(v)
-		fmt.Println("lllllll ", v.D, another)
-	}
+	// for _, v := range uc.peopleScores {
+	// 	another, _ := uc.floats(v)
+	// 	fmt.Println("lllllll ", v.D, another)
+	// }
+	return uc.peopleScores
 }
 
 func (d *UserComparator) Len() int           { return len(d.peopleScores) }

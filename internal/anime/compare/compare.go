@@ -2,6 +2,7 @@ package compare
 
 import (
 	"fmt"
+	"log"
 	"shiki/internal/amath"
 	"shiki/internal/anime"
 	"shiki/internal/models"
@@ -73,7 +74,9 @@ func (compare AnimeComparator) distance(
 ) AnimeDistances {
 	(&compare).makePairs(first)
 
-	var dists = NewDistances(len(compare.animes))
+	//log.Println("compare.animes", compare.animes)
+	log.Println("lens", len(compare.animes), len(compare.pairs))
+	var dists = NewDistances(len(compare.pairs))
 	for i, pair := range compare.pairs {
 		dists.Set(i, count(pair), &compare.animes[i])
 	}

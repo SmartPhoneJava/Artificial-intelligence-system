@@ -232,6 +232,20 @@
                 {{end}}
             </div>
         </div>
+        <div class="tags-flex">
+            <div class="tags">
+                {{if .Page.Tabs.IsRec}}
+                {{if eq .Page.Recommend.Kind "content"}}
+                <a href="/set?rectype=content" class="b-anime_status_tag other other-active"
+                    data-text="Контентно-ориентированная фильтрация"></a>
+                {{else}}
+                <a href="/set?rectype=content" class="b-anime_status_tag other other-passive"
+                    data-text="Контентно-ориентированная фильтрация"></a>
+                {{end}}
+                {{end}}
+            </div>
+        </div>
+
         <!-- <div class="filter-container">
             <div class="line">
                 <div class="filter">Количество тайтлов</div>
@@ -260,6 +274,7 @@
         </div> -->
         {{$isCompare := .Page.Tabs.IsCompare}}
         {{$IsRec := .Page.Tabs.IsRec}}
+
         {{if .Page.Tabs.IsCompare}}
         {{if .Distances.OK}}
         <div class="subheadline linkheadline"><a href="https://shikimori.one/animes/status/ongoing">
@@ -402,18 +417,18 @@
                                     name="user_rate[target_type]" value="Anime"><input type="hidden"
                                     name="user_rate[status]" value="planned"><input type="hidden"
                                     name="user_rate[score]" value="0">
-                               
+
                                 <div class="expanded-options" style="height: 185.966px; display: block;">
                                     <div class="option add-trigger" data-status="dropped">
                                         <div class="text">
-                
+
                                             <a href="/compare?id={{.ID}}" class="status-name"
                                                 data-text="Найти похожие"></a>
                                         </div>
                                     </div>
                                     <div class="option add-trigger" data-status="dropped">
                                         <div class="rating-wrapper">
-                                           
+
                                             <div class="flex-only">
                                                 &nbsp;&nbsp;Моя оценка:&nbsp;
                                                 {{if .IsMine}}
@@ -427,19 +442,21 @@
                                                 {{ else }}
                                                 {{ range .Scorea }}
                                                 {{if .V}}
-                                                <a href="/favourite_add?id={{$ID}}&score={{.I}}" class="rating-not-mine">★</a>
+                                                <a href="/favourite_add?id={{$ID}}&score={{.I}}"
+                                                    class="rating-not-mine">★</a>
                                                 {{else}}
-                                                <a href="/favourite_add?id={{$ID}}&score={{.I}}" class="rating-not-mine">☆</a>
-                
+                                                <a href="/favourite_add?id={{$ID}}&score={{.I}}"
+                                                    class="rating-not-mine">☆</a>
+
                                                 {{end}}
                                                 {{end}}
                                                 {{end}}
                                             </div>
-                
+
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </form>
 
                         </div>
@@ -604,6 +621,25 @@
                     </div>
                     {{ end }}
                     {{ if $IsRec}}
+                    {{ if eq .K 0.0}}
+                    <div class="cc-info">
+                        <div class="cc">
+                            <div class="c-info-left">
+                                <div class="subheadline">Метрики</div>
+                                <div class="block">
+                                    <div class="b-entry-info">
+                                        <div class="line-container">
+                                            <div class="line">
+                                                <div class="key">Ваша потенциальная оценка</div>
+                                                <div class="value">{{.D}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ else }}
                     <div class="cc-info">
                         <div class="cc">
                             <div class="c-info-left">
@@ -626,6 +662,8 @@
                             </div>
                         </div>
                     </div>
+
+                    {{ end }}
                     {{ end }}
                 </div>
             </div>

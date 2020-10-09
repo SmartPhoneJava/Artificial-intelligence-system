@@ -1,8 +1,9 @@
-package compare
+package recommend
 
 import (
 	"errors"
 	"fmt"
+	"shiki/internal/anime/compare"
 	"shiki/internal/models"
 	"shiki/internal/page"
 	"sort"
@@ -15,17 +16,21 @@ type CollaborativeFiltering struct {
 	animes     models.Animes
 	userScores models.UsersScoreMap
 	myScore    models.UserScoreMap
+
+	settings page.RecommendSettings
 }
 
 func NewCollaborativeFiltering(
 	animes models.Animes,
 	userScores models.UsersScoreMap,
 	myScore models.UserScoreMap,
-) *CollaborativeFiltering {
+	settings page.RecommendSettings,
+) RecomendI {
 	return &CollaborativeFiltering{
 		animes:     animes,
 		userScores: userScores,
 		myScore:    myScore,
+		settings:   settings,
 	}
 }
 
@@ -52,6 +57,7 @@ func (filterring *CollaborativeFiltering) aggregation(
 	if del == 0 {
 		del = 1
 	}
+
 	for _, cs := range scores {
 		score := cs.Scores[int(anime.ID)]
 		if score > 0 {
@@ -61,7 +67,7 @@ func (filterring *CollaborativeFiltering) aggregation(
 
 			r += weight * float64(score)
 			n += weight
-			c += 1
+			c++
 		}
 	}
 	if n == 0 {
@@ -73,27 +79,24 @@ func (filterring *CollaborativeFiltering) aggregation(
 	anime.K = float64(c)
 }
 
-func (filterring *CollaborativeFiltering) Recommend(
-	settings page.RecommendSettings,
-) (models.Animes, error) {
+func (filterring *CollaborativeFiltering) Recommend() (models.Animes, error) {
 
-	if settings.Users < 1 {
+	if filterring.settings.Users < 1 {
 		return models.Animes{}, errors.New("usersCount < 1")
 	}
 
 	// компаратор для определения похожих юзеров
-	comparator := NewUserComparator(
-		filterring.userScores,
-		filterring.myScore,
-		settings.Percent,
-	)
-
 	// отсортировали юзеров, по тому насколько их
 	// вкусы совпадают с текущим юзером
-	comparator.Sort(nil)
+	peopleScores := compare.NewUserComparator(
+		filterring.userScores,
+		filterring.myScore,
+		filterring.settings.Percent,
+	).Sort(nil)
 
-	var scores = make([]models.UserScoreMap, settings.Users)
-	copy(scores, comparator.peopleScores)
+	// уберем лишних юзеров
+	var scores = make([]models.UserScoreMap, filterring.settings.Users)
+	copy(scores, peopleScores)
 
 	// для нормализаци дистанции
 	del := scores[len(scores)-1].D

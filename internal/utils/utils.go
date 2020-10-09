@@ -4,6 +4,8 @@ import (
 	"context"
 	"errors"
 	"log"
+	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -63,4 +65,8 @@ func InvertArr(arr []string) []string {
 		inverted[len(inverted)-i-1] = arr[i]
 	}
 	return inverted
+}
+
+func RequestInt(r *http.Request, key string) (int, error) {
+	return strconv.Atoi(r.URL.Query().Get(key))
 }

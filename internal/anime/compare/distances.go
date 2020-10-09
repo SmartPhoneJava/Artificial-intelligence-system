@@ -106,6 +106,13 @@ func NewDistance(d float64, a *models.Anime) AnimeDistance {
 	}
 }
 
+type ComparingAnime struct {
+	ID, Score int
+	Dists     AnimeDistances
+}
+
+type ComparingAnimes []ComparingAnime
+
 type AnimeDistances []AnimeDistance
 
 func NewDistances(n int) AnimeDistances {

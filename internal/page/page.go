@@ -32,7 +32,7 @@ func NewTabs(tab string) Tabs {
 	}
 }
 
-var Settings PageSettings = PageSettings{
+var Settings = &PageSettings{
 	Tag:    "",
 	Search: "",
 	Tabs:   NewTabs(Catalog),
@@ -51,7 +51,7 @@ type RecommendSettings struct {
 
 type PageSettings struct {
 	Tag, Search string
-	Recommend   RecommendSettings
+	Recommend   *RecommendSettings
 	Tabs        Tabs
 	Panels      Panels
 }
