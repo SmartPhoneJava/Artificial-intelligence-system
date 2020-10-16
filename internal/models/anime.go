@@ -6,6 +6,7 @@ type Anime struct {
 	ID            int32  `json:"id"`
 	Name          string `json:"name"`
 	Russian       string `json:"russian"`
+	Description   string `json:"description"`
 	URL           string `json:"url"`
 	Status        string `json:"status"`
 	EpisodesAired int    `json:"episodes_aired"`

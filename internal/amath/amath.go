@@ -48,9 +48,8 @@ func (pairs Pairs) TwoVectors() ([]float64, []float64) {
 
 func (pairs *Pairs) Add(a, b, k float64) {
 	if k < 0.01 {
-		k = 1
+		return
 	}
-	//fmt.Println("!!!", k*a, k*b)
 	*pairs = append(*pairs, k*a, k*b)
 }
 
@@ -70,8 +69,51 @@ func (pairs *Pairs) AddBool(a, b bool, k float64) {
 	}
 }
 
-func (pairs *Pairs) AddSlice(a, b []string, k float64) int {
-	var different = len(a) + len(b)
+// Получает на вход число не совпавших элементов в слайсах
+// вовзращает значение различия двух слайсов
+type CompareSlices func(int) int
+
+// Например:
+// линейная: получив 5 вернём 5
+func Linear(n int) int {
+	return n
+}
+
+// квадратная: получив 5 вернём 55(1+4+9+16+25) - чем больше различий, тем сильнее различаются массивы
+func Square(n int) int {
+	var square = 0
+	for i := 1; i <= n; i++ {
+		square += i * i
+	}
+	return square
+}
+
+func LinearF(s, n, d float64) float64 {
+	if n == 0 {
+		return 0.01
+	}
+	var square = s
+	for i := d; i <= n; i += d {
+		square += i
+	}
+	return square
+}
+
+type SliceToString interface {
+	Names() []string
+}
+
+func (pairs *Pairs) AddSlice(
+	arr1, arr2 SliceToString,
+	compareSlices CompareSlices,
+	k float64,
+) {
+	var (
+		a         = arr1.Names()
+		b         = arr2.Names()
+		different = len(a) + len(b)
+	)
+
 	for _, s1 := range a {
 		for _, s2 := range b {
 			if s1 == s2 {
@@ -81,9 +123,8 @@ func (pairs *Pairs) AddSlice(a, b []string, k float64) int {
 		}
 	}
 	if different != 0 {
-		pairs.AddInt(different, 0, k)
+		pairs.AddInt(compareSlices(different/2), 0, k)
 	}
-	return different
 }
 
 // Euclidean distance

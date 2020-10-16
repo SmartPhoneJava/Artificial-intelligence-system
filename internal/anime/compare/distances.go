@@ -4,13 +4,12 @@ import (
 	"sort"
 	"strings"
 
+	"shiki/internal/amath"
 	"shiki/internal/models"
 )
 
 type AnimeAllDistances struct {
 	Anime                  models.Anime
-	E, M, K, C, T, D       AnimeDistances
-	OK                     bool
 	Ec, Mc, Kc, Cc, Tc, Dc bool
 	animes                 []models.Anime
 }
@@ -56,15 +55,6 @@ func (d AnimeAllDistances) Swap(i, j int) {
 }
 
 func (aad AnimeAllDistances) Animes() models.Animes {
-	var arr models.Animes
-	for i := 0; i < len(aad.E); i++ {
-		var comparingAnime = aad.E[i].Anime
-		if comparingAnime != nil && comparingAnime.ID != aad.Anime.ID {
-			comparingAnime.WithСoefficients(aad.E[i].D, aad.M[i].D, aad.K[i].D, aad.C[i].D, aad.T[i].D, aad.D[i].D)
-			arr = append(arr, *comparingAnime)
-		}
-	}
-	aad.animes = arr
 	sort.Sort(aad)
 	return aad.animes
 }
@@ -80,17 +70,17 @@ func (aad *AnimeAllDistances) SetFilter(filter string) {
 
 func NewAnimeAllDistances(
 	a models.Anime,
-	ok bool,
-	e, m, k, c, t, d AnimeDistances,
+	animes models.Animes,
 ) AnimeAllDistances {
 	return AnimeAllDistances{
-		E: e, Ec: true,
-		M: m, Mc: false,
-		K: k, Kc: false,
-		C: c, Cc: false,
-		T: t, Tc: false,
-		D: d, Dc: false,
-		Anime: a, OK: ok,
+		Ec:     true,
+		Mc:     false,
+		Kc:     false,
+		Cc:     false,
+		Tc:     false,
+		Dc:     false,
+		Anime:  a,
+		animes: animes,
 	}
 }
 
@@ -106,9 +96,14 @@ func NewDistance(d float64, a *models.Anime) AnimeDistance {
 	}
 }
 
+type ComparedAnime struct {
+	anime *models.Anime
+	pairs amath.Pairs
+}
+
 type ComparingAnime struct {
 	ID, Score int
-	Dists     AnimeDistances
+	Dists     models.Animes
 }
 
 type ComparingAnimes []ComparingAnime
@@ -117,6 +112,16 @@ type AnimeDistances []AnimeDistance
 
 func NewDistances(n int) AnimeDistances {
 	return make([]AnimeDistance, n)
+}
+
+func (a AnimeDistances) Animes() []models.Anime {
+	var animes = make([]models.Anime, 0)
+	for _, v := range a {
+		var anime = *v.Anime
+		anime.D = v.D
+		animes = append(animes, anime)
+	}
+	return animes
 }
 
 func (d AnimeDistances) Set(i int, f float64, a *models.Anime) {

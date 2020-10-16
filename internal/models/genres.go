@@ -7,6 +7,7 @@ import (
 )
 
 type Genres []Genre
+type GenresMarked []GenreMarked
 
 func (genres Genres) Names() []string {
 	var arr = make([]string, len(genres))
@@ -14,6 +15,11 @@ func (genres Genres) Names() []string {
 		arr[i] = genre.Name
 	}
 	return arr
+}
+
+type GenreMarked struct {
+	Genre
+	Marked bool
 }
 
 type Genre struct {

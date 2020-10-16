@@ -10,6 +10,7 @@ import (
 	"shiki/internal/models"
 	"shiki/internal/score"
 	"shiki/internal/utils"
+	"strconv"
 )
 
 type Scores struct {
@@ -65,7 +66,7 @@ func (usm Scores) Save(path string) error {
 	if path == "" {
 		path = usm.settings.SavePath
 	}
-	file, err := os.OpenFile(path, os.O_WRONLY, 0777)
+	file, err := os.Create(path)
 	if err != nil {
 		return err
 	}
@@ -93,9 +94,10 @@ func (usm *Scores) Fetch(
 	}
 
 	var (
-		min            int32 = 1000
+		min            int32 = 0
 		i              int32
 		cancelledUsers int32 = 0
+		saveName             = "internal/models/users_scores0.json"
 	)
 
 	var newScores = []models.UserScoreMap{}
@@ -123,9 +125,12 @@ func (usm *Scores) Fetch(
 		log.Printf("User loaded %d/%d",
 			i+1-min-cancelledUsers,
 			users-cancelledUsers)
+		if i%10000 == 0 {
+			saveName = "internal/models/users_scores" + strconv.Itoa(int(i)) + ".json"
+		}
 		if i%10 == 0 {
 			usm.UsersScoreMap = newScores
-			err = usm.Save("")
+			err = usm.Save(saveName)
 			if err != nil {
 				done <- err
 				return

@@ -19,7 +19,7 @@ func DefaultWeigts() Weigts {
 		Episodes: 3,
 		Duration: 2,
 		Rating:   5,
-		Year:     0.02,
+		Year:     0.05,
 		Ongoing:  5,
 		Studio:   3,
 		Genre:    10,

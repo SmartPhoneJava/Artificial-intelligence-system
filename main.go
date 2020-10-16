@@ -3,13 +3,15 @@ package main
 import (
 	"context"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
-	"github.com/go-echarts/go-echarts/charts"
 	"github.com/gorilla/mux"
+	"gonum.org/v1/gonum/floats"
 
 	"shiki/internal/anime"
 	"shiki/internal/anime/compare"
@@ -31,12 +33,10 @@ const (
 	ClientSecret = "3ac12dfd95d24dba4ed581f9e47f0ea84bc4d9ed64a9c486be9de0cd0b55b726"
 
 	Addr         = ":2997"
-	ReadTimeout  = time.Second * 3600
-	WriteTimeout = time.Second * 3600
-	IdleTimeout  = time.Second * 3600
+	ReadTimeout  = time.Hour * 3600
+	WriteTimeout = time.Hour * 3600
+	IdleTimeout  = time.Hour * 3600
 )
-
-var Settings = page.Settings
 
 var Token = shikimori.TokenResponse{
 	AccessToken:  "l5xR_Nl-tt4FdT_WX5sxLXnSCQ21B7JPQbI_QjRAYrw",
@@ -56,32 +56,53 @@ func main() {
 		log.Fatal(err)
 	}
 
-	var dists compare.AnimeAllDistances
-
 	var scores = fs.NewScores(api, models.DefaultScoreSettings())
 	err = scores.Load("internal/models/users_scores.json")
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	genres, err := models.NewGenres("internal/models/genres.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var Settings = page.NewPageSettings(genres)
+
 	var myScores = models.NewUserScoreMap(nil)
 
-	router(api, animes, dists, scores, myScores)
+	router(api, animes, scores, myScores, Settings)
 }
 
 func router(
 	API shikimori.Api,
 	ANIMES anime.AnimesUseCase,
-	DISTS compare.AnimeAllDistances,
 	SCORES score.UseCase,
 	myScores models.UserScoreMap,
+	Settings *page.PageSettings,
 ) {
 	r := mux.NewRouter()
 
-	var tpl, err = template.ParseFiles("index.html")
+	file, err := os.Open("index.html")
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer func() {
+		if err = file.Close(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	b, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var dists = compare.AnimeAllDistances{Ec: true}
+
+	tpl := template.Must(template.New("item.html").
+		Funcs(template.FuncMap{"mul": Mul}).
+		Parse(string(b)))
 
 	r.HandleFunc("/",
 		func(w http.ResponseWriter, r *http.Request) {
@@ -103,7 +124,7 @@ func router(
 						recomendI = recommend.NewContentOriented(
 							ANIMES.Animes(),
 							myScores,
-							nil,
+							&Settings.SearchSettings.Weights,
 						)
 					}
 					animes, err := recomendI.Recommend()
@@ -116,7 +137,26 @@ func router(
 					break
 				}
 			case page.Compare:
-				local = anime.NewAnimes(API, DISTS.Animes())
+				var (
+					animeModels   = ANIMES.Animes()
+					comparator    = compare.NewAnimeComparator(animeModels, &Settings.SearchSettings.Weights)
+					comparedID    = Settings.CompareWith
+					comparedAnime = models.Anime{}
+				)
+
+				if comparedID != 0 {
+					comparedAnime, _ = ANIMES.FindAnimeByID(int32(comparedID))
+				} else {
+					comparedAnime = animeModels[0]
+				}
+				dists = compare.NewAnimeAllDistances(
+					comparedAnime,
+					comparator.DistanceAll(comparedAnime).Animes(),
+				)
+
+				dists.SetFilter(Settings.CompareType)
+				log.Println("animes len", len(dists.Animes()))
+				local = anime.NewAnimes(API, dists.Animes())
 				break
 			case page.Fav:
 				local = anime.NewAnimes(API, ANIMES.UserAnimes(myScores))
@@ -126,14 +166,18 @@ func router(
 			local.MarkMine(myScores)
 			animesFound := local.FindAnimes(Settings.Search)
 
+			var animesFiltered, errText = animesFound.Filter(Settings.SearchSettings)
+
 			tpl.Execute(w, struct {
 				Animes    models.Animes
 				Page      page.PageSettings
 				Distances compare.AnimeAllDistances
+				ErrText   string
 			}{
-				Animes:    animesFound.Top(30),
+				Animes:    animesFiltered.Top(30),
 				Page:      *Settings,
-				Distances: DISTS,
+				Distances: dists,
+				ErrText:   errText,
 			})
 		})
 	r.HandleFunc("/tab_catalog",
@@ -155,25 +199,18 @@ func router(
 	r.HandleFunc("/tab_compare",
 		func(w http.ResponseWriter, r *http.Request) {
 			Settings.SetTabs(page.TabCompare)
-			var (
-				animeModels = ANIMES.Animes()
-				comparator  = compare.NewAnimeComparator(animeModels, nil)
-			)
 
-			DISTS = comparator.DistanceAll(animeModels[0], true)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/set",
 		func(w http.ResponseWriter, r *http.Request) {
 			if Settings.Tabs.IsCompare {
 				compareType := r.URL.Query().Get("compare")
-				DISTS.SetFilter(compareType)
+
+				Settings.CompareType = compareType
 			}
 			for k, v := range r.URL.Query() {
 				switch k {
-				case "tag":
-					Settings.Tag = v[0]
-					break
 				case "search":
 					Settings.Search = v[0]
 					break
@@ -192,7 +229,123 @@ func router(
 						Settings.Recommend.Percent = f
 					}
 					break
-
+				case "extended":
+					Settings.ExtraSearch = !Settings.ExtraSearch
+					break
+				case "profi":
+					Settings.Recommend.WithUserWeights = !Settings.Recommend.WithUserWeights
+					break
+				case "genres":
+					Settings.SearchSettings.SwapGenre(v[0])
+					break
+				case "kind":
+					Settings.SearchSettings.SwapKind(v[0])
+					break
+				case "oldrating":
+					Settings.SearchSettings.SwapOldRating(v[0])
+					break
+				case "min-year":
+					f, err := strconv.Atoi(v[0])
+					if err == nil {
+						Settings.SearchSettings.MinYear = f
+					}
+					break
+				case "max-year":
+					f, err := strconv.Atoi(v[0])
+					if err == nil {
+						Settings.SearchSettings.MaxYear = f
+					}
+					break
+				case "min-episodes":
+					f, err := strconv.Atoi(v[0])
+					if err == nil {
+						Settings.SearchSettings.MinEpisodes = f
+					}
+					break
+				case "max-episodes":
+					f, err := strconv.Atoi(v[0])
+					if err == nil {
+						Settings.SearchSettings.MaxEpisodes = f
+					}
+					break
+				case "min-duration":
+					f, err := strconv.Atoi(v[0])
+					if err == nil {
+						Settings.SearchSettings.MinDuration = f
+					}
+					break
+				case "max-duration":
+					f, err := strconv.Atoi(v[0])
+					if err == nil {
+						Settings.SearchSettings.MaxDuration = f
+					}
+					break
+				case "min-rating":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.MinRating = f
+					}
+					break
+				case "max-rating":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.MaxRating = f
+					}
+					break
+				case "wkind":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.Weights.Kind = f
+					}
+					break
+				case "wscore":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.Weights.Score = f
+					}
+					break
+				case "wepisodes":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.Weights.Episodes = f
+					}
+					break
+				case "wduration":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.Weights.Duration = f
+					}
+					break
+				case "wrating":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.Weights.Rating = f
+					}
+					break
+				case "wyear":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.Weights.Year = f
+					}
+					break
+				case "wongoing":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.Weights.Ongoing = f
+					}
+					break
+				case "wstudio":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.Weights.Studio = f
+					}
+					break
+				case "wgenre":
+					f, err := strconv.ParseFloat(v[0], 64)
+					if err == nil {
+						Settings.SearchSettings.Weights.Genre = f
+					}
+					break
 				}
 
 			}
@@ -229,6 +382,11 @@ func router(
 
 			myScores.Remove(id)
 
+			http.Redirect(w, r, "/", http.StatusSeeOther)
+		})
+	r.HandleFunc("/favourite_remove_all",
+		func(w http.ResponseWriter, r *http.Request) {
+			myScores.RemoveAll()
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/update",
@@ -306,118 +464,12 @@ func router(
 	r.HandleFunc("/graph_visual",
 		func(w http.ResponseWriter, r *http.Request) {
 
-			graph := charts.NewGraph()
-			graph.SetGlobalOptions(
-				charts.ColorOpts{"green", "red", "blue"},
-				charts.TitleOpts{
-					Title: "Вернуться назад",
-					Link:  "/",
-				},
-				charts.LegendOpts{Right: "20%"},
-				charts.ToolboxOpts{Show: true},
-				charts.InitOpts{
-					PageTitle: "Визуализация классификации аниме",
-					Width:     "720px", Height: "750px",
-					BackgroundColor: "#f5f5dc"},
-				// charts.DataZoomOpts{XAxisIndex: []int{0}, Start: 50, End: 100},
-			)
-
-			var eadoc, err = eatree.NewEdoc("assets/res/cats_40.graphml")
+			graph, err := eatree.NewChartsGraph("assets/res/cats_40.graphml")
 			if err != nil {
-				log.Fatal(err)
-			}
-			graphNodes := make([]charts.GraphNode, 0)
-			graphLinks := make([]charts.GraphLink, 0)
-
-			var chooseColor = func(v int) string {
-				switch v {
-				case 1:
-					return "brown"
-				case 2:
-					return "orange"
-				case 3:
-					return "blue"
-				case 4:
-					return "green"
-				case 5:
-					return "red"
-				}
-				return "black"
+				log.Fatal("/graph_visual", err)
 			}
 
-			var chooseForm = func(v int) string {
-				// switch v {
-				// case 1:
-				// 	return "pin"
-				// case 2:
-				// 	return "rect"
-				// case 3:
-				// 	return "roundRect"
-				// case 4:
-				// 	return "diamond"
-				// case 5:
-				// 	return "triangle"
-				// }
-				return "diamond"
-			}
-
-			var chooseSize = func(v int) interface{} {
-				switch v {
-				case 1:
-					return []int{50, 50}
-				case 2:
-					return []int{40, 40}
-				case 3:
-					return []int{30, 30}
-				case 4:
-					return []int{20, 20}
-				case 5:
-					return []int{15, 15}
-				}
-				return []int{10, 10}
-			}
-
-			var m = make(map[string]bool)
-
-			for _, v := range eadoc.Leaves {
-				ok := true
-				var key = v.NodeID
-
-				for ok {
-					if !m[key] {
-						var depth = eadoc.Tree.Depth(key)
-						graphNodes = append(
-							graphNodes,
-							charts.GraphNode{
-								Name:       key,
-								Symbol:     chooseForm(depth),
-								SymbolSize: chooseSize(depth),
-								ItemStyle: charts.ItemStyleOpts{
-									Color: chooseColor(depth),
-								},
-							})
-					}
-					m[key] = true
-					nods := eadoc.Tree.NodesUp[key]
-					if len(nods) == 0 {
-						break
-					}
-
-					graphLinks = append(graphLinks, charts.GraphLink{Source: nods[0], Target: key})
-					key = nods[0]
-				}
-			}
-
-			graph.Add("graph", graphNodes, graphLinks,
-				charts.GraphOpts{Roam: true, FocusNodeAdjacency: true, Force: charts.GraphForce{
-					Repulsion: 100,
-				}},
-				charts.EmphasisOpts{Label: charts.LabelTextOpts{Show: true, Position: "left", Color: "black"},
-					ItemStyle: charts.ItemStyleOpts{Color: "yellow"}},
-				charts.LineStyleOpts{Curveness: 0.2})
-
-			err = graph.Render(w)
-			if err != nil {
+			if err = graph.Render(w); err != nil {
 				log.Println(err)
 			}
 		})
@@ -431,9 +483,9 @@ func router(
 			}
 
 			Settings.SetTabs("Сравнение")
-			var comparator = compare.NewAnimeComparator(ANIMES.Animes(), nil)
 
-			DISTS = comparator.DistanceAll(ANIMES.FindAnimeByID(int32(idInt)))
+			Settings.CompareWith = idInt
+
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/users_update",
@@ -441,7 +493,7 @@ func router(
 
 			done := make(chan error)
 			ctx, _ := context.WithTimeout(r.Context(), ReadTimeout)
-			go SCORES.Fetch(ctx, 1000, done)
+			go SCORES.Fetch(ctx, 740000, done)
 			err = <-done
 			if err != nil {
 				log.Println("users_update err is", err)
@@ -470,4 +522,8 @@ func router(
 	server.ListenAndServe()
 }
 
-/////
+func Mul(param1, param2 float64) float64 {
+	return floats.Round(param1*param2, 3)
+}
+
+///// 473 -> 365

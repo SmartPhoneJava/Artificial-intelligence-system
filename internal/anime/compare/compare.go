@@ -1,18 +1,18 @@
 package compare
 
 import (
-	"fmt"
-	"log"
 	"shiki/internal/amath"
 	"shiki/internal/anime"
 	"shiki/internal/models"
+
+	"gonum.org/v1/gonum/floats"
 )
 
 type AnimeComparator struct {
 	animes   models.Animes
 	settings models.Weigts
 
-	pairs   []amath.Pairs
+	pairs   []ComparedAnime
 	pairFor int32
 }
 
@@ -32,22 +32,20 @@ func NewAnimeComparator(
 	}
 }
 
-func (compare AnimeComparator) toPairs(
-	first, second models.Anime,
-) amath.Pairs {
+func (compare AnimeComparator) toPairs(a, b models.Anime) amath.Pairs {
 	var (
 		pairs    amath.Pairs
 		settings = compare.settings
 	)
-	pairs.AddString(first.Kind, second.Kind, settings.Kind)
-	pairs.Add(first.Scoref, second.Scoref, settings.Score)
-	pairs.AddInt(first.Episodes, second.Episodes, settings.Episodes)
-	pairs.AddInt(first.Duration, second.Duration, settings.Duration)
-	pairs.AddInt(first.RatingI, second.RatingI, settings.Rating)
-	pairs.AddInt(first.Year, second.Year, settings.Year)
-	pairs.AddBool(first.Ongoing, second.Ongoing, settings.Ongoing)
-	pairs.AddSlice(first.Studios.Names(), second.Studios.Names(), settings.Studio)
-	pairs.AddSlice(first.Genres.Names(), second.Genres.Names(), settings.Genre)
+	pairs.AddString(a.Kind, b.Kind, settings.Kind)
+	pairs.Add(a.Scoref, b.Scoref, settings.Score)
+	pairs.AddInt(a.Episodes, b.Episodes, settings.Episodes)
+	pairs.AddInt(a.Duration, b.Duration, settings.Duration)
+	pairs.AddInt(a.RatingI, b.RatingI, settings.Rating)
+	pairs.AddInt(a.Year, b.Year, settings.Year)
+	pairs.AddBool(a.Ongoing, b.Ongoing, settings.Ongoing)
+	pairs.AddSlice(a.Studios, b.Studios, amath.Linear, settings.Studio)
+	pairs.AddSlice(a.Genres, b.Genres, amath.Square, settings.Genre)
 
 	return pairs
 }
@@ -58,107 +56,105 @@ func (compare *AnimeComparator) makePairs(
 	if compare.pairFor == first.ID {
 		return
 	}
-	var pairs = make([]amath.Pairs, 0)
-	for _, a := range compare.animes {
+	var pairs = make([]ComparedAnime, 0)
+	for i, a := range compare.animes {
 		if first.ID != a.ID {
-			pairs = append(pairs, compare.toPairs(first, a))
+			pairs = append(pairs, ComparedAnime{
+				pairs: compare.toPairs(first, a),
+				anime: &compare.animes[i],
+			})
 		}
 	}
 	compare.pairs = pairs
 	compare.pairFor = first.ID
 }
 
-func (compare AnimeComparator) distance(
+// Возвращает массив схожести тайтлов с first
+// first - тайтл, с которым происходит сравнение
+// count - мера близости
+func (compare *AnimeComparator) distance(
 	first models.Anime,
-	count func(p amath.Pairs) float64,
-) AnimeDistances {
-	(&compare).makePairs(first)
+	setter func(a *models.Anime, p amath.Pairs),
+) {
+	compare.makePairs(first)
 
-	//log.Println("compare.animes", compare.animes)
-	log.Println("lens", len(compare.animes), len(compare.pairs))
-	var dists = NewDistances(len(compare.pairs))
-	for i, pair := range compare.pairs {
-		dists.Set(i, count(pair), &compare.animes[i])
+	for _, v := range compare.pairs {
+		setter(v.anime, v.pairs)
 	}
-	return dists
 }
 
-func (compare AnimeComparator) DistanceEuclideanAll(
+func (compare *AnimeComparator) DistanceEuclideanAll(
 	a models.Anime,
-) AnimeDistances {
-	return compare.distance(a,
-		func(p amath.Pairs) float64 { return p.Euclidean() },
-	)
+) *AnimeComparator {
+	compare.distance(a,
+		func(a *models.Anime, p amath.Pairs) {
+			a.E = floats.Round(p.Euclidean(), 3)
+		})
+	return compare
 }
 
-func (compare AnimeComparator) DistanceL1All(
+func (compare *AnimeComparator) DistanceL1All(
 	a models.Anime,
-) AnimeDistances {
-	return compare.distance(a,
-		func(p amath.Pairs) float64 { return p.L1() },
-	)
+) *AnimeComparator {
+	compare.distance(a,
+		func(a *models.Anime, p amath.Pairs) {
+			a.M = floats.Round(p.L1(), 3)
+		})
+	return compare
 }
 
-func (compare AnimeComparator) DistanceChessAll(
+func (compare *AnimeComparator) DistanceChessAll(
 	a models.Anime,
-) AnimeDistances {
-	return compare.distance(a,
-		func(p amath.Pairs) float64 { return p.Chess() },
-	)
+) *AnimeComparator {
+	compare.distance(a,
+		func(a *models.Anime, p amath.Pairs) {
+			a.K = floats.Round(p.Chess(), 3)
+		})
+	return compare
 }
 
-func (compare AnimeComparator) DistanceDiffAll(
+func (compare *AnimeComparator) DistanceDiffAll(
 	a models.Anime,
-) AnimeDistances {
-	return compare.distance(a,
-		func(p amath.Pairs) float64 { return p.Diff() },
-	)
+) *AnimeComparator {
+	compare.distance(a,
+		func(a *models.Anime, p amath.Pairs) {
+			a.D = floats.Round(p.Diff(), 3)
+		})
+	return compare
 }
 
-func (compare AnimeComparator) DistanceCorrelationAll(
+func (compare *AnimeComparator) DistanceCorrelationAll(
 	a models.Anime,
-) AnimeDistances {
-	return compare.distance(a,
-		func(p amath.Pairs) float64 { return p.Correlation() },
-	)
+) *AnimeComparator {
+	compare.distance(a,
+		func(a *models.Anime, p amath.Pairs) {
+			a.C = floats.Round(p.Correlation(), 3)
+		})
+	return compare
 }
 
-func (compare AnimeComparator) DistanceTreeAll(
+func (compare *AnimeComparator) DistanceTreeAll(
 	a models.Anime,
-) AnimeDistances {
-	var dists = NewDistances(len(compare.animes))
-
+) *AnimeComparator {
 	for i, v := range compare.animes {
 		var dif = anime.NewAnime(&a).BranchDiff(v)
-		dists.Set(i, float64(dif), &compare.animes[i])
+		compare.animes[i].T = floats.Round(float64(dif), 3)
 	}
-	return dists
+	return compare
 }
 
-func (compare AnimeComparator) DistanceAll(
+func (compare *AnimeComparator) DistanceAll(
 	a models.Anime,
-	ok bool,
-) AnimeAllDistances {
-	var (
-		e = NewDistances(0)
-		m = NewDistances(0)
-		k = NewDistances(0)
-		c = NewDistances(0)
-		t = NewDistances(0)
-		d = NewDistances(0)
-	)
+) *AnimeComparator {
+	return compare.
+		DistanceEuclideanAll(a).
+		DistanceL1All(a).
+		DistanceCorrelationAll(a).
+		DistanceChessAll(a).
+		DistanceTreeAll(a).
+		DistanceDiffAll(a)
+}
 
-	if ok {
-		fmt.Println("e")
-		e = compare.DistanceEuclideanAll(a)
-		m = compare.DistanceL1All(a)
-		fmt.Println("k")
-		k = compare.DistanceChessAll(a)
-		c = compare.DistanceCorrelationAll(a)
-		fmt.Println("c")
-		t = compare.DistanceTreeAll(a)
-		d = compare.DistanceDiffAll(a)
-		fmt.Println("d")
-	}
-	return NewAnimeAllDistances(a, ok, e, m, k, c, t, d)
+func (compare AnimeComparator) Animes() models.Animes {
+	return compare.animes
 }

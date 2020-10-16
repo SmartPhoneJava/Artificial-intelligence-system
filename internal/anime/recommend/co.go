@@ -1,6 +1,7 @@
 package recommend
 
 import (
+	"log"
 	"shiki/internal/anime/compare"
 	"shiki/internal/models"
 	"sort"
@@ -28,10 +29,26 @@ func NewContentOriented(
 }
 
 func (c *ContentOriented) Recommend() (models.Animes, error) {
-	c.animes = c.myScore.ExceptMine(c.animes)
+
+	// Получаем матрицу похожести A[i,j],
+	// строка - тайтл из просмотренного,
+	// столбец - тайтл, с которым сравниваем
+	// в ячейке мера близости между этими тайтлами
 	var m2m = c.processAllDistances()
+	log.Println("m2m lens", len(m2m))
+
+	// Для каждого тайтла(столбца) получаем средневзвешенное меру близости
+	// Результатом будет мэпа размером как у c.animes
+	// с ключом: ID тайтла, значением: мерой
 	var idWithScore = c.oneAnimeManyDistances(m2m)
+
+	// Нормируем меру близости от 0 до 10
+	// Записываем ее в поле сортировки .D и сортируем
 	c.updateD(idWithScore)
+
+	// убираем просмотренные тайтлы
+	c.animes = c.myScore.ExceptMine(c.animes)
+
 	return c.animes, nil
 }
 
@@ -42,7 +59,7 @@ func (c *ContentOriented) processAllDistances() compare.ComparingAnimes {
 	for id, score := range c.myScore.Scores {
 		for _, anime := range c.animes {
 			if int32(id) == anime.ID {
-				dists := c.compare.DistanceEuclideanAll(anime)
+				dists := c.compare.DistanceEuclideanAll(anime).Animes()
 				m2m = m2m[:len(m2m)+1]
 				m2m[len(m2m)-1] = compare.ComparingAnime{
 					ID:    id,
@@ -61,25 +78,27 @@ func (c *ContentOriented) oneAnimeManyDistances(m2m compare.ComparingAnimes) map
 	var animeDists = make(map[int32]float64, 0)
 	for _, animes := range m2m {
 		for _, danime := range animes.Dists {
-			animeDists[danime.Anime.ID] = danime.D * float64(11-animes.Score)
+			animeDists[danime.ID] = (danime.D + 1) * float64(11-animes.Score)
 		}
 	}
 	return animeDists
 }
 
-func (c *ContentOriented) updateD(mapa map[int32]float64) {
+func (c *ContentOriented) updateD(animeDists map[int32]float64) {
+
 	for i, anime := range c.animes {
-		distance, ok := mapa[anime.ID]
+		distance, ok := animeDists[anime.ID]
 		if ok {
 			c.animes[i].D = distance
+			log.Println("c.animes[i].D", distance)
 		}
+
 	}
 	sort.Sort(c)
 	del := c.animes[len(c.animes)-1].D
 	for i := range c.animes {
 
 		c.animes[i].D = floats.Round(10-c.animes[i].D/del*10, 3)
-
 	}
 }
 
