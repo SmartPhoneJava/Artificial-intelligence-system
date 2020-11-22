@@ -550,6 +550,12 @@
         </div>
         {{end}}
 
+        <div class="tags-flex">
+            <div class="tags">
+                {{ .ErrText}}
+            </div>
+        </div>
+
         {{if .Page.Tabs.IsRec}}{{ if eq .Page.Recommend.Kind "collaborate" }}
         <div class="tags-flex">
             <div class="tags">
@@ -591,7 +597,7 @@
         {{$IsRec := .Page.Tabs.IsRec}}
 
         {{if .Page.Tabs.IsCompare}}
-        
+
         <div class="subheadline linkheadline"><a href="https://shikimori.one/animes/status/ongoing">
                 Эталонный объект
             </a></div>
@@ -698,7 +704,7 @@
         </div>
         {{end}}
 
-        {{ .ErrText}}
+
         <div class="subheadline"><a href="https://shikimori.one/animes/status/ongoing">
                 {{if .Page.Tabs.IsCatalog}}
                 Список доступных тайтлов
