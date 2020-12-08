@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
+
+	"github.com/jinzhu/gorm"
 )
 
 type Genres []Genre
@@ -23,6 +25,7 @@ type GenreMarked struct {
 }
 
 type Genre struct {
+	gorm.Model
 	ID      int32  `json:"id"`
 	Name    string `json:"name"`
 	Russian string `json:"russian"`

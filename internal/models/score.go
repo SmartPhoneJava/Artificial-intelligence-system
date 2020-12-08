@@ -1,5 +1,7 @@
 package models
 
+import "github.com/jinzhu/gorm"
+
 var UsersScores UsersScoreMap
 
 type ScoreSettings struct {
@@ -68,6 +70,7 @@ func NewUserScoreMap(scores Scores) UserScoreMap {
 type Scores []Score
 
 type Score struct {
+	gorm.Model
 	ID         int    `json:"id"`
 	UserID     int    `json:"user_id"`
 	TargetID   int    `json:"target_id"`

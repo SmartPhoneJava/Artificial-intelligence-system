@@ -76,7 +76,8 @@ func (anime *AnimeUC) FetchDetails(UserAgent string) error {
 		return err
 	}
 
-	err = json.Unmarshal(body, anime)
+	log.Println("body is", string(body))
+	err = json.Unmarshal(body, anime.Anime)
 	if err != nil {
 		return err
 	}

@@ -9,6 +9,7 @@ type SearchSettings struct {
 	MinDuration, MaxDuration int
 	MinEpisodes, MaxEpisodes int
 	MinYear, MaxYear         int
+	SmartMode                bool
 }
 
 func (sets SearchSettings) GenresArr() GenresMarked {

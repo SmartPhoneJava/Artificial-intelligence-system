@@ -160,6 +160,7 @@ func saveAnime(
 	if anime.Episodes == 0 {
 		anime.Episodes = 1
 	}
+	log.Println("save i", anime.ID, anime.Description)
 	bytesS, err := json.Marshal(anime)
 	if err != nil {
 		return err

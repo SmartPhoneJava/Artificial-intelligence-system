@@ -16,18 +16,20 @@
         async function setSearchSettings() {
             let j = i;
             setTimeout(() => {
-                console.log("j:" + j + ", i:" + i)
                 if (j == i) {
                     var href = "http://localhost:2997/set?"
                     var rating = $("#rating-range").slider("values")
                     var episodes = $("#episodes-range").slider("values")
                     var years = $("#year-range").slider("values")
                     var duration = $("#duration-range").slider("values")
+                    //var smart_mode = $('.switch-btn')
 
                     href = href + "min-year=" + years[0] + "&max-year=" + years[1] +
                         "&min-episodes=" + episodes[0] + "&max-episodes=" + episodes[1] +
                         "&min-duration=" + duration[0] + "&max-duration=" + duration[1] +
                         "&min-rating=" + rating[0] / 100 + "&max-rating=" + rating[1] / 100
+                    // +
+                    // "&smart-mode=" + $('.switch-btn').attr('data-id')
 
                     i++;
 
@@ -38,14 +40,39 @@
 
         }
 
-        function httpGet(theUrl) {
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", theUrl, false); // false for synchronous request
-            xmlHttp.send(null);
-            return xmlHttp.responseText;
-        }
-        $(function () {
+        // function httpGet(theUrl) {
+        //     var xmlHttp = new XMLHttpRequest();
+        //     xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        //     xmlHttp.send(null);
+        //     return xmlHttp.responseText;
+        // }
+        // $(function () {
+        //     console.log("aaa", $('.switch-btn').attr("data-id"))
+        //     $('.switch-btn').click(function () {
+        //         $(this).toggleClass('switch-on');
+        //         if ($(this).hasClass('switch-on')) {
+        //             $(this).trigger('on.switch');
+        //             $('.switch-btn').attr('data-id', "true");
+        //         } else {
+        //             $(this).trigger('off.switch');
+        //             $('.switch-btn').attr('data-id', "false");
+        //         }
+        //         setSearchSettings()
+        //     });
 
+        //     $(document).ready(function () {
+        //         console.log("looook at", $('.switch-btn').attr('data-id'), $('.switch-btn').attr('data-id') == "true")
+        //         $(this).toggleClass('switch-on');
+        //         if ($('.switch-btn').attr('data-id') == "true") {
+        //             $(this).trigger('on.switch');
+        //             $(this).addClass('switch-on')
+        //         } else {
+        //             $(this).trigger('off.switch');
+        //             $(this).removeClass('on.switch')
+        //         }
+        //     });
+        // });
+        $(function () {
             $("#rating-range").slider({
                 range: true,
                 min: 400,
@@ -134,21 +161,17 @@
                 <div class="glyph-none">Сравнение</div>
                 {{end}}
             </a>
+            <a class="logo-container" href="/tab_smart" title="Шикимори">
+                {{if .Page.Tabs.IsSmart}}
+                <div class="glyph">Ассистент</div>
+                {{else}}
+                <div class="glyph-none">Ассистент</div>
+                {{end}}
+            </a>
 
 
 
-            <div class="global-search" data-autocomplete_anime_url="https://shikimori.one/animes/autocomplete/v2"
-                data-autocomplete_character_url="https://shikimori.one/characters/autocomplete/v2"
-                data-autocomplete_manga_url="https://shikimori.one/mangas/autocomplete/v2"
-                data-autocomplete_person_url="https://shikimori.one/people/autocomplete/v2"
-                data-autocomplete_ranobe_url="https://shikimori.one/ranobe/autocomplete/v2" data-default-mode="anime"
-                data-search_anime_url="https://shikimori.one/animes"
-                data-search_character_url="https://shikimori.one/characters"
-                data-search_manga_url="https://shikimori.one/mangas"
-                data-search_person_url="https://shikimori.one/people"
-                data-search_ranobe_url="https://shikimori.one/ranobe">
-
-
+            <div class="global-search" data-autocomplete_anime_url="https://shikimori.one/animes/autocomplete/v2">
                 <label class="field">
                     <form action="/set" method="GET">
                         <input value="{{.Page.Search}}" name="search" type="text">
@@ -163,6 +186,12 @@
 
             </div>
 
+            <!-- <div class="switch-btn" data-id="{{.Page.SearchSettings.SmartMode}}" style="margin: 10px;"></div>
+
+            <div class="tags">
+                Режим ассистента
+            </div> -->
+
 
         </header>
         {{$Ec := .Distances.Ec}}
@@ -172,6 +201,8 @@
         {{$Cc := .Distances.Cc}}
         {{$Tc := .Distances.Tc}}
 
+
+        {{if not .Page.Tabs.IsSmart}}
         <div class="flex-only">
 
             <div class="block-only">
@@ -246,6 +277,7 @@
 
                 </div>
             </div>
+
             {{if .Page.ExtraSearch}}
             <div class="block-only">
 
@@ -514,6 +546,7 @@
         </div>
 
 
+
         {{if .Page.Tabs.IsRec}}
         <div class="tags-flex">
             <div class="tags">
@@ -713,7 +746,9 @@
                 Список похожих
                 {{end}}
             </a></div>
+
         <div class="container">
+
             {{ range .Animes }}
 
             <div class="anime-container">
@@ -730,6 +765,7 @@
                             </span>
                             {{ end }}
                         </div>
+                        <div style="padding-right: 20px; padding-bottom: 8px;">{{safeHTML .DescriptionHTML}} </div>
 
                         <div class="b-add_to_list planned expanded">
                             <form action="/api/v2/user_rates" data-method="POST" data-remote="true" data-type="json">
@@ -1025,6 +1061,30 @@
               {{ end }}
             </ul>
           </section> -->
+            {{else}}
+            {{ range .Messages }}
+            {{ if .FromSystem }}
+            <div class="container-main">
+                <div class="container-chat">
+                    <img class="chat-img right" src="/assets/boy.jpg" alt="Avatar">
+                    <p>{{.Message}}</p>
+                    <span class="time-right">{{.Time}}</span>
+                </div>
+            </div>
+
+
+            {{ else }}
+            <div class="container-main">
+                <div class=" container-chat darker">
+                    <img class="chat-img" src="/assets/question.jpg" alt="Avatar" class="right">
+                    <p>{{.Message}}</p>
+                    <span class="time-left">{{.Time}}</span>
+                </div>
+            </div>
+            {{ end }}
+            {{ end}}
+
+            {{ end }}
     </main>
 </body>
 

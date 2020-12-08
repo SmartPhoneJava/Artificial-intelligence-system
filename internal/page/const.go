@@ -5,6 +5,7 @@ const CONTENT = "content"
 
 const TabRecomendations = "Рекомендации"
 const TabCatalog = "Каталог"
+const TabSmart = "Ассистент"
 const TabFavourite = "Избранное"
 const TabCompare = "Сравнение"
 

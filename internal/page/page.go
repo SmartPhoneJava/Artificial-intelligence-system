@@ -9,11 +9,12 @@ const (
 	Fav     = "Избранное"
 	Rec     = "Рекомендации"
 	Compare = "Сравнение"
+	Smart   = "Ассистент"
 )
 
 type Tabs struct {
-	CurrentTab                         string
-	IsCatalog, IsFav, IsRec, IsCompare bool
+	CurrentTab                                  string
+	IsCatalog, IsFav, IsRec, IsCompare, IsSmart bool
 }
 
 type Panels struct {
@@ -33,6 +34,7 @@ func NewTabs(tab string) Tabs {
 		IsFav:      tab == Fav,
 		IsRec:      tab == Rec,
 		IsCompare:  tab == Compare,
+		IsSmart:    tab == Smart,
 	}
 }
 

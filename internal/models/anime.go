@@ -1,19 +1,24 @@
 package models
 
-import "gonum.org/v1/gonum/floats"
+import (
+	"github.com/jinzhu/gorm"
+	"gonum.org/v1/gonum/floats"
+)
 
 type Anime struct {
-	ID            int32  `json:"id"`
-	Name          string `json:"name"`
-	Russian       string `json:"russian"`
-	Description   string `json:"description"`
-	URL           string `json:"url"`
-	Status        string `json:"status"`
-	EpisodesAired int    `json:"episodes_aired"`
-	AiredOn       string `json:"aired_on"`
-	ReleasedOn    string `json:"released_on"`
-	Score         string `json:"score"`
-	Rating        string `json:"rating"` //!++
+	gorm.Model
+	ID              int32  `json:"id"`
+	Name            string `json:"name"`
+	Russian         string `json:"russian"`
+	Description     string `json:"description"`
+	DescriptionHTML string `json:"description_html"`
+	URL             string `json:"url"`
+	Status          string `json:"status"`
+	EpisodesAired   int    `json:"episodes_aired"`
+	AiredOn         string `json:"aired_on"`
+	ReleasedOn      string `json:"released_on"`
+	Score           string `json:"score"`
+	Rating          string `json:"rating"` //!++
 
 	Kind     string  `json:"kind"` //!++
 	Scoref   float64 //!+
