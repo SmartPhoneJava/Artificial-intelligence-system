@@ -1,0 +1,98 @@
+{{define "anime_info"}}
+<div class="cc-info">
+	<div class="cc">
+		<div class="c-info-left">
+			<div class="subheadline">Информация</div>
+			<div class="block">
+				<div class="b-entry-info">
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Тип:</div>
+							<div class="value">{{.Kind}}</div>
+						</div>
+					</div>
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Эпизоды:</div>
+							<div class="value">
+								<span itemprop="duration">{{.Episodes}} серий по {{.Duration}} мин.</span>
+							</div>
+						</div>
+					</div>
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Рейтинг:</div>
+							<div class="value"><span itemprop="duration">{{.Score}}</span></div>
+						</div>
+					</div>
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Статус:</div>
+							<div class="value">
+								<span class="b-anime_status_tag released" data-text="{{.Status}}"></span>&nbsp;{{.Year}}
+								г.
+							</div>
+						</div>
+					</div>
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Жанры:</div>
+							<div class="value">
+								{{ range .Genres}}
+								<a
+									class="b-tag"
+									data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
+									data-predelay="350"
+									href="https://shikimori.one/animes/genre/2-Adventure"
+									><span class="genre-en"> {{ .Russian}}</span
+									><span class="genre-ru" data-text="Приключения"></span>
+								</a>
+								{{ end}}
+							</div>
+						</div>
+
+						<div class="line-container">
+							<div class="line">
+								<div class="key">Рейтинг:</div>
+								<div class="value">
+									<span
+										class="b-tooltipped dotted mobile"
+										data-direction="right"
+										original-title="G - Нет возрастных ограничений"
+										>{{.Rating}}</span
+									>
+								</div>
+							</div>
+						</div>
+						<div class="line-container">
+							<div class="line">
+								<div class="key">Студии:</div>
+								<div class="value">
+									<span
+										class="other-names"
+										data-clickloaded-url="https://shikimori.one/animes/32622-hello-kitty-no-oyayubi-hime/other_names"
+										data-dynamic="clickloaded"
+										><span
+											>{{range .Studios}}
+
+											<a
+												class="b-tag"
+												data-href="https://shikimori.one/moderations/genres/2-Adventure/tooltip"
+												data-predelay="350"
+												href="https://shikimori.one/animes/genre/2-Adventure"
+												><span class="genre-en"> {{.Name}}</span
+												><span class="genre-ru" data-text="ыыы"></span>
+											</a>
+											{{end}}</span
+										></span
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{end}}

@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/beevik/etree"
 
@@ -36,6 +37,13 @@ func NewAnimes(api shikimori.Api, m models.Animes) AnimesUseCase {
 	var auc = new(AnimesUC)
 	auc.init(m)
 	auc.api = api
+	return auc
+}
+
+func NewAnimesNoApi(m models.Animes) AnimesUseCase {
+	var auc = new(AnimesUC)
+	auc.init(m)
+	auc.api = shikimori.NewApi("", "", "", false, time.Hour)
 	return auc
 }
 
@@ -85,14 +93,16 @@ func (auc AnimesUC) FindAnimes(
 	return arr
 }
 
+// FindAnimeByName найти аниме по названию
 func (auc AnimesUC) FindAnimeByName(
 	name string,
 ) (models.Anime, bool) {
 	if name == "" {
 		return models.Anime{}, false
 	}
+	name = strings.TrimSpace(strings.ToLower(name))
 	for _, anime := range auc.m {
-		if anime.Name == name || anime.Russian == name {
+		if anime.SameName(name) {
 			return anime, true
 		}
 	}

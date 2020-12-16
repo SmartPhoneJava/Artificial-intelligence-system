@@ -1,0 +1,20 @@
+{{define "branch"}}
+     <div class="b-breadcrumbs">
+        {{ range . }}
+        <span 
+            itemscope="" 
+            itemtype="http://data-vocabulary.org/Breadcrumb"
+        >
+                <a 
+                    class="b-link"
+                    href="https://shikimori.one/animes" 
+                    itemprop="url" title="Аниме"
+                >
+                    <span itemprop="title"> 
+                        {{ . }}
+                    </span>
+                </a>
+        </span>
+        {{ end }}
+    </div>
+{{end}}

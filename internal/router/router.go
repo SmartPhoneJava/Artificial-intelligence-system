@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"html/template"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -14,6 +13,7 @@ import (
 	"shiki/internal/anime/recommend"
 	"shiki/internal/anime/shikimori"
 	"shiki/internal/anime/tree"
+	"shiki/internal/atemplate"
 	"shiki/internal/dialog"
 	"shiki/internal/graphml"
 	"shiki/internal/models"
@@ -55,21 +55,47 @@ func New(
 		}
 	}()
 
-	b, err := ioutil.ReadAll(file)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// b, err := ioutil.ReadAll(file)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	var dists = compare.AnimeAllDistances{Ec: true}
 
+	// tmpl := make(map[string]*template.Template)
+	// tmpl["index.html"] = template.Must(template.ParseFiles("branch.tmpl", "index.html"))
+	//tpl := template.Must(template.ParseFiles("index.html", "home.html"))
 	tpl := template.Must(template.New("item.html").
 		Funcs(template.FuncMap{
 			"mul": Mul,
 			"safeHTML": func(s interface{}) template.HTML {
 				return template.HTML(fmt.Sprint(s))
 			},
-		}).
-		Parse(string(b)))
+			"ShowBranch": atemplate.ShowBranch,
+		}).ParseFiles(
+		"assets/templates/branch.html",
+		"assets/templates/marks.html",
+		"assets/templates/anime_info.html",
+		"assets/templates/extra-search.html",
+		"home.html",
+		"base.html",
+		"index.html",
+	))
+
+	/*
+				//tmpl["branch.html"] = template.Must(template.ParseFiles("branch.tmpl", "index.html"))
+		tpl := template.New("item.html")
+		tpl = tpl.Funcs(template.FuncMap{
+			"mul": Mul,
+			"safeHTML": func(s interface{}) template.HTML {
+				return template.HTML(fmt.Sprint(s))
+			},
+			"ShowBranch": atemplate.ShowBranch,
+		})
+		tpl = template.Must(tpl.ParseFiles("index.html", "branch.tmpl"))
+
+
+	*/
 
 	r.HandleFunc("/",
 		func(w http.ResponseWriter, r *http.Request) {
@@ -136,7 +162,7 @@ func New(
 
 			var animesFiltered, errText = animesFound.Filter(Settings.SearchSettings)
 
-			tpl.Execute(w, struct {
+			tpl.ExecuteTemplate(w, "base", struct {
 				Animes    models.Animes
 				Page      page.PageSettings
 				Distances compare.AnimeAllDistances
@@ -179,171 +205,15 @@ func New(
 
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
-	r.HandleFunc("/set",
-		func(w http.ResponseWriter, r *http.Request) {
-
-			if Settings.Tabs.IsCompare {
-				compareType := r.URL.Query().Get("compare")
-
-				Settings.CompareType = compareType
-			}
-			for k, v := range r.URL.Query() {
-				switch k {
-				case "search":
-					if Settings.Tabs.CurrentTab == page.Smart {
-						(&Messages).Add(v[0], false)
-						if v[0] != "" {
-							toDialog <- v[0]
-							var response = <-fromDialog
-							msg := handleResponse(response, ANIMES)
-							(&Messages).Add(msg, true)
-						}
-					} else {
-						Settings.Search = v[0]
-					}
-					break
-				case "rectype":
-					Settings.Recommend.Kind = v[0]
-					break
-				case "users":
-					i, err := strconv.Atoi(v[0])
-					if err == nil {
-						Settings.Recommend.Users = i
-					}
-					break
-				case "percent":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.Recommend.Percent = f
-					}
-					break
-				case "extended":
-					Settings.ExtraSearch = !Settings.ExtraSearch
-					break
-				case "profi":
-					Settings.Recommend.WithUserWeights = !Settings.Recommend.WithUserWeights
-					break
-				case "genres":
-					Settings.SearchSettings.SwapGenre(v[0])
-					break
-				case "kind":
-					Settings.SearchSettings.SwapKind(v[0])
-					break
-				case "oldrating":
-					Settings.SearchSettings.SwapOldRating(v[0])
-					break
-				case "min-year":
-					f, err := strconv.Atoi(v[0])
-					if err == nil {
-						Settings.SearchSettings.MinYear = f
-					}
-					break
-				case "max-year":
-					f, err := strconv.Atoi(v[0])
-					if err == nil {
-						Settings.SearchSettings.MaxYear = f
-					}
-					break
-				case "min-episodes":
-					f, err := strconv.Atoi(v[0])
-					if err == nil {
-						Settings.SearchSettings.MinEpisodes = f
-					}
-					break
-				case "max-episodes":
-					f, err := strconv.Atoi(v[0])
-					if err == nil {
-						Settings.SearchSettings.MaxEpisodes = f
-					}
-					break
-				case "smart-mode":
-					log.Println("smart-mode", v[0] == "true")
-					Settings.SearchSettings.SmartMode = v[0] == "true"
-					break
-				case "min-duration":
-					f, err := strconv.Atoi(v[0])
-					if err == nil {
-						Settings.SearchSettings.MinDuration = f
-					}
-					break
-				case "max-duration":
-					f, err := strconv.Atoi(v[0])
-					if err == nil {
-						Settings.SearchSettings.MaxDuration = f
-					}
-					break
-				case "min-rating":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.MinRating = f
-					}
-					break
-				case "max-rating":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.MaxRating = f
-					}
-					break
-				case "wkind":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.Weights.Kind = f
-					}
-					break
-				case "wscore":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.Weights.Score = f
-					}
-					break
-				case "wepisodes":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.Weights.Episodes = f
-					}
-					break
-				case "wduration":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.Weights.Duration = f
-					}
-					break
-				case "wrating":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.Weights.Rating = f
-					}
-					break
-				case "wyear":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.Weights.Year = f
-					}
-					break
-				case "wongoing":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.Weights.Ongoing = f
-					}
-					break
-				case "wstudio":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.Weights.Studio = f
-					}
-					break
-				case "wgenre":
-					f, err := strconv.ParseFloat(v[0], 64)
-					if err == nil {
-						Settings.SearchSettings.Weights.Genre = f
-					}
-					break
-				}
-
-			}
-
-			http.Redirect(w, r, "/", http.StatusSeeOther)
-		})
+	r.HandleFunc("/set", routeSet(
+		ANIMES,
+		myScores,
+		SCORES,
+		Settings,
+		&Messages,
+		toDialog,
+		fromDialog,
+	))
 	r.HandleFunc("/favourite_add",
 		func(w http.ResponseWriter, r *http.Request) {
 			id, err := utils.RequestInt(r, "id")
@@ -514,24 +384,170 @@ func Mul(param1, param2 float64) float64 {
 	return floats.Round(param1*param2, 3)
 }
 
-func handleResponse(
-	response dialog.NLPResponse,
+func routeSet(
 	animes anime.AnimesUseCase,
-) string {
-	var msg string
-	if response.Confidence > 0.5 {
-		switch response.Intent {
-		case "Узнать описание":
-			anime, found := animes.FindAnimeByName(response.Entities["title_name"])
-			if !found {
-				msg = "Нямпасу, нам не удалось ничего найти :С"
-			} else {
-				msg = "Описание аниме(" + anime.Name + "):" + anime.Description
+	myScores models.UserScoreMap,
+	allScores score.UseCase,
+	settings *page.PageSettings,
+	messages *dialog.Messages,
+	toDialog chan string,
+	fromDialog chan dialog.NLPResponse,
+) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if settings.Tabs.IsCompare {
+			compareType := r.URL.Query().Get("compare")
+
+			settings.CompareType = compareType
+		}
+		for k, v := range r.URL.Query() {
+			switch k {
+			case "search":
+				if settings.Tabs.CurrentTab == page.Smart {
+					messages.Add(v[0], false)
+					if v[0] != "" {
+						toDialog <- v[0]
+						var response = <-fromDialog
+						msg, isObjectIntent := dialog.HandleResponseText(
+							response,
+							animes,
+							myScores,
+						)
+
+						if isObjectIntent {
+							obj, err := dialog.HandleResponseObjects(
+								response,
+								animes,
+								myScores,
+								allScores,
+								settings.SearchSettings.Genres,
+							)
+							if err != nil {
+								log.Println("Err in isObjectIntent", err.Error())
+								messages.Add("Извини, кажется я не знаю, что тебе ответить, перефразируй своё сообщение пожалуйста.", true)
+							} else {
+								messages.AddWithAnime(obj.Message, obj.Animes)
+							}
+						} else {
+							messages.Add(msg, true)
+						}
+					}
+				} else {
+					settings.Search = v[0]
+				}
+			case "rectype":
+				settings.Recommend.Kind = v[0]
+			case "users":
+				i, err := strconv.Atoi(v[0])
+				if err == nil {
+					settings.Recommend.Users = i
+				}
+			case "percent":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.Recommend.Percent = f
+				}
+			case "extended":
+				settings.ExtraSearch = !settings.ExtraSearch
+			case "profi":
+				settings.Recommend.WithUserWeights = !settings.Recommend.WithUserWeights
+			case "genres":
+				settings.SearchSettings.SwapGenre(v[0])
+			case "kind":
+				settings.SearchSettings.SwapKind(v[0])
+			case "oldrating":
+				settings.SearchSettings.SwapOldRating(v[0])
+			case "min-year":
+				f, err := strconv.Atoi(v[0])
+				if err == nil {
+					settings.SearchSettings.MinYear = f
+				}
+			case "max-year":
+				f, err := strconv.Atoi(v[0])
+				if err == nil {
+					settings.SearchSettings.MaxYear = f
+				}
+			case "min-episodes":
+				f, err := strconv.Atoi(v[0])
+				if err == nil {
+					settings.SearchSettings.MinEpisodes = f
+				}
+			case "max-episodes":
+				f, err := strconv.Atoi(v[0])
+				if err == nil {
+					settings.SearchSettings.MaxEpisodes = f
+				}
+			case "smart-mode":
+				log.Println("smart-mode", v[0] == "true")
+				settings.SearchSettings.SmartMode = v[0] == "true"
+			case "min-duration":
+				f, err := strconv.Atoi(v[0])
+				if err == nil {
+					settings.SearchSettings.MinDuration = f
+				}
+			case "max-duration":
+				f, err := strconv.Atoi(v[0])
+				if err == nil {
+					settings.SearchSettings.MaxDuration = f
+				}
+			case "min-rating":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.MinRating = f
+				}
+			case "max-rating":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.MaxRating = f
+				}
+			case "wkind":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.Weights.Kind = f
+				}
+			case "wscore":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.Weights.Score = f
+				}
+			case "wepisodes":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.Weights.Episodes = f
+				}
+			case "wduration":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.Weights.Duration = f
+				}
+			case "wrating":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.Weights.Rating = f
+				}
+			case "wyear":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.Weights.Year = f
+				}
+			case "wongoing":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.Weights.Ongoing = f
+				}
+			case "wstudio":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.Weights.Studio = f
+				}
+			case "wgenre":
+				f, err := strconv.ParseFloat(v[0], 64)
+				if err == nil {
+					settings.SearchSettings.Weights.Genre = f
+				}
 			}
-		default:
-			msg = "Извини, я тебя не понимаю:" + response.Intent
+
 		}
 
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
-	return msg
 }

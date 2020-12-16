@@ -10,6 +10,7 @@ require (
 	github.com/golang/protobuf v1.4.3
 	github.com/gorilla/mux v1.8.0
 	github.com/jinzhu/gorm v1.9.16
+	github.com/swaggo/swag/example/celler v0.0.0-20201207022938-a4053fb64d1f // indirect
 	golang.org/x/exp v0.0.0-20200924195034-c827fd4f18b9 // indirect
 	gonum.org/v1/gonum v0.8.1
 	google.golang.org/api v0.35.0

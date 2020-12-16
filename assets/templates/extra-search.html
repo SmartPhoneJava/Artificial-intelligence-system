@@ -1,0 +1,49 @@
+{{define "extra-search"}}
+<div class="block-only">
+	<div class="ranger-block">
+		<div class="ranger-header">
+			<div class="block-only">
+				<div class="padding-top">
+					Кликай по тегам, чтобы сделать их пассивными/активными. Поиск учитывает только активные пункты.
+				</div>
+			</div>
+		</div>
+
+		Тип
+
+		<div class="tags-flex1">
+			<div class="tags">
+				{{ range .Kind }} {{if .Marked}}
+				<a href="/set?kind={{.Value}}" class="b-anime_status_tag other other-active">{{.Value}}</a>
+				{{ else }}
+				<a href="/set?kind={{.Value}}" class="b-anime_status_tag other other-passive">{{.Value}}</a>
+				{{ end }} {{ end }}
+			</div>
+		</div>
+
+		Возрастной рейтинг:
+
+		<div class="tags-flex1">
+			<div class="tags">
+				{{ range .OldRating }} {{if .Marked}}
+				<a href="/set?oldrating={{.Value}}" class="b-anime_status_tag other other-active">{{.Value}}</a>
+				{{ else }}
+				<a href="/set?oldrating={{.Value}}" class="b-anime_status_tag other other-passive">{{.Value}}</a>
+				{{ end }} {{ end }}
+			</div>
+		</div>
+
+		Жанры: {{ range .Genres }}
+		<div class="tags-flex1">
+			<div class="tags">
+				{{ range . }} {{if .Marked}}
+				<a href="/set?genres={{.Name}}" class="b-anime_status_tag other other-active">{{.Russian}}</a>
+				{{ else }}
+				<a href="/set?genres={{.Name}}" class="b-anime_status_tag other other-passive">{{.Russian}}</a>
+				{{ end }} {{ end }}
+			</div>
+		</div>
+		{{ end }}
+	</div>
+</div>
+{{end}}

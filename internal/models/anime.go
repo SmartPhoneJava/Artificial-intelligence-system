@@ -1,6 +1,8 @@
 package models
 
 import (
+	"strings"
+
 	"github.com/jinzhu/gorm"
 	"gonum.org/v1/gonum/floats"
 )
@@ -51,4 +53,9 @@ func (anime *Anime) WithСoefficients(
 	anime.C = floats.Round(C, 4)
 	anime.T = floats.Round(T, 3)
 	anime.D = floats.Round(D, 3)
+}
+
+func (anime Anime) SameName(name string) bool {
+	return strings.ToLower(anime.Name) == name ||
+		strings.ToLower(anime.Russian) == name
 }

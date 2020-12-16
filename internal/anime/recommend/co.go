@@ -35,7 +35,6 @@ func (c *ContentOriented) Recommend() (models.Animes, error) {
 	// столбец - тайтл, с которым сравниваем
 	// в ячейке мера близости между этими тайтлами
 	var m2m = c.processAllDistances()
-	log.Println("m2m lens", len(m2m))
 
 	// Для каждого тайтла(столбца) получаем средневзвешенное меру близости
 	// Результатом будет мэпа размером как у c.animes

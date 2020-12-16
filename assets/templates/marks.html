@@ -1,0 +1,43 @@
+{{define "marks"}} {{$ID := .ID}}
+<div class="b-add_to_list planned expanded">
+	<form action="/api/v2/user_rates" data-method="POST" data-remote="true" data-type="json">
+		<input type="hidden" name="frontend" value="1" /><input
+			type="hidden"
+			name="user_rate[user_id]"
+			value="282817"
+		/><input type="hidden" name="user_rate[target_id]" value="32622" /><input
+			type="hidden"
+			name="user_rate[target_type]"
+			value="Anime"
+		/><input type="hidden" name="user_rate[status]" value="planned" /><input
+			type="hidden"
+			name="user_rate[score]"
+			value="0"
+		/>
+
+		<div class="expanded-options" style="height: 185.966px; display: block">
+			<div class="option add-trigger" data-status="dropped">
+				<div class="text">
+					<a href="/compare?id={{.ID}}" class="status-name" data-text="Найти похожие"></a>
+				</div>
+			</div>
+			<div class="option add-trigger" data-status="dropped">
+				<div class="rating-wrapper">
+					<div class="flex-only">
+						&nbsp;&nbsp;Моя оценка:&nbsp; {{if .IsMine}} {{ range .Scorea }} {{if .V}}
+						<a href="/favourite_remove?id={{$ID}}" class="rating-mine">★</a>
+						{{else}}
+						<a href="/favourite_remove?id={{$ID}}" class="rating-mine">☆</a>
+						{{end}} {{end}} {{ else }} {{ range .Scorea }} {{if .V}}
+						<a href="/favourite_add?id={{$ID}}&score={{.I}}" class="rating-not-mine">★</a>
+						{{else}}
+						<a href="/favourite_add?id={{$ID}}&score={{.I}}" class="rating-not-mine">☆</a>
+
+						{{end}} {{end}} {{end}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+{{end}}
