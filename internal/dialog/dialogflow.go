@@ -59,7 +59,7 @@ func Run(in <-chan string, out chan<- NLPResponse) {
 		log.Fatalf("Err while unmarshalling auth file: %v", err)
 	}
 
-	dp.init(*cert, "animeshiki-84b60-1b87ee34e207.json", "ru", "America/Montevideo")
+	dp.init(*cert, "animeshiki-84b60-1b87ee34e200.json", "ru", "America/Montevideo")
 	TalkWithMe(in, out)
 }
 
