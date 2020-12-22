@@ -1,796 +1,498 @@
 {{define "base"}}
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Рекомендации аниме</title>
+        <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
+        <script>
+            i = 0
+            async function setSearchSettings() {
+                let j = i;
+                setTimeout(() => {
+                    if (j == i) {
+                        var href = "http://localhost:2997/set?"
+                        var rating = $("#rating-range").slider("values")
+                        var episodes = $("#episodes-range").slider("values")
+                        var years = $("#year-range").slider("values")
+                        var duration = $("#duration-range").slider("values")
+                        //var smart_mode = $('.switch-btn')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Рекомендации аниме</title>
-    <link rel="stylesheet" href="/assets/style.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        i = 0
-        async function setSearchSettings() {
-            let j = i;
-            setTimeout(() => {
-                if (j == i) {
-                    var href = "http://localhost:2997/set?"
-                    var rating = $("#rating-range").slider("values")
-                    var episodes = $("#episodes-range").slider("values")
-                    var years = $("#year-range").slider("values")
-                    var duration = $("#duration-range").slider("values")
-                    //var smart_mode = $('.switch-btn')
+                        href = href + "min-year=" + years[0] + "&max-year=" + years[1] +
+                            "&min-episodes=" + episodes[0] + "&max-episodes=" + episodes[1] +
+                            "&min-duration=" + duration[0] + "&max-duration=" + duration[1] +
+                            "&min-rating=" + rating[0] / 100 + "&max-rating=" + rating[1] / 100
+                        // +
+                        // "&smart-mode=" + $('.switch-btn').attr('data-id')
 
-                    href = href + "min-year=" + years[0] + "&max-year=" + years[1] +
-                        "&min-episodes=" + episodes[0] + "&max-episodes=" + episodes[1] +
-                        "&min-duration=" + duration[0] + "&max-duration=" + duration[1] +
-                        "&min-rating=" + rating[0] / 100 + "&max-rating=" + rating[1] / 100
-                    // +
-                    // "&smart-mode=" + $('.switch-btn').attr('data-id')
+                        i++;
 
-                    i++;
+                        httpGet(href)
+                        window.location = '/';
+                    }
+                }, 650);
 
-                    httpGet(href)
-                    window.location = '/';
-                }
-            }, 650);
+            }
 
-        }
+            $(function () {
+                $("#rating-range").slider({
+                    range: true,
+                    min: 400,
+                    max: 1000,
+                    values: [$("#rating-range").attr("vmin") * 100, $("#rating-range").attr("vmax") * 100],
+                    slide: function (event, ui) {
+                        $("#rating").val(ui.values[0] / 100 + " - " + ui.values[1] / 100);
+                        setSearchSettings();
+                    }
+                });
+                $("#rating").val($("#rating-range").slider("values", 0) / 100 +
+                    " - " + $("#rating-range").slider("values", 1) / 100);
 
-        // function httpGet(theUrl) {
-        //     var xmlHttp = new XMLHttpRequest();
-        //     xmlHttp.open("GET", theUrl, false); // false for synchronous request
-        //     xmlHttp.send(null);
-        //     return xmlHttp.responseText;
-        // }
-        // $(function () {
-        //     console.log("aaa", $('.switch-btn').attr("data-id"))
-        //     $('.switch-btn').click(function () {
-        //         $(this).toggleClass('switch-on');
-        //         if ($(this).hasClass('switch-on')) {
-        //             $(this).trigger('on.switch');
-        //             $('.switch-btn').attr('data-id', "true");
-        //         } else {
-        //             $(this).trigger('off.switch');
-        //             $('.switch-btn').attr('data-id', "false");
-        //         }
-        //         setSearchSettings()
-        //     });
+                $("#episodes-range").slider({
+                    range: true,
+                    min: 1,
+                    max: 100,
+                    values: [$("#episodes-range").attr("vmin"), $("#episodes-range").attr("vmax")],
+                    slide: function (event, ui) {
+                        $("#episodes").val(ui.values[0] + " - " + ui.values[1]);
+                        setSearchSettings();
+                    }
+                });
+                $("#episodes").val($("#episodes-range").slider("values", 0) +
+                    " - " + $("#episodes-range").slider("values", 1));
 
-        //     $(document).ready(function () {
-        //         console.log("looook at", $('.switch-btn').attr('data-id'), $('.switch-btn').attr('data-id') == "true")
-        //         $(this).toggleClass('switch-on');
-        //         if ($('.switch-btn').attr('data-id') == "true") {
-        //             $(this).trigger('on.switch');
-        //             $(this).addClass('switch-on')
-        //         } else {
-        //             $(this).trigger('off.switch');
-        //             $(this).removeClass('on.switch')
-        //         }
-        //     });
-        // });
-        $(function () {
-            $("#rating-range").slider({
-                range: true,
-                min: 400,
-                max: 1000,
-                values: [$("#rating-range").attr("vmin") * 100, $("#rating-range").attr("vmax") * 100],
-                slide: function (event, ui) {
-                    $("#rating").val(ui.values[0] / 100 + " - " + ui.values[1] / 100);
-                    setSearchSettings();
-                }
+                $("#year-range").slider({
+                    range: true,
+                    min: 1950,
+                    max: 2020,
+                    values: [$("#year-range").attr("vmin"), $("#year-range").attr("vmax")],
+                    slide: function (event, ui) {
+                        $("#year").val(ui.values[0] + " - " + ui.values[1]);
+                        setSearchSettings();
+                    }
+                });
+                $("#year").val($("#year-range").slider("values", 0) +
+                    " - " + $("#year-range").slider("values", 1));
+
+                $("#duration-range").slider({
+                    range: true,
+                    min: 3,
+                    max: 400,
+                    values: [$("#duration-range").attr("vmin"), $("#duration-range").attr("vmax")],
+                    slide: function (event, ui) {
+                        $("#duration").val(ui.values[0] + " - " + ui.values[1]);
+                        setSearchSettings();
+                    }
+                });
+                $("#duration").val($("#duration-range").slider("values", 0) +
+                    " - " + $("#duration-range").slider("values", 1));
             });
-            $("#rating").val($("#rating-range").slider("values", 0) / 100 +
-                " - " + $("#rating-range").slider("values", 1) / 100);
+        </script>
+    </head>
 
-            $("#episodes-range").slider({
-                range: true,
-                min: 1,
-                max: 100,
-                values: [$("#episodes-range").attr("vmin"), $("#episodes-range").attr("vmax")],
-                slide: function (event, ui) {
-                    $("#episodes").val(ui.values[0] + " - " + ui.values[1]);
-                    setSearchSettings();
-                }
-            });
-            $("#episodes").val($("#episodes-range").slider("values", 0) +
-                " - " + $("#episodes-range").slider("values", 1));
+    <body>
+        <a class="logo-container" href="/" id="dump"> </a>
+        <main>
+            <header class="l-top_menu-v2 is-search-mobile is-search-focus is-search-shade">
+                <a class="logo-container" href="/tab_catalog" title="Шикимори">
+                    {{if .Page.Tabs.IsCatalog}}
+                    <div class="glyph">Каталог</div>
+                    {{else}}
+                    <div class="glyph-none">Каталог</div>
+                    {{end}}
+                </a>
+                <a class="logo-container" href="/tab_favourite" title="Шикимори">
+                    {{if .Page.Tabs.IsFav}}
+                    <div class="glyph">Избранное</div>
+                    {{else}}
+                    <div class="glyph-none">Избранное</div>
+                    {{end}}
 
-            $("#year-range").slider({
-                range: true,
-                min: 1950,
-                max: 2020,
-                values: [$("#year-range").attr("vmin"), $("#year-range").attr("vmax")],
-                slide: function (event, ui) {
-                    $("#year").val(ui.values[0] + " - " + ui.values[1]);
-                    setSearchSettings();
-                }
-            });
-            $("#year").val($("#year-range").slider("values", 0) +
-                " - " + $("#year-range").slider("values", 1));
+                </a>
+                <a class="logo-container" href="/tab_recomend" title="Шикимори">
+                    {{if .Page.Tabs.IsRec}}
+                    <div class="glyph">Рекомендации</div>
+                    {{else}}
+                    <div class="glyph-none">Рекомендации</div>
+                    {{end}}
+                </a>
+                <a class="logo-container" href="/tab_compare" title="Шикимори">
+                    {{if .Page.Tabs.IsCompare}}
+                    <div class="glyph">Сравнение</div>
+                    {{else}}
+                    <div class="glyph-none">Сравнение</div>
+                    {{end}}
+                </a>
+                <a class="logo-container" href="/tab_smart" title="Шикимори">
+                    {{if .Page.Tabs.IsSmart}}
+                    <div class="glyph">Ассистент</div>
+                    {{else}}
+                    <div class="glyph-none">Ассистент</div>
+                    {{end}}
+                </a>
 
-            $("#duration-range").slider({
-                range: true,
-                min: 3,
-                max: 400,
-                values: [$("#duration-range").attr("vmin"), $("#duration-range").attr("vmax")],
-                slide: function (event, ui) {
-                    $("#duration").val(ui.values[0] + " - " + ui.values[1]);
-                    setSearchSettings();
-                }
-            });
-            $("#duration").val($("#duration-range").slider("values", 0) +
-                " - " + $("#duration-range").slider("values", 1));
-        });
-    </script>
-</head>
+                <div class="global-search" data-autocomplete_anime_url="https://shikimori.one/animes/autocomplete/v2">
+                    <label class="field">
+                        <form action="/set" method="GET">
+                            <input value="{{.Page.Search}}" name="search" type="text">
 
-<body>
-{{template "head" .}}
-{{template "body" .}}
-    <a class="logo-container" href="/" id="dump"> </a>
-    <main>
-        <header class="l-top_menu-v2 is-search-mobile is-search-focus is-search-shade">
-            <a class="logo-container" href="/tab_catalog" title="Шикимори">
-                {{if .Page.Tabs.IsCatalog}}
-                <div class="glyph">Каталог</div>
-                {{else}}
-                <div class="glyph-none">Каталог</div>
-                {{end}}
-            </a>
-            <a class="logo-container" href="/tab_favourite" title="Шикимори">
-                {{if .Page.Tabs.IsFav}}
-                <div class="glyph">Избранное</div>
-                {{else}}
-                <div class="glyph-none">Избранное</div>
-                {{end}}
+                        </form>
+                        <span class="clear" tabindex="-1"></span>
+                        <span class="hotkey-marker">
+                        </span>
+                        <span class="search-marker"></span>
 
-            </a>
-            <a class="logo-container" href="/tab_recomend" title="Шикимори">
-                {{if .Page.Tabs.IsRec}}
-                <div class="glyph">Рекомендации</div>
-                {{else}}
-                <div class="glyph-none">Рекомендации</div>
-                {{end}}
-            </a>
-            <a class="logo-container" href="/tab_compare" title="Шикимори">
-                {{if .Page.Tabs.IsCompare}}
-                <div class="glyph">Сравнение</div>
-                {{else}}
-                <div class="glyph-none">Сравнение</div>
-                {{end}}
-            </a>
-            <a class="logo-container" href="/tab_smart" title="Шикимори">
-                {{if .Page.Tabs.IsSmart}}
-                <div class="glyph">Ассистент</div>
-                {{else}}
-                <div class="glyph-none">Ассистент</div>
-                {{end}}
-            </a>
+                    </label>
+
+                </div>
+
+                <!-- <div class="switch-btn" data-id="{{.Page.SearchSettings.SmartMode}}" style="margin: 10px;"></div>
+
+                <div class="tags">
+                    Режим ассистента
+                </div> -->
 
 
+            </header>
 
-            <div class="global-search" data-autocomplete_anime_url="https://shikimori.one/animes/autocomplete/v2">
-                <label class="field">
-                    <form action="/set" method="GET">
-                        <input value="{{.Page.Search}}" name="search" type="text">
-
-                    </form>
-                    <span class="clear" tabindex="-1"></span>
-                    <span class="hotkey-marker">
-                    </span>
-                    <span class="search-marker"></span>
-
-                </label>
-
-            </div>
-
-            <!-- <div class="switch-btn" data-id="{{.Page.SearchSettings.SmartMode}}" style="margin: 10px;"></div>
-
-            <div class="tags">
-                Режим ассистента
-            </div> -->
-
-
-        </header>
-        {{$Ec := .Distances.Ec}}
-        {{$Mc := .Distances.Mc}}
-        {{$Kc := .Distances.Kc}}
-        {{$Dc := .Distances.Dc}}
-        {{$Cc := .Distances.Cc}}
-        {{$Tc := .Distances.Tc}}
-
-
-        {{if not .Page.Tabs.IsSmart}}
-        <div class="flex-only">
-            <div class="block-only">
-                <div class="ranger-block">
-                    <div class="ranger-header">
-                        <div class="block-only">
-                            {{if .Page.ExtraSearch}}
-                            <a href="/set?extended=1" class="b-anime_status_tag released">
-                                <div class="other-active">Расширенный поиск</div>
-                            </a>
-                            {{else}}
-                            <a href="/set?extended=1" class="b-anime_status_tag released">
-                                <div class="other-passive">Расширенный поиск</div>
-                            </a>
-                            {{end}}
-                            {{if .Page.ExtraSearch}}
-                            <div class="padding-top">
-                                Искать тайтлы в следующих интервалах:
+            {{if not .Page.Tabs.IsSmart}}
+                <div class="flex-only">
+                    <div class="block-only">
+                        <div class="ranger-block">
+                            <div class="ranger-header">
+                                <div class="block-only">
+                                    {{if .Page.ExtraSearch}}
+                                    <a href="/set?extended=1" class="b-anime_status_tag released">
+                                        <div class="other-active">Расширенный поиск</div>
+                                    </a>
+                                    {{else}}
+                                    <a href="/set?extended=1" class="b-anime_status_tag released">
+                                        <div class="other-passive">Расширенный поиск</div>
+                                    </a>
+                                    {{end}}
+                                    {{if .Page.ExtraSearch}}
+                                    <div class="padding-top">
+                                        Искать тайтлы в следующих интервалах:
+                                    </div>
+                                    {{end}}
+                                </div>
                             </div>
+                            {{if .Page.ExtraSearch}}
+
+                            <div class="ranger-inside">
+                                <div class="ranger-inside-name">
+                                    <label for="rating">Рейтинг:</label>
+                                    <input class="ranger-inside-input" type="text" id="rating" readonly
+                                        style="font-weight:bold;">
+                                </div>
+                                <div class="ranger" id="rating-range" vmin="{{.Page.SearchSettings.MinRating}}"
+                                    vmax="{{.Page.SearchSettings.MaxRating}}"></div>
+                            </div>
+
+
+                            <div class="ranger-inside">
+                                <div class="ranger-inside-name">
+                                    <label for="episodes">Количество серий:</label>
+                                    <input class="ranger-inside-input" type="text" id="episodes" readonly
+                                        style="font-weight:bold;">
+                                </div>
+                                <div class="ranger" id="episodes-range" vmin="{{.Page.SearchSettings.MinEpisodes}}"
+                                    vmax="{{.Page.SearchSettings.MaxEpisodes}}"></div>
+                            </div>
+
+                            <div class="ranger-inside">
+                                <div class="ranger-inside-name">
+                                    <label for="duration">Минут в серии:</label>
+                                    <input class="ranger-inside-input" type="text" id="duration" readonly
+                                        style="font-weight:bold;">
+                                </div>
+                                <div class="ranger" id="duration-range" vmin="{{.Page.SearchSettings.MinDuration}}"
+                                    vmax="{{.Page.SearchSettings.MaxDuration}}"></div>
+                            </div>
+
+                            <div class="ranger-inside">
+                                <div class="ranger-inside-name">
+                                    <p>
+                                        <label for="year">Год выпуска:</label>
+                                        <input class="ranger-inside-input" type="text" id="year" readonly
+                                            style=" font-weight:bold;">
+                                </div>
+                                <div class="ranger" id="year-range" vmin="{{.Page.SearchSettings.MinYear}}"
+                                    vmax="{{.Page.SearchSettings.MaxYear}}"></div>
+
+                            </div>
+
                             {{end}}
+
                         </div>
                     </div>
+
                     {{if .Page.ExtraSearch}}
-
-                    <div class="ranger-inside">
-                        <div class="ranger-inside-name">
-                            <label for="rating">Рейтинг:</label>
-                            <input class="ranger-inside-input" type="text" id="rating" readonly
-                                style="font-weight:bold;">
-                        </div>
-                        <div class="ranger" id="rating-range" vmin="{{.Page.SearchSettings.MinRating}}"
-                            vmax="{{.Page.SearchSettings.MaxRating}}"></div>
-                    </div>
-
-
-                    <div class="ranger-inside">
-                        <div class="ranger-inside-name">
-                            <label for="episodes">Количество серий:</label>
-                            <input class="ranger-inside-input" type="text" id="episodes" readonly
-                                style="font-weight:bold;">
-                        </div>
-                        <div class="ranger" id="episodes-range" vmin="{{.Page.SearchSettings.MinEpisodes}}"
-                            vmax="{{.Page.SearchSettings.MaxEpisodes}}"></div>
-                    </div>
-
-                    <div class="ranger-inside">
-                        <div class="ranger-inside-name">
-                            <label for="duration">Минут в серии:</label>
-                            <input class="ranger-inside-input" type="text" id="duration" readonly
-                                style="font-weight:bold;">
-                        </div>
-                        <div class="ranger" id="duration-range" vmin="{{.Page.SearchSettings.MinDuration}}"
-                            vmax="{{.Page.SearchSettings.MaxDuration}}"></div>
-                    </div>
-
-                    <div class="ranger-inside">
-                        <div class="ranger-inside-name">
-                            <p>
-                                <label for="year">Год выпуска:</label>
-                                <input class="ranger-inside-input" type="text" id="year" readonly
-                                    style=" font-weight:bold;">
-                        </div>
-                        <div class="ranger" id="year-range" vmin="{{.Page.SearchSettings.MinYear}}"
-                            vmax="{{.Page.SearchSettings.MaxYear}}"></div>
-
-                    </div>
-
+                        {{ template "extra-search" .Page.SearchSettings }}
                     {{end}}
 
-                </div>
-            </div>
-
-            {{if .Page.ExtraSearch}}
-                 {{ template "extra-search" .Page.SearchSettings }}
-            {{end}}
-
-            <div class="block-only">
-                <div class="ranger-block">
-                    <div class="ranger-header">
-                        <div class="block-only">
+                    <div class="block-only">
+                        <div class="ranger-block">
+                            <div class="ranger-header">
+                                <div class="block-only">
+                                    {{if .Page.Recommend.WithUserWeights}}
+                                    <a href="/set?profi=1" class="b-anime_status_tag released">
+                                        <div class="other-active">Тонкая настройка</div>
+                                    </a>
+                                    {{else}}
+                                    <a href="/set?profi=1" class="b-anime_status_tag released">
+                                        <div class="other-passive">Тонкая настройка</div>
+                                    </a>
+                                    {{end}}
+                                    {{if .Page.Recommend.WithUserWeights}}
+                                    <div class="padding-top">
+                                        Значимость применяемых фильтров:
+                                    </div>
+                                    {{end}}
+                                </div>
+                            </div>
                             {{if .Page.Recommend.WithUserWeights}}
-                            <a href="/set?profi=1" class="b-anime_status_tag released">
-                                <div class="other-active">Тонкая настройка</div>
-                            </a>
+                            <div class="ranger-inside">
+                                <label for="wtype-range">Тип:</label>
+                                <input type="range" id="wtype-range" min="0" max="200"
+                                    value="{{mul .Page.SearchSettings.Weights.Kind 20}}"
+                                    oninput=' $("#wtype").val(this.value/20); httpGet("http://localhost:2997/set?wkind="+this.value/20); window.location = "/";'>
+                                <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Kind}}" type="text"
+                                    id="wtype">
+                            </div>
+
+                            <div class="ranger-inside">
+                                <label for="wscore-range">Средняя оценка:</label>
+                                <input type="range" id="wscore-range" min="0" max="200"
+                                    value="{{mul .Page.SearchSettings.Weights.Score 20}}"
+                                    oninput=' $("#wscore").val(this.value/20); httpGet("http://localhost:2997/set?wscore="+this.value/20); window.location = "/";'>
+                                <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Score}}" type="text"
+                                    id="wscore">
+                            </div>
+
+                            <div class="ranger-inside">
+                                <label for="wepisodes-range">Кол-во эпизодов:</label>
+                                <input type="range" id="wepisodes-range" min="0" max="200"
+                                    value="{{mul .Page.SearchSettings.Weights.Episodes 20}}"
+                                    oninput=' $("#wepisodes").val(this.value/20); httpGet("http://localhost:2997/set?wepisodes="+this.value/20); window.location = "/";'>
+                                <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Episodes}}" type="text"
+                                    id="wepisodes">
+                            </div>
+
+                            <div class="ranger-inside">
+                                <label for="wduration-range">Минут в серии:</label>
+                                <input type="range" id="wduration-range" min="0" max="200"
+                                    value="{{mul .Page.SearchSettings.Weights.Duration 20}}"
+                                    oninput=' $("#wduration").val(this.value/20); httpGet("http://localhost:2997/set?wduration="+this.value/20); window.location = "/";'>
+                                <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Duration}}" type="text"
+                                    id="wduration">
+                            </div>
+
+                            <div class="ranger-inside">
+                                <label for="wrating-range">Возраст:</label>
+                                <input type="range" id="wrating-range" min="0" max="200"
+                                    value="{{mul .Page.SearchSettings.Weights.Rating 20}}"
+                                    oninput=' $("#wrating").val(this.value/20); httpGet("http://localhost:2997/set?wrating="+this.value/20); window.location = "/";'>
+                                <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Rating}}" type="text"
+                                    id="wrating">
+                            </div>
+
+                            <div class="ranger-inside">
+                                <label for="wyear-range">Год выпуска:</label>
+                                <input type="range" id="wyear-range" min="0" max="200"
+                                    value="{{mul .Page.SearchSettings.Weights.Year 20}}"
+                                    oninput=' $("#wyear").val(this.value/20); httpGet("http://localhost:2997/set?wyear="+this.value/20); window.location = "/";'>
+                                <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Year}}" type="text"
+                                    id="wyear">
+                            </div>
+
+                            <div class="ranger-inside">
+                                <label for="wongoing-range">Онгоинг:</label>
+                                <input type="range" id="wongoing-range" min="0" max="200"
+                                    value="{{mul .Page.SearchSettings.Weights.Ongoing 20}}"
+                                    oninput=' $("#wongoing").val(this.value/20); httpGet("http://localhost:2997/set?wongoing="+this.value/20); window.location = "/";'>
+                                <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Ongoing}}" type="text"
+                                    id="wongoing">
+                            </div>
+
+                            <div class="ranger-inside">
+                                <label for="wstudio-range">Студия:</label>
+                                <input type="range" id="wstudio-range" min="0" max="200"
+                                    value="{{mul .Page.SearchSettings.Weights.Studio 20}}"
+                                    oninput=' $("#wstudio").val(this.value/20); httpGet("http://localhost:2997/set?wstudio="+this.value/20); window.location = "/";'>
+                                <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Studio}}" type="text"
+                                    id="wstudio">
+                            </div>
+
+                            <div class="ranger-inside">
+                                <label for="wgenre-range">Жанр:</label>
+                                <input type="range" id="wgenre-range" min="0" max="200"
+                                    value="{{mul .Page.SearchSettings.Weights.Genre 20}}"
+                                    oninput=' $("#wgenre").val(this.value/20); httpGet("http://localhost:2997/set?wgenre="+this.value/20); window.location = "/";'>
+                                <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Genre}}" type="text"
+                                    id="wgenre">
+                            </div>
+
+                            {{end}}
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tags-flex">
+                    <div class="tags">
+                        {{if .Page.Tabs.IsFav}}
+                            <a href="/favourite_remove_all" class="b-anime_status_tag other" data-text="Очистить списки"></a>
+                        {{end}}
+                        {{if .Page.Tabs.IsCatalog}}
+                            <a href="/graph" class="b-anime_status_tag other" data-text="Перезагрузить списки "></a>
+                            <a href="/update" class="b-anime_status_tag other" data-text="Обновить данные"></a>
+                            <a href="/graph_visual" class="b-anime_status_tag other" data-text="Визуализировать данные"></a>
+                        {{end}}
+                        {{if .Page.Tabs.IsCompare}}
+                            {{ template "compare_type" .Distances }}
+                        {{end}}
+
+                        {{if .Page.Tabs.IsRec}}
+
+                            {{if eq .Page.Recommend.Kind "content"}}
+                            <a href="/set?rectype=content" class="b-anime_status_tag other other-active"
+                                data-text="Контентно-ориентированная фильтрация"></a>
                             {{else}}
-                            <a href="/set?profi=1" class="b-anime_status_tag released">
-                                <div class="other-passive">Тонкая настройка</div>
-                            </a>
+                            <a href="/set?rectype=content" class="b-anime_status_tag other other-passive"
+                                data-text="Контентно-ориентированная фильтрация"></a>
                             {{end}}
-                            {{if .Page.Recommend.WithUserWeights}}
-                            <div class="padding-top">
-                                Значимость применяемых фильтров:
-                            </div>
+                            
+                            {{if eq .Page.Recommend.Kind "collaborate"}}
+                            <a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-active"
+                                data-text="Коллаборативная фильтрация"></a>
+                            {{else}}
+                            <a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-passive"
+                                data-text="Коллаборативная фильтрация"></a>
                             {{end}}
+
+                        {{end}}
+                    </div>
+                </div>
+
+                {{if .Page.Tabs.IsRec}}{{ if eq .Page.Recommend.Kind "collaborate" }}
+                    {{ template "collaborate_users" .Page.Recommend }}
+                {{end}}{{end}}
+
+                {{if ne .ErrText ""}}
+                    <div class="tags-flex">
+                        <div class="tags">
+                            {{ .ErrText}}
                         </div>
                     </div>
-                    {{if .Page.Recommend.WithUserWeights}}
-                    <div class="ranger-inside">
-                        <label for="wtype-range">Тип:</label>
-                        <input type="range" id="wtype-range" min="0" max="200"
-                            value="{{mul .Page.SearchSettings.Weights.Kind 20}}"
-                            oninput=' $("#wtype").val(this.value/20); httpGet("http://localhost:2997/set?wkind="+this.value/20); window.location = "/";'>
-                        <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Kind}}" type="text"
-                            id="wtype">
-                    </div>
-
-                    <div class="ranger-inside">
-                        <label for="wscore-range">Средняя оценка:</label>
-                        <input type="range" id="wscore-range" min="0" max="200"
-                            value="{{mul .Page.SearchSettings.Weights.Score 20}}"
-                            oninput=' $("#wscore").val(this.value/20); httpGet("http://localhost:2997/set?wscore="+this.value/20); window.location = "/";'>
-                        <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Score}}" type="text"
-                            id="wscore">
-                    </div>
-
-                    <div class="ranger-inside">
-                        <label for="wepisodes-range">Кол-во эпизодов:</label>
-                        <input type="range" id="wepisodes-range" min="0" max="200"
-                            value="{{mul .Page.SearchSettings.Weights.Episodes 20}}"
-                            oninput=' $("#wepisodes").val(this.value/20); httpGet("http://localhost:2997/set?wepisodes="+this.value/20); window.location = "/";'>
-                        <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Episodes}}" type="text"
-                            id="wepisodes">
-                    </div>
-
-                    <div class="ranger-inside">
-                        <label for="wduration-range">Минут в серии:</label>
-                        <input type="range" id="wduration-range" min="0" max="200"
-                            value="{{mul .Page.SearchSettings.Weights.Duration 20}}"
-                            oninput=' $("#wduration").val(this.value/20); httpGet("http://localhost:2997/set?wduration="+this.value/20); window.location = "/";'>
-                        <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Duration}}" type="text"
-                            id="wduration">
-                    </div>
-
-                    <div class="ranger-inside">
-                        <label for="wrating-range">Возраст:</label>
-                        <input type="range" id="wrating-range" min="0" max="200"
-                            value="{{mul .Page.SearchSettings.Weights.Rating 20}}"
-                            oninput=' $("#wrating").val(this.value/20); httpGet("http://localhost:2997/set?wrating="+this.value/20); window.location = "/";'>
-                        <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Rating}}" type="text"
-                            id="wrating">
-                    </div>
-
-                    <div class="ranger-inside">
-                        <label for="wyear-range">Год выпуска:</label>
-                        <input type="range" id="wyear-range" min="0" max="200"
-                            value="{{mul .Page.SearchSettings.Weights.Year 20}}"
-                            oninput=' $("#wyear").val(this.value/20); httpGet("http://localhost:2997/set?wyear="+this.value/20); window.location = "/";'>
-                        <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Year}}" type="text"
-                            id="wyear">
-                    </div>
-
-                    <div class="ranger-inside">
-                        <label for="wongoing-range">Онгоинг:</label>
-                        <input type="range" id="wongoing-range" min="0" max="200"
-                            value="{{mul .Page.SearchSettings.Weights.Ongoing 20}}"
-                            oninput=' $("#wongoing").val(this.value/20); httpGet("http://localhost:2997/set?wongoing="+this.value/20); window.location = "/";'>
-                        <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Ongoing}}" type="text"
-                            id="wongoing">
-                    </div>
-
-                    <div class="ranger-inside">
-                        <label for="wstudio-range">Студия:</label>
-                        <input type="range" id="wstudio-range" min="0" max="200"
-                            value="{{mul .Page.SearchSettings.Weights.Studio 20}}"
-                            oninput=' $("#wstudio").val(this.value/20); httpGet("http://localhost:2997/set?wstudio="+this.value/20); window.location = "/";'>
-                        <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Studio}}" type="text"
-                            id="wstudio">
-                    </div>
-
-                    <div class="ranger-inside">
-                        <label for="wgenre-range">Жанр:</label>
-                        <input type="range" id="wgenre-range" min="0" max="200"
-                            value="{{mul .Page.SearchSettings.Weights.Genre 20}}"
-                            oninput=' $("#wgenre").val(this.value/20); httpGet("http://localhost:2997/set?wgenre="+this.value/20); window.location = "/";'>
-                        <input class="ranger-inside-input" value="{{.Page.SearchSettings.Weights.Genre}}" type="text"
-                            id="wgenre">
-                    </div>
-
-                    {{end}}
-
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="tags-flex">
-            <div class="tags">
-
-
-                {{if .Page.Tabs.IsFav}}
-                <a href="/favourite_remove_all" class="b-anime_status_tag other" data-text="Очистить списки"></a>
                 {{end}}
-                {{if .Page.Tabs.IsCatalog}}
-                <a href="/graph" class="b-anime_status_tag other" data-text="Перезагрузить списки "></a>
-                <a href="/update" class="b-anime_status_tag other" data-text="Обновить данные"></a>
-                <a href="/graph_visual" class="b-anime_status_tag other" data-text="Визуализировать данные"></a>
-                {{end}}
+
+                {{$isCompare := .Page.Tabs.IsCompare}}
+                {{$IsRec := .Page.Tabs.IsRec}}
+
                 {{if .Page.Tabs.IsCompare}}
-
-                {{if .Distances.Ec}}
-                <a href="/set?compare=e" class="b-anime_status_tag other other-active"
-                    data-text="Евклидово расстояние"></a>
-                {{else}}
-                <a href="/set?compare=e" class="b-anime_status_tag other other-passive"
-                    data-text="Евклидово расстояние"></a>
-                {{end}}
-
-                {{if .Distances.Mc}}
-                <a href="/set?compare=m" class="b-anime_status_tag other other-active"
-                    data-text="Расстояние кварталов"></a>
-                {{else}}
-                <a href="/set?compare=m" class="b-anime_status_tag other other-passive"
-                    data-text="Расстояние кварталов"></a>
-                {{end}}
-
-                {{if .Distances.Kc}}
-                <a href="/set?compare=k" class="b-anime_status_tag other other-active" data-text="Шахматное"></a>
-                {{else}}
-                <a href="/set?compare=k" class="b-anime_status_tag other other-passive" data-text="Шахматное"></a>
-                {{end}}
-
-                {{if .Distances.Cc}}
-                <a href="/set?compare=c" class="b-anime_status_tag other other-active" data-text="Корреляция"></a>
-                {{else}}
-                <a href="/set?compare=c" class="b-anime_status_tag other other-passive" data-text="Корреляция"></a>
-                {{end}}
-
-                {{if .Distances.Tc}}
-                <a href="/set?compare=t" class="b-anime_status_tag other other-active"
-                    data-text="Близость по дереву"></a>
-                {{else}}
-                <a href="/set?compare=t" class="b-anime_status_tag other other-passive"
-                    data-text="Близость по дереву"></a>
-                {{end}}
-
-                {{if .Distances.Dc}}
-                <a href="/set?compare=d" class="b-anime_status_tag other other-active" data-text="Кол-во отличий"></a>
-                {{else}}
-                <a href="/set?compare=d" class="b-anime_status_tag other other-passive" data-text="Кол-во отличий"></a>
-                {{end}}
-
-                {{end}}
-
-                {{if .Page.Tabs.IsRec}}
-
-                {{if eq .Page.Recommend.Kind "content"}}
-                <a href="/set?rectype=content" class="b-anime_status_tag other other-active"
-                    data-text="Контентно-ориентированная фильтрация"></a>
-                {{else}}
-                <a href="/set?rectype=content" class="b-anime_status_tag other other-passive"
-                    data-text="Контентно-ориентированная фильтрация"></a>
-                {{end}}
-                {{if eq .Page.Recommend.Kind "collaborate"}}
-                <a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-active"
-                    data-text="Коллаборативная фильтрация"></a>
-
-
-                {{else}}
-                <a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-passive"
-                    data-text="Коллаборативная фильтрация"></a>
-                {{end}}
-
-                {{end}}
-            </div>
-        </div>
-
-
-
-        {{if .Page.Tabs.IsRec}}
-        <div class="tags-flex">
-            <div class="tags">
-
-                {{if eq .Page.Recommend.Kind "collaborate"}}
-                <div> Количество юзеров&nbsp; </div>
-                {{if eq .Page.Recommend.Users 10}}
-                <a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-active">10</a>
-                {{else}}
-                <a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-passive">10</a>
-                {{end}}
-
-                {{if eq .Page.Recommend.Users 20}}
-                <a href="/set?rectype=collaborate&users=20" class="b-anime_status_tag other other-active">20</a>
-                {{else}}
-                <a href="/set?rectype=collaborate&users=20" class="b-anime_status_tag other other-passive">20</a>
-                {{end}}
-
-                {{if eq .Page.Recommend.Users 50}}
-                <a href="/set?rectype=collaborate&users=50" class="b-anime_status_tag other other-active">50</a>
-                {{else}}
-                <a href="/set?rectype=collaborate&users=50" class="b-anime_status_tag other other-passive">50</a>
-                {{end}}
-
-                {{if eq .Page.Recommend.Users 100}}
-                <a href="/set?rectype=collaborate&users=100" class="b-anime_status_tag other other-active">100</a>
-                {{else}}
-                <a href="/set?rectype=collaborate&users=100" class="b-anime_status_tag other other-passive">100</a>
-                {{end}}
-
-                {{end}}
-
-            </div>
-        </div>
-        {{end}}
-
-        <div class="tags-flex">
-            <div class="tags">
-                {{ .ErrText}}
-            </div>
-        </div>
-
-        {{if .Page.Tabs.IsRec}}{{ if eq .Page.Recommend.Kind "collaborate" }}
-        <div class="tags-flex">
-            <div class="tags">
-
-                <div> Учитывать пользователей, просмотревших минимум &nbsp; </div>
-
-                {{if eq .Page.Recommend.Percent 0.0}}
-                <a href="/set?rectype=collaborate&percent=0" class="b-anime_status_tag other other-active">5%</a>
-                {{else}}
-                <a href="/set?rectype=collaborate&percent=0" class="b-anime_status_tag other other-passive">5%</a>
-                {{end}}
-
-                {{if eq .Page.Recommend.Percent 0.2}}
-                <a href="/set?rectype=collaborate&percent=0.2" class="b-anime_status_tag other other-active">20%</a>
-                {{else}}
-                <a href="/set?rectype=collaborate&percent=0.2" class="b-anime_status_tag other other-passive">20%</a>
-                {{end}}
-
-                {{if eq .Page.Recommend.Percent 0.5}}
-                <a href="/set?rectype=collaborate&percent=0.5" class="b-anime_status_tag other other-active">50%</a>
-                {{else}}
-                <a href="/set?rectype=collaborate&percent=0.5" class="b-anime_status_tag other other-passive">50%</a>
-                {{end}}
-
-                {{if eq .Page.Recommend.Percent 0.85}}
-                <a href="/set?rectype=collaborate&percent=0.85" class="b-anime_status_tag other other-active">85%</a>
-                {{else}}
-                <a href="/set?rectype=collaborate&percent=0.85" class="b-anime_status_tag other other-passive">85%</a>
-                {{end}}
-
-                <div> моего списка </div>
-
-            </div>
-        </div>
-        {{end}}{{end}}
-
-
-        {{$isCompare := .Page.Tabs.IsCompare}}
-        {{$IsRec := .Page.Tabs.IsRec}}
-
-        {{if .Page.Tabs.IsCompare}}
-
-        <div class="subheadline linkheadline"><a href="https://shikimori.one/animes/status/ongoing">
-                Эталонный объект
-            </a></div>
-        <div class="anime-container">
-            <div class="anime-main">
-                <div class="anime-name-container">
-
-                    <h1>{{.Distances.Anime.Russian}} <span class="b-separator inline">/</span> {{.Distances.Anime.Name}}</h1>
-                    
-                    {{ template "branch" .Distances.Anime.Branch }}
-
-                </div>
-
-                {{ template "anime_info" .Distances.Anime }}
-             
-            </div>
-        </div>
-        {{end}}
-
-
-        <div class="subheadline"><a href="https://shikimori.one/animes/status/ongoing">
-                {{if .Page.Tabs.IsCatalog}}
-                Список доступных тайтлов
-                {{end}}
-                {{if .Page.Tabs.IsCompare}}
-                Список похожих
-                {{end}}
-            </a></div>
-
-        <div class="container">
-
-            {{ range .Animes }}
-
-            <div class="anime-container">
-                <div class="anime-main">
-                    <div class="anime-name-container">
-                        {{$ID := .ID}}
-                        <h1>{{.Russian}} <span class="b-separator inline">/</span> {{.Name}}</h1>
-
-                        {{ template "branch" .Branch }}
-
-                        <div style="padding-right: 20px; padding-bottom: 8px;">{{safeHTML .DescriptionHTML}} </div>
-
-                        {{ template "marks" . }}
+                    <div class="subheadline linkheadline">
+                        <a href="https://shikimori.one/animes/status/ongoing">
+                            Эталонный объект
+                        </a>
                     </div>
-
-                    {{ template "anime_info" . }}
-                  
-                    {{ if $isCompare }}
-                    <div class="cc-info">
-                        <div class="cc">
-                            <div class="c-info-left">
-                                <div class="subheadline">Расстояние</div>
-                                <div class="block">
-                                    <div class="b-entry-info">
-                                        <div class="line-container">
-                                            <div class="line">
-                                                <div class="key">Евклидово:</div>
-
-                                                {{if $Ec}}
-                                                <div class="value">{{.E}}</div>
-                                                {{else}}
-                                                <div class="key">{{.E}}</div>
-                                                {{end}}
-                                            </div>
-                                        </div>
-                                        <div class="line-container">
-                                            <div class="line">
-                                                <div class="key">Кварталов:</div>
-
-                                                {{if $Mc}}
-                                                <div class="value">{{.M}}</div>
-                                                {{else}}
-                                                <div class="key">{{.M}}</div>
-                                                {{end}}
-                                            </div>
-                                        </div>
-                                        <div class="line-container">
-                                            <div class="line">
-                                                <div class="key">Шахматное:</div>
-
-                                                {{if $Kc}}
-                                                <div class="value">{{.K}}</div>
-                                                {{else}}
-                                                <div class="key">{{.K}}</div>
-                                                {{end}}
-                                            </div>
-                                        </div>
-                                        <div class="line-container">
-                                            <div class="line">
-                                                <div class="key">Кол-во различий:</div>
-                                                {{if $Dc}}
-                                                <div class="value">{{.D}}</div>
-                                                {{else}}
-                                                <div class="key">{{.D}}</div>
-                                                {{end}}
-                                            </div>
-                                        </div>
-                                        <div class="line-container">
-                                            <div class="line">
-                                                <div class="key">Близость по дереву:</div>
-                                                {{if $Tc}}
-                                                <div class="value">{{.T}}</div>
-                                                {{else}}
-                                                <div class="key">{{.T}}</div>
-                                                {{end}}
-                                            </div>
-                                        </div>
-                                        <div class="line-container">
-                                            <div class="line">
-                                                <div class="key">Корреляция:</div>
-                                                {{if $Cc}}
-                                                <div class="value">{{.C}}</div>
-                                                {{else}}
-                                                <div class="key">{{.C}}</div>
-                                                {{end}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="anime-container">
+                        <div class="anime-main">
+                            <div class="anime-name-container">
+                                <h1>{{.Distances.Anime.Russian}} <span class="b-separator inline">/</span> {{.Distances.Anime.Name}}</h1>
+                                {{ template "branch" .Distances.Anime.Branch }}
                             </div>
+
+                            {{ template "anime_info" .Distances.Anime }}
                         </div>
                     </div>
-                    {{ end }}
-                    {{ if $IsRec}}
-                    {{ if eq .K 0.0}}
-                    <div class="cc-info">
-                        <div class="cc">
-                            <div class="c-info-left">
-                                <div class="subheadline">Метрики</div>
-                                <div class="block">
-                                    <div class="b-entry-info">
-                                        <div class="line-container">
-                                            <div class="line">
-                                                <div class="key">Ваша потенциальная оценка</div>
-                                                <div class="value">{{.D}}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{ else }}
-                    <div class="cc-info">
-                        <div class="cc">
-                            <div class="c-info-left">
-                                <div class="subheadline">Метрики</div>
-                                <div class="block">
-                                    <div class="b-entry-info">
-                                        <div class="line-container">
-                                            <div class="line">
-                                                <div class="key">У {{.K}} в списках</div>
-                                            </div>
-                                        </div>
-                                        <div class="line-container">
-                                            <div class="line">
-                                                <div class="key">Оценка других пользователей:</div>
-                                                <div class="value">{{.D}}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                {{end}}
 
-                    {{ end }}
-                    {{ end }}
-                </div>
-            </div>
-            {{ end }}
-            <!-- 
-                <div>
-                    {{ .Russian }}
-                    <a target="_blank" rel="noreferrer noopener" href="{{.URL}}">
-                        <h3 class="title">{{.Russian }}</h3>
+                <div class="subheadline">
+                    <a href="https://shikimori.one/animes/status/ongoing">
+                        {{if .Page.Tabs.IsCatalog}}
+                        Список доступных тайтлов
+                        {{end}}
+                        {{if .Page.Tabs.IsCompare}}
+                        Список похожих
+                        {{end}}
                     </a>
-                    <p class="description">{{ .Russian }}</p>
-                    <div class="metadata">
-                        <p class="source">{{ .Russian }}</p>
-                        <time class="published-date">{{ .Russian }}</time>
+                </div>
+
+                <div class="container">
+                    {{ range .Animes }}
+                        <div class="anime-container">
+                            <div class="anime-main">
+                                <div class="anime-name-container">
+                                    {{$ID := .ID}}
+                                    <h1>{{.Russian}} <span class="b-separator inline">/</span> {{.Name}}</h1>
+                                    {{ template "branch" .Branch }}
+                                    <div style="padding-right: 20px; padding-bottom: 8px;">{{safeHTML .DescriptionHTML}} </div>
+                                    {{ template "marks" . }}
+                                </div>
+
+                                {{ template "anime_info" . }}
+                            
+                                {{ if $isCompare }}
+                                    {{ template "compare_info" . }}
+                                {{ end }}
+                                {{ if $IsRec}}
+                                    {{ if eq .K 0.0}}
+                                        {{ template "score_mine" . }}
+                                    {{ else }}
+                                        {{ template "score_their" . }}
+                                    {{ end }}
+                                {{ end }}
+                            </div>
+                        </div>
+                    {{ end }}
                     </div>
                 </div>
-                <img class="article-image" src="{{ .URLToImage }}">
-            -->
-
-            <!-- <section class="container">
-            <ul class="search-results">
-              {{ range . }}
-                <li class="news-article">
-                  <div>
-                    {{ .Name }}
-                    <a target="_blank" rel="noreferrer noopener" href="{{.URL}}">
-                      <h3 class="title">{{.Name }}</h3>
-                    </a>
-                    <p class="description">{{ .Name }}</p>
-                    <div class="metadata">
-                      <p class="source">{{ .Name }}</p>
-                      <time class="published-date">{{ .Name }}</time>
-                    </div>
-                  </div>
-                  <img class="article-image" src="{{ .URLToImage }}">
-                </li>
-              {{ end }}
-            </ul>
-          </section> -->
             {{else}}
-            {{ range .Messages }}
-            {{ if .FromSystem }}
-            <div class="container-main">
-                <div class="container-chat">
-                    <img class="chat-img right" src="/assets/boy.jpg" alt="Avatar">
-                    <p>{{ safeHTML .Message }}</p>
-                    <span class="time-right">{{.Time}}</span>
-                </div>
-            </div>
+                {{ range .Messages }}
+                    {{ if .FromSystem }}
+                        <div class="container-main">
+                            <div class="container-chat">
+                                <img class="chat-img right" src="/assets/boy.jpg" alt="Avatar">
+                                <p>{{ safeHTML .Message }}</p>
+                                {{ if .NeedAnime }}
+                                    {{ range .Animes }}
+                                        <div class="anime-container">
+                                            <div class="anime-main">
+                                                <div class="anime-name-container">
+                                                    {{$ID := .ID}}
+                                                    <h1>{{.Russian}} <span class="b-separator inline">/</span> {{.Name}}</h1>
+                                                    <div style="padding-right: 20px; padding-bottom: 8px;">{{safeHTML .DescriptionHTML}} </div>
+                                                </div>
 
-
-            {{ else }}
-            <div class="container-main">
-                <div class=" container-chat darker">
-                    <img class="chat-img" src="/assets/question.jpg" alt="Avatar" class="right">
-                    <p>{{.Message}}</p>
-                    <span class="time-left">{{.Time}}</span>
-                </div>
-            </div>
+                                                {{ template "anime_info" . }}
+                                            
+                                            </div>
+                                        </div>
+                                    {{ end }}
+                                {{ end }}
+                                <span class="time-right">{{.Time}}</span>
+                            </div>
+                        </div>
+                    {{ else }}
+                        <div class="container-main">
+                            <div class=" container-chat darker">
+                                <img class="chat-img" src="/assets/question.jpg" alt="Avatar" class="right">
+                                <p>{{.Message}}</p>
+                                <span class="time-left">{{.Time}}</span>
+                            </div>
+                        </div>
+                    {{ end }}
+                {{ end}}
             {{ end }}
-            {{ end}}
-
-            {{ end }}
-    </main>
-</body>
-
+        </main>
+    </body>
 </html>
 {{end}}

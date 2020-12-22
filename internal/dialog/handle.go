@@ -2,11 +2,11 @@ package dialog
 
 import (
 	"errors"
+	"log"
 	"shiki/internal/anime"
 	"shiki/internal/anime/recommend"
 	"shiki/internal/models"
 	"shiki/internal/page"
-	"shiki/internal/score"
 	"strconv"
 )
 
@@ -102,92 +102,137 @@ type HandledObject struct {
 
 func HandleResponseObjects(
 	response NLPResponse,
-	animes anime.AnimesUseCase,
-	myScores models.UserScoreMap,
-	allScores score.UseCase,
+	input recommend.Input,
 	genres []models.GenresMarked,
 ) (HandledObject, error) {
 	var result HandledObject
+	log.Println("Intent", response.Intent)
 	switch response.Intent {
 	// Получить подробности про тайтл
 	case IntentRecommendMine:
-		var (
-			recommendSettings = page.DefaultRecommendSettings
-			recomendI         = recommend.NewCollaborativeFiltering(
-				animes.Animes(),
-				allScores.Get(),
-				myScores,
-				recommendSettings,
-			)
-		)
-		animes, err := recomendI.Recommend()
-		if err != nil {
-			return result, err
-		}
-		result.Animes = animes
-		result.Message = "Мне кажется тебе понравятся вот эти тайтлы"
+		err := handleIntentRecommendMine(&result, input)
 		return result, err
 	case IntentRecommendSimilar:
-		anime := nameToAnime(response, animes)
-		if anime == nil {
-			result.Message = AnimeSayItAgain
-			return result, nil
-		}
-		var (
-			weights   = models.DefaultWeigts()
-			recomendI = recommend.NewContentOriented(
-				models.Animes{*anime},
-				myScores,
-				&weights,
-			)
-		)
-		animes, err := recomendI.Recommend()
-		if err != nil {
-			return result, err
-		}
-		result.Animes = animes
-		result.Message = "Мне кажется тебе понравятся вот эти тайтлы"
+		err := handleIntentRecommendSimilar(response, &result, input)
 		return result, err
 	case IntentRecommendFilters:
-		var (
-			findAnime = nameToAnime(response, animes)
-			newAnimes = animes.Animes()
-			err       error
-		)
-		if findAnime != nil {
-			var (
-				weights   = models.DefaultWeigts()
-				recomendI = recommend.NewContentOriented(
-					models.Animes{*findAnime},
-					myScores,
-					&weights,
-				)
-			)
-			newAnimes, err = recomendI.Recommend()
-			if err != nil {
-				return result, err
-			}
-		}
-
-		var (
-			searchSettings = models.NewSimpleSearchSettings()
-			genre          = response.Entities[EntityGenre]
-		)
-		searchSettings.Genres = make([]models.GenresMarked, len(genres))
-		for i, g := range genres {
-			searchSettings.Genres[i] = make(models.GenresMarked, len(g))
-			for j, g := range g {
-				searchSettings.Genres[i][j].Genre = g.Genre
-				searchSettings.Genres[i][j].Marked = genre == g.Genre.Russian
-			}
-		}
-
-		result.Animes, _ = newAnimes.Filter(searchSettings)
-
-		result.Message = "Мне кажется тебе понравятся вот эти тайтлы"
+		err := handleIntentRecommendFilters(response, &result, input, genres)
 		return result, err
 	}
 	return result, errors.New("No such intent type:" + response.Intent)
+}
+
+func handleIntentRecommendMine(
+	result *HandledObject,
+	input recommend.Input,
+) error {
+	var (
+		recommendSettings = page.DefaultRecommendSettings
+		recomendI         = recommend.NewCollaborativeFiltering(
+			input,
+			recommendSettings,
+		)
+	)
+	animes, err := recomendI.Recommend()
+	if err != nil {
+		return err
+	}
+	//log.Println("IntentRecommendMine animes len", len(animes), len(myScores.Scores), len(allScores.Get()))
+	result.Animes = animes
+	result.Message = "Мне кажется тебе понравятся вот эти тайтлы"
+	return nil
+}
+
+func handleIntentRecommendSimilar(
+	response NLPResponse,
+	result *HandledObject,
+	input recommend.Input,
+) error {
+	foundAnime := nameToAnime(response, input.Animes)
+	if foundAnime == nil {
+		result.Message = AnimeSayItAgain
+		return nil
+	}
+	var m = make(map[int]int)
+	var s = models.UserScoreMap{
+		Scores: m,
+	}
+	s.Add(int(foundAnime.ID), 10)
+
+	var (
+		weights  = models.DefaultWeigts()
+		newInput = recommend.Input{
+			Animes:   input.Animes,
+			MyScores: s,
+		}
+		recomendI = recommend.NewContentOriented(
+			newInput,
+			&weights,
+		)
+	)
+	animes, err := recomendI.Recommend()
+	if err != nil {
+		return err
+	}
+	if len(animes) == 0 {
+		return handleIntentRecommendMine(result, input)
+	}
+	result.Animes = animes
+	result.Message = "Мне кажется тебе понравятся вот эти тайтлы"
+
+	return nil
+}
+
+func handleIntentRecommendFilters(
+	response NLPResponse,
+	result *HandledObject,
+	input recommend.Input,
+	genres []models.GenresMarked,
+) error {
+	var (
+		findAnime = nameToAnime(response, input.Animes)
+		newAnimes = input.Animes.Animes()
+		err       error
+	)
+	log.Println("findAnime", findAnime)
+	if findAnime != nil {
+		var m = make(map[int]int)
+		var s = models.UserScoreMap{
+			Scores: m,
+		}
+		s.Add(int(findAnime.ID), 10)
+		var (
+			newInput = recommend.Input{
+				Animes:   input.Animes,
+				MyScores: s,
+			}
+			weights   = models.DefaultWeigts()
+			recomendI = recommend.NewContentOriented(
+				newInput,
+				&weights,
+			)
+		)
+		newAnimes, err = recomendI.Recommend()
+		if err != nil {
+			return err
+		}
+	}
+
+	var (
+		searchSettings = models.NewSimpleSearchSettings()
+		genre          = response.Entities[EntityGenre]
+	)
+	searchSettings.Genres = make([]models.GenresMarked, len(genres))
+	for i, g := range genres {
+		searchSettings.Genres[i] = make(models.GenresMarked, len(g))
+		for j, g := range g {
+			searchSettings.Genres[i][j].Genre = g.Genre
+			searchSettings.Genres[i][j].Marked = genre == g.Genre.Russian
+		}
+	}
+	result.Animes, _ = newAnimes.Filter(searchSettings)
+	result.Message = "Мне кажется тебе понравятся вот эти тайтлы"
+	return err
 }
 
 // Изменить оценку тайтла

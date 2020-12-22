@@ -27,7 +27,7 @@ func (c Context) GetAnime(animes anime.AnimesUseCase) *models.Anime {
 	if c.CurrentAnime != nil && c.CurrentAnime.SameName(c.CurrentTitleName) {
 		return c.CurrentAnime
 	}
-	anime, found := animes.FindAnimeByName(c.CurrentTitleName)
+	anime, found := animes.FindOneAnime(c.CurrentTitleName)
 	if !found {
 		return nil
 	}

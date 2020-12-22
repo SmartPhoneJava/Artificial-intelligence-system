@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"shiki/internal/anime"
+	"shiki/internal/anime/recommend"
 	"shiki/internal/anime/shikimori"
 	"shiki/internal/dialog"
 	"shiki/internal/models"
@@ -58,17 +59,26 @@ func main() {
 
 	var (
 		Settings = page.NewPageSettings(genres)
-
-		myScores   = models.NewUserScoreMap(nil)
-		toDialog   = make(chan string, 1)
-		fromDialog = make(chan dialog.NLPResponse, 1)
-		messages   = make(dialog.Messages, 0)
+		myScores = models.NewUserScoreMap(nil)
+		comm     = dialog.NewCommunication()
 	)
-	(&messages).Add("Привет, поболтаем? Ты можешь общаться со мной через текстовое поле над моей головой!", true)
+	defer comm.Close()
 
-	r := router.New(api, animes, scores, myScores,
-		Settings, ReadTimeout, messages, UserAgent,
-		ClientID, toDialog, fromDialog)
+	var input = recommend.Input{
+		Animes:    animes,
+		AllScores: scores,
+		MyScores:  myScores,
+	}
+
+	r := router.New(
+		api,
+		input,
+		Settings,
+		ReadTimeout,
+		UserAgent,
+		ClientID,
+		*comm,
+	)
 
 	server := &http.Server{
 		Addr:           Addr,
@@ -80,8 +90,6 @@ func main() {
 	}
 
 	log.Println("Server is on localhost" + Addr + "/")
-	go dialog.Run(toDialog, fromDialog)
+	go dialog.Run(comm.ToDialog, comm.FromDialog)
 	server.ListenAndServe()
 }
-
-///// 473 -> 365

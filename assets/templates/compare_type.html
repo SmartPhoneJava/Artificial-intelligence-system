@@ -1,0 +1,25 @@
+{{define "compare_type"}} {{if .Ec}}
+<a href="/set?compare=e" class="b-anime_status_tag other other-active" data-text="Евклидово расстояние"></a>
+{{else}}
+<a href="/set?compare=e" class="b-anime_status_tag other other-passive" data-text="Евклидово расстояние"></a>
+{{end}} {{if .Mc}}
+<a href="/set?compare=m" class="b-anime_status_tag other other-active" data-text="Расстояние кварталов"></a>
+{{else}}
+<a href="/set?compare=m" class="b-anime_status_tag other other-passive" data-text="Расстояние кварталов"></a>
+{{end}} {{if .Kc}}
+<a href="/set?compare=k" class="b-anime_status_tag other other-active" data-text="Шахматное"></a>
+{{else}}
+<a href="/set?compare=k" class="b-anime_status_tag other other-passive" data-text="Шахматное"></a>
+{{end}} {{if .Cc}}
+<a href="/set?compare=c" class="b-anime_status_tag other other-active" data-text="Корреляция"></a>
+{{else}}
+<a href="/set?compare=c" class="b-anime_status_tag other other-passive" data-text="Корреляция"></a>
+{{end}} {{if .Tc}}
+<a href="/set?compare=t" class="b-anime_status_tag other other-active" data-text="Близость по дереву"></a>
+{{else}}
+<a href="/set?compare=t" class="b-anime_status_tag other other-passive" data-text="Близость по дереву"></a>
+{{end}} {{if .Dc}}
+<a href="/set?compare=d" class="b-anime_status_tag other other-active" data-text="Кол-во отличий"></a>
+{{else}}
+<a href="/set?compare=d" class="b-anime_status_tag other other-passive" data-text="Кол-во отличий"></a>
+{{end}} {{end}}

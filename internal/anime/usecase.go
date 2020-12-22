@@ -23,7 +23,8 @@ type AnimesUseCase interface {
 	FetchDetails(ctx context.Context, UserAgent string, done chan error)
 
 	Animes() models.Animes
-	FindAnimes(name string) models.Animes
+	FilterByName(name string) models.Animes
+	FindOneAnime(name string) (models.Anime, bool)
 	FindAnimeByName(name string) (models.Anime, bool)
 	FindAnimeByID(id int32) (models.Anime, bool)
 

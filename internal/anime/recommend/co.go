@@ -1,7 +1,6 @@
 package recommend
 
 import (
-	"log"
 	"shiki/internal/anime/compare"
 	"shiki/internal/models"
 	"sort"
@@ -17,13 +16,13 @@ type ContentOriented struct {
 }
 
 func NewContentOriented(
-	animes models.Animes,
-	myScore models.UserScoreMap,
+	input Input,
 	weights *models.Weigts,
 ) RecomendI {
+	animes := input.Animes.Animes()
 	return &ContentOriented{
 		animes:  animes,
-		myScore: myScore,
+		myScore: input.MyScores,
 		compare: compare.NewAnimeComparator(animes, weights),
 	}
 }
@@ -77,7 +76,7 @@ func (c *ContentOriented) oneAnimeManyDistances(m2m compare.ComparingAnimes) map
 	var animeDists = make(map[int32]float64, 0)
 	for _, animes := range m2m {
 		for _, danime := range animes.Dists {
-			animeDists[danime.ID] = (danime.D + 1) * float64(11-animes.Score)
+			animeDists[danime.ID] = 1 + (danime.E)*float64(11-animes.Score)
 		}
 	}
 	return animeDists
@@ -89,7 +88,7 @@ func (c *ContentOriented) updateD(animeDists map[int32]float64) {
 		distance, ok := animeDists[anime.ID]
 		if ok {
 			c.animes[i].D = distance
-			log.Println("c.animes[i].D", distance)
+			//log.Println("c.animes[i].D", distance)
 		}
 
 	}

@@ -21,15 +21,13 @@ type CollaborativeFiltering struct {
 }
 
 func NewCollaborativeFiltering(
-	animes models.Animes,
-	userScores models.UsersScoreMap,
-	myScore models.UserScoreMap,
+	input Input,
 	settings page.RecommendSettings,
 ) RecomendI {
 	return &CollaborativeFiltering{
-		animes:     animes,
-		userScores: userScores,
-		myScore:    myScore,
+		animes:     input.Animes.Animes(),
+		userScores: input.AllScores.Get(),
+		myScore:    input.MyScores,
 		settings:   settings,
 	}
 }

@@ -18,28 +18,22 @@ import (
 	"shiki/internal/graphml"
 	"shiki/internal/models"
 	"shiki/internal/page"
-	"shiki/internal/score"
 	"shiki/internal/utils"
 	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
-	"gonum.org/v1/gonum/floats"
 )
 
 const UsersCount = 740000
 
 func New(
 	API shikimori.Api,
-	ANIMES anime.AnimesUseCase,
-	SCORES score.UseCase,
-	myScores models.UserScoreMap,
+	Input recommend.Input,
 	Settings *page.PageSettings,
 	readTimeout time.Duration,
-	Messages dialog.Messages,
 	userAgent, clientID string,
-	toDialog chan string,
-	fromDialog chan dialog.NLPResponse,
+	comm dialog.Communication,
 ) *mux.Router {
 	r := mux.NewRouter()
 
@@ -54,20 +48,17 @@ func New(
 			log.Fatal(err)
 		}
 	}()
-
-	// b, err := ioutil.ReadAll(file)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
 	var dists = compare.AnimeAllDistances{Ec: true}
 
-	// tmpl := make(map[string]*template.Template)
-	// tmpl["index.html"] = template.Must(template.ParseFiles("branch.tmpl", "index.html"))
-	//tpl := template.Must(template.ParseFiles("index.html", "home.html"))
 	tpl := template.Must(template.New("item.html").
 		Funcs(template.FuncMap{
 			"mul": Mul,
+			"ec":  Ec(dists),
+			"mc":  Mc(dists),
+			"kc":  Kc(dists),
+			"dc":  Dc(dists),
+			"cc":  Cc(dists),
+			"tc":  Tc(dists),
 			"safeHTML": func(s interface{}) template.HTML {
 				return template.HTML(fmt.Sprint(s))
 			},
@@ -77,52 +68,38 @@ func New(
 		"assets/templates/marks.html",
 		"assets/templates/anime_info.html",
 		"assets/templates/extra-search.html",
-		"home.html",
-		"base.html",
+		"assets/templates/collaborate_users.html",
+		"assets/templates/compare_type.html",
+		"assets/templates/compare_info.html",
+		"assets/templates/score_mine.html",
+		"assets/templates/score_their.html",
 		"index.html",
 	))
-
-	/*
-				//tmpl["branch.html"] = template.Must(template.ParseFiles("branch.tmpl", "index.html"))
-		tpl := template.New("item.html")
-		tpl = tpl.Funcs(template.FuncMap{
-			"mul": Mul,
-			"safeHTML": func(s interface{}) template.HTML {
-				return template.HTML(fmt.Sprint(s))
-			},
-			"ShowBranch": atemplate.ShowBranch,
-		})
-		tpl = template.Must(tpl.ParseFiles("index.html", "branch.tmpl"))
-
-
-	*/
 
 	r.HandleFunc("/",
 		func(w http.ResponseWriter, r *http.Request) {
 			var (
-				local = ANIMES
+				local = Input.Animes
 			)
 			switch Settings.Tabs.CurrentTab {
 			case page.Rec:
 				{
 					var recomendI recommend.RecomendI
+					log.Println("/recommend", Settings.Recommend.Kind)
 					if Settings.Recommend.Kind == "collaborate" {
 						recomendI = recommend.NewCollaborativeFiltering(
-							ANIMES.Animes(),
-							SCORES.Get(),
-							myScores,
+							Input,
 							*Settings.Recommend,
 						)
 					} else {
 						recomendI = recommend.NewContentOriented(
-							ANIMES.Animes(),
-							myScores,
+							Input,
 							&Settings.SearchSettings.Weights,
 						)
 					}
 					animes, err := recomendI.Recommend()
 					if err != nil {
-						local = ANIMES
+						local = Input.Animes
 						log.Println("cant get recomendations because", err)
 					} else {
 						local = anime.NewAnimes(API, animes)
@@ -131,34 +108,38 @@ func New(
 				}
 			case page.Compare:
 				var (
-					animeModels   = ANIMES.Animes()
-					comparator    = compare.NewAnimeComparator(animeModels, &Settings.SearchSettings.Weights)
-					comparedID    = Settings.CompareWith
+					animeModels   = Input.Animes.Animes()
 					comparedAnime = models.Anime{}
+					comparedID    = int32(Settings.CompareWith)
 				)
-
 				if comparedID != 0 {
-					comparedAnime, _ = ANIMES.FindAnimeByID(int32(comparedID))
+					comparedAnime, _ = Input.Animes.FindAnimeByID(comparedID)
 				} else {
 					comparedAnime = animeModels[0]
 				}
+
+				var comparator = compare.NewAnimeComparator(
+					animeModels.AllExcept(comparedAnime),
+					&Settings.SearchSettings.Weights,
+				)
+
 				dists = compare.NewAnimeAllDistances(
 					comparedAnime,
 					comparator.DistanceAll(comparedAnime).Animes(),
 				)
 
 				dists.SetFilter(Settings.CompareType)
-				log.Println("animes len", len(dists.Animes()))
 				local = anime.NewAnimes(API, dists.Animes())
 				break
 
 			case page.Fav:
-				local = anime.NewAnimes(API, ANIMES.UserAnimes(myScores))
+				myAnimes := Input.Animes.UserAnimes(Input.MyScores)
+				local = anime.NewAnimesNoApi(myAnimes)
 				break
 			}
 
-			local.MarkMine(myScores)
-			animesFound := local.FindAnimes(Settings.Search)
+			local.MarkMine(Input.MyScores)
+			animesFound := local.FilterByName(Settings.Search)
 
 			var animesFiltered, errText = animesFound.Filter(Settings.SearchSettings)
 
@@ -175,7 +156,7 @@ func New(
 				Distances: dists,
 				ErrText:   errText,
 				Desc:      template.HTML("<p>Paragraph</p>"),
-				Messages:  Messages,
+				Messages:  *comm.Messages,
 			})
 		})
 	r.HandleFunc("/tab_catalog",
@@ -205,15 +186,7 @@ func New(
 
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
-	r.HandleFunc("/set", routeSet(
-		ANIMES,
-		myScores,
-		SCORES,
-		Settings,
-		&Messages,
-		toDialog,
-		fromDialog,
-	))
+	r.HandleFunc("/set", routeSet(Input, Settings, comm))
 	r.HandleFunc("/favourite_add",
 		func(w http.ResponseWriter, r *http.Request) {
 			id, err := utils.RequestInt(r, "id")
@@ -230,7 +203,7 @@ func New(
 				return
 			}
 
-			myScores.Add(id, score)
+			Input.MyScores.Add(id, score)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/favourite_remove",
@@ -242,25 +215,25 @@ func New(
 				return
 			}
 
-			myScores.Remove(id)
+			Input.MyScores.Remove(id)
 
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/favourite_remove_all",
 		func(w http.ResponseWriter, r *http.Request) {
-			myScores.RemoveAll()
+			Input.MyScores.RemoveAll()
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		})
 	r.HandleFunc("/update",
 		func(w http.ResponseWriter, r *http.Request) {
 			done := make(chan error)
 			ctx, _ := context.WithTimeout(r.Context(), readTimeout)
-			go ANIMES.FetchDetails(ctx, userAgent, done)
+			go Input.Animes.FetchDetails(ctx, userAgent, done)
 			err := <-done
 			if err != nil {
 				log.Println("err is", err)
 			} else {
-				err = ANIMES.Save(
+				err = Input.Animes.Save(
 					"assets/res/cats_40.graphml",
 					"assets/res/cats_40.graphml",
 				)
@@ -321,7 +294,7 @@ func New(
 
 			done := make(chan error)
 			ctx, _ := context.WithTimeout(r.Context(), readTimeout)
-			go ANIMES.FetchData(ctx, pathFrom, pathTo, limitI, t, done)
+			go Input.Animes.FetchData(ctx, pathFrom, pathTo, limitI, t, done)
 			err = <-done
 			if err != nil {
 				w.Write([]byte(err.Error()))
@@ -351,7 +324,6 @@ func New(
 			}
 
 			Settings.SetTabs("Сравнение")
-
 			Settings.CompareWith = idInt
 
 			http.Redirect(w, r, "/", http.StatusSeeOther)
@@ -361,7 +333,7 @@ func New(
 
 			done := make(chan error)
 			ctx, _ := context.WithTimeout(r.Context(), readTimeout)
-			go SCORES.Fetch(ctx, UsersCount, done)
+			go Input.AllScores.Fetch(ctx, UsersCount, done)
 			err = <-done
 			if err != nil {
 				log.Println("users_update err is", err)
@@ -380,18 +352,10 @@ func New(
 	return r
 }
 
-func Mul(param1, param2 float64) float64 {
-	return floats.Round(param1*param2, 3)
-}
-
 func routeSet(
-	animes anime.AnimesUseCase,
-	myScores models.UserScoreMap,
-	allScores score.UseCase,
+	input recommend.Input,
 	settings *page.PageSettings,
-	messages *dialog.Messages,
-	toDialog chan string,
-	fromDialog chan dialog.NLPResponse,
+	comm dialog.Communication,
 ) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if settings.Tabs.IsCompare {
@@ -403,34 +367,12 @@ func routeSet(
 			switch k {
 			case "search":
 				if settings.Tabs.CurrentTab == page.Smart {
-					messages.Add(v[0], false)
-					if v[0] != "" {
-						toDialog <- v[0]
-						var response = <-fromDialog
-						msg, isObjectIntent := dialog.HandleResponseText(
-							response,
-							animes,
-							myScores,
-						)
-
-						if isObjectIntent {
-							obj, err := dialog.HandleResponseObjects(
-								response,
-								animes,
-								myScores,
-								allScores,
-								settings.SearchSettings.Genres,
-							)
-							if err != nil {
-								log.Println("Err in isObjectIntent", err.Error())
-								messages.Add("Извини, кажется я не знаю, что тебе ответить, перефразируй своё сообщение пожалуйста.", true)
-							} else {
-								messages.AddWithAnime(obj.Message, obj.Animes)
-							}
-						} else {
-							messages.Add(msg, true)
-						}
-					}
+					talkWithUser(
+						v[0],
+						comm,
+						input,
+						settings,
+					)
 				} else {
 					settings.Search = v[0]
 				}
@@ -477,7 +419,6 @@ func routeSet(
 					settings.SearchSettings.MaxEpisodes = f
 				}
 			case "smart-mode":
-				log.Println("smart-mode", v[0] == "true")
 				settings.SearchSettings.SmartMode = v[0] == "true"
 			case "min-duration":
 				f, err := strconv.Atoi(v[0])
@@ -551,3 +492,39 @@ func routeSet(
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
 }
+
+func talkWithUser(
+	message string,
+	comm dialog.Communication,
+	input recommend.Input,
+	settings *page.PageSettings,
+) {
+	comm.Messages.Add(message, false)
+	if message != "" {
+		comm.ToDialog <- message
+		var response = <-comm.FromDialog
+		msg, isObjectIntent := dialog.HandleResponseText(
+			response,
+			input.Animes,
+			input.MyScores,
+		)
+
+		if isObjectIntent {
+			obj, err := dialog.HandleResponseObjects(
+				response,
+				input,
+				settings.SearchSettings.Genres,
+			)
+			if err != nil {
+				log.Println("Err in isObjectIntent", err.Error())
+				comm.Messages.Add("Извини, кажется я не знаю, что тебе ответить, перефразируй своё сообщение пожалуйста.", true)
+			} else {
+				comm.Messages.AddWithAnime(obj.Message, obj.Animes)
+			}
+		} else {
+			comm.Messages.Add(msg, true)
+		}
+	}
+}
+
+// 541

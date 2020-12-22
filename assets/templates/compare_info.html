@@ -1,0 +1,76 @@
+{{define "compare_info"}}
+<div class="cc-info">
+	<div class="cc">
+		<div class="c-info-left">
+			<div class="subheadline">Расстояние</div>
+			<div class="block">
+				<div class="b-entry-info">
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Евклидово:</div>
+
+							{{if ec}}
+							<div class="value">{{.E}}</div>
+							{{else}}
+							<div class="key">{{.E}}</div>
+							{{end}}
+						</div>
+					</div>
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Кварталов:</div>
+
+							{{if mc}}
+							<div class="value">{{.M}}</div>
+							{{else}}
+							<div class="key">{{.M}}</div>
+							{{end}}
+						</div>
+					</div>
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Шахматное:</div>
+
+							{{if kc}}
+							<div class="value">{{.K}}</div>
+							{{else}}
+							<div class="key">{{.K}}</div>
+							{{end}}
+						</div>
+					</div>
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Кол-во различий:</div>
+							{{if dc}}
+							<div class="value">{{.D}}</div>
+							{{else}}
+							<div class="key">{{.D}}</div>
+							{{end}}
+						</div>
+					</div>
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Близость по дереву:</div>
+							{{if tc}}
+							<div class="value">{{.T}}</div>
+							{{else}}
+							<div class="key">{{.T}}</div>
+							{{end}}
+						</div>
+					</div>
+					<div class="line-container">
+						<div class="line">
+							<div class="key">Корреляция:</div>
+							{{if cc}}
+							<div class="value">{{.C}}</div>
+							{{else}}
+							<div class="key">{{.C}}</div>
+							{{end}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{end}}

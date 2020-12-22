@@ -12,6 +12,17 @@ type IsMarked struct {
 	Marked bool
 }
 
+func (a Animes) AllExcept(exceptMe Anime) []Anime {
+	var animes = make([]Anime, 0, len(a))
+	for _, v := range a {
+		if v.ID == exceptMe.ID {
+			continue
+		}
+		animes = append(animes, v)
+	}
+	return animes
+}
+
 func (a Animes) Pointers() []*Anime {
 	var animes = make([]*Anime, len(a))
 	for i := range a {
@@ -31,6 +42,11 @@ func (a Animes) Copy() Animes {
 	var newArr = make([]Anime, len(a))
 	copy(newArr, a)
 	return newArr
+}
+
+// Implement fuzze Source interface
+func (a Animes) String(i int) string {
+	return a[i].Russian
 }
 
 func countDiff(startValue, weight, denominator float64) float64 {

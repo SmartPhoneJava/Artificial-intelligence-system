@@ -182,10 +182,14 @@ func extractDialogflowEntities(p *structpb.Value) (extractedEntity string) {
 		return extractedEntity
 	case *structpb.Value_ListValue:
 		list := p.GetListValue()
-		if len(list.GetValues()) > 1 {
-			// @TODO: Extract more values
+		values := list.GetValues()
+		if len(values) == 0 {
+			return "nothing"
 		}
-		extractedEntity = extractDialogflowEntities(list.GetValues()[0])
+		if len(values) > 1 {
+			return "too much"
+		}
+		extractedEntity = extractDialogflowEntities(values[0])
 		return extractedEntity
 	default:
 		return ""

@@ -1,0 +1,51 @@
+{{define "collaborate_users"}}
+<div>
+	<div class="tags-flex">
+		<div class="tags">
+			<div>Количество юзеров&nbsp;</div>
+			{{if eq .Users 10}}
+			<a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-active">10</a>
+			{{else}}
+			<a href="/set?rectype=collaborate&users=10" class="b-anime_status_tag other other-passive">10</a>
+			{{end}} {{if eq .Users 20}}
+			<a href="/set?rectype=collaborate&users=20" class="b-anime_status_tag other other-active">20</a>
+			{{else}}
+			<a href="/set?rectype=collaborate&users=20" class="b-anime_status_tag other other-passive">20</a>
+			{{end}} {{if eq .Users 50}}
+			<a href="/set?rectype=collaborate&users=50" class="b-anime_status_tag other other-active">50</a>
+			{{else}}
+			<a href="/set?rectype=collaborate&users=50" class="b-anime_status_tag other other-passive">50</a>
+			{{end}} {{if eq .Users 100}}
+			<a href="/set?rectype=collaborate&users=100" class="b-anime_status_tag other other-active">100</a>
+			{{else}}
+			<a href="/set?rectype=collaborate&users=100" class="b-anime_status_tag other other-passive">100</a>
+			{{end}}
+		</div>
+	</div>
+	<div class="tags-flex">
+		<div class="tags">
+			<div>Учитывать пользователей, просмотревших минимум &nbsp;</div>
+
+			{{if eq .Percent 0.0}}
+			<a href="/set?rectype=collaborate&percent=0" class="b-anime_status_tag other other-active">5%</a>
+			{{else}}
+			<a href="/set?rectype=collaborate&percent=0" class="b-anime_status_tag other other-passive">5%</a>
+			{{end}} {{if eq .Percent 0.2}}
+			<a href="/set?rectype=collaborate&percent=0.2" class="b-anime_status_tag other other-active">20%</a>
+			{{else}}
+			<a href="/set?rectype=collaborate&percent=0.2" class="b-anime_status_tag other other-passive">20%</a>
+			{{end}} {{if eq .Percent 0.5}}
+			<a href="/set?rectype=collaborate&percent=0.5" class="b-anime_status_tag other other-active">50%</a>
+			{{else}}
+			<a href="/set?rectype=collaborate&percent=0.5" class="b-anime_status_tag other other-passive">50%</a>
+			{{end}} {{if eq .Percent 0.85}}
+			<a href="/set?rectype=collaborate&percent=0.85" class="b-anime_status_tag other other-active">85%</a>
+			{{else}}
+			<a href="/set?rectype=collaborate&percent=0.85" class="b-anime_status_tag other other-passive">85%</a>
+			{{end}}
+
+			<div>моего списка</div>
+		</div>
+	</div>
+</div>
+{{end}}

@@ -16,6 +16,8 @@ import (
 	"shiki/internal/anime/tree"
 	"shiki/internal/models"
 	"shiki/internal/utils"
+
+	"github.com/sahilm/fuzzy"
 )
 
 type AnimesUC struct {
@@ -76,21 +78,43 @@ func (auc AnimesUC) Animes() models.Animes {
 	return auc.m
 }
 
-func (auc AnimesUC) FindAnimes(
+// FilterByName получить список тайтлов, название которых содержит name
+func (auc AnimesUC) FilterByName(
 	name string,
 ) models.Animes {
 	if name == "" {
 		return auc.Animes()
 	}
-	var arr []models.Anime
-	var found = make(map[int32]bool)
-	for _, anime := range auc.m {
-		if !found[anime.ID] && strings.Contains(anime.Russian, name) || strings.Contains(anime.Name, name) {
-			arr = append(arr, anime)
-			found[anime.ID] = true
-		}
+	var (
+		searchHere  = auc.Animes()
+		foundAnimes []models.Anime
+	)
+	results := fuzzy.FindFrom(name, searchHere)
+	for _, r := range results {
+		foundAnimes = append(foundAnimes, searchHere[r.Index])
 	}
-	return arr
+	return foundAnimes
+	//
+	// var found = make(map[int32]bool)
+	// for _, anime := range auc.m {
+	// 	if !found[anime.ID] && strings.Contains(anime.Russian, name) || strings.Contains(anime.Name, name) {
+	// 		arr = append(arr, anime)
+	// 		found[anime.ID] = true
+	// 	}
+	// }
+	//return arr
+}
+
+func (auc AnimesUC) FindOneAnime(name string) (models.Anime, bool) {
+	foundAnime, isFound := auc.FindAnimeByName(name)
+	if !isFound {
+		foundAnimes := auc.FilterByName(name)
+		if len(foundAnimes) > 0 {
+			return foundAnimes[0], true
+		}
+		return foundAnime, false
+	}
+	return foundAnime, true
 }
 
 // FindAnimeByName найти аниме по названию
