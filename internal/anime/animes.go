@@ -15,15 +15,15 @@ import (
 	"shiki/internal/anime/shikimori"
 	"shiki/internal/anime/tree"
 	"shiki/internal/models"
+	"shiki/internal/search"
 	"shiki/internal/utils"
-
-	"github.com/sahilm/fuzzy"
 )
 
 type AnimesUC struct {
-	m   models.Animes
-	a   []AnimeUseCase
-	api shikimori.Api
+	m            models.Animes
+	a            []AnimeUseCase
+	api          shikimori.Api
+	SearchEngine search.Engine
 }
 
 func (auc *AnimesUC) init(m models.Animes) {
@@ -39,14 +39,25 @@ func NewAnimes(api shikimori.Api, m models.Animes) AnimesUseCase {
 	var auc = new(AnimesUC)
 	auc.init(m)
 	auc.api = api
+	auc.SearchEngine = search.NewSearchEngine(
+		search.Config{
+			Stemming: search.Stemming{
+				On:       true,
+				Language: "russian",
+			},
+			WithTypos: search.Typos{
+				On:       true,
+				BagSizes: 1,
+			},
+		},
+		m,
+	)
 	return auc
 }
 
 func NewAnimesNoApi(m models.Animes) AnimesUseCase {
-	var auc = new(AnimesUC)
-	auc.init(m)
-	auc.api = shikimori.NewApi("", "", "", false, time.Hour)
-	return auc
+	api := shikimori.NewApi("", "", "", false, time.Hour)
+	return NewAnimes(api, m)
 }
 
 func (auc AnimesUC) FetchDetails(
@@ -89,20 +100,15 @@ func (auc AnimesUC) FilterByName(
 		searchHere  = auc.Animes()
 		foundAnimes []models.Anime
 	)
-	results := fuzzy.FindFrom(name, searchHere)
+	results, err := auc.SearchEngine.Search(name, searchHere)
+	if err != nil {
+		log.Println("err happened:", err.Error())
+		return nil
+	}
 	for _, r := range results {
 		foundAnimes = append(foundAnimes, searchHere[r.Index])
 	}
 	return foundAnimes
-	//
-	// var found = make(map[int32]bool)
-	// for _, anime := range auc.m {
-	// 	if !found[anime.ID] && strings.Contains(anime.Russian, name) || strings.Contains(anime.Name, name) {
-	// 		arr = append(arr, anime)
-	// 		found[anime.ID] = true
-	// 	}
-	// }
-	//return arr
 }
 
 func (auc AnimesUC) FindOneAnime(name string) (models.Anime, bool) {

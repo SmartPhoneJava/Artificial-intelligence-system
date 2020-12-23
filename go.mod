@@ -4,14 +4,17 @@ go 1.13
 
 require (
 	cloud.google.com/go v0.72.0
+	github.com/agnivade/levenshtein v1.1.0
 	github.com/beevik/etree v1.1.0
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-echarts/go-echarts v1.0.0
 	github.com/golang/protobuf v1.4.3
 	github.com/gorilla/mux v1.8.0
 	github.com/jinzhu/gorm v1.9.16
+	github.com/kljensen/snowball v0.6.0
 	github.com/kylelemons/godebug v1.1.0 // indirect
 	github.com/sahilm/fuzzy v0.1.0
+	github.com/schollz/closestmatch v2.1.0+incompatible
 	github.com/swaggo/swag/example/celler v0.0.0-20201207022938-a4053fb64d1f // indirect
 	golang.org/x/exp v0.0.0-20200924195034-c827fd4f18b9 // indirect
 	gonum.org/v1/gonum v0.8.1

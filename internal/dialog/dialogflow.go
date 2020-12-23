@@ -48,7 +48,7 @@ type NLPResponse struct {
 var dp DialogflowProcessor
 
 func Run(in <-chan string, out chan<- NLPResponse) {
-	data, err := ioutil.ReadFile("./animeshiki-84b60-1b87ee34e207.json")
+	data, err := ioutil.ReadFile("./animeshiki-84b60-1b87ee34e200.json")
 	if err != nil {
 		log.Fatalf("Err while getting auth file: %v", err)
 	}

@@ -14,6 +14,12 @@
         
         <script>
             i = 0
+            function httpGet(theUrl) {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("GET", theUrl, false); // false for synchronous request
+                xmlHttp.send(null);
+                return xmlHttp.responseText;
+            }
             async function setSearchSettings() {
                 let j = i;
                 setTimeout(() => {
@@ -48,6 +54,7 @@
                     max: 1000,
                     values: [$("#rating-range").attr("vmin") * 100, $("#rating-range").attr("vmax") * 100],
                     slide: function (event, ui) {
+                        console.log($("#rating").val());
                         $("#rating").val(ui.values[0] / 100 + " - " + ui.values[1] / 100);
                         setSearchSettings();
                     }
