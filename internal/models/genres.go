@@ -19,6 +19,14 @@ func (genres Genres) Names() []string {
 	return arr
 }
 
+func (genres Genres) RussianNames() []string {
+	var arr = make([]string, len(genres))
+	for i, genre := range genres {
+		arr[i] = genre.Russian
+	}
+	return arr
+}
+
 type GenreMarked struct {
 	Genre
 	Marked bool

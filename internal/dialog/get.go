@@ -98,14 +98,17 @@ func getStudio(anime models.Anime) string {
 }
 
 func getGenres(anime models.Anime) string {
-	names := anime.Genres.Names()
+	names := anime.Genres.RussianNames()
 	if len(names) == 0 {
 		return fmt.Sprintf("Аниме '%s' нельзя отнести ни к одному из существующих на сегодняшний день жанров", anime.Russian)
 	}
 
 	msg := fmt.Sprintf("Аниме '%s' относится к жанрам:", anime.Russian)
-	for _, name := range names {
+	for i, name := range names {
 		msg += " " + name
+		if i != len(names)-1 {
+			msg += ","
+		}
 	}
 	return msg
 }
