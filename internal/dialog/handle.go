@@ -190,17 +190,24 @@ func handleIntentRecommendFilters(
 	genres []models.GenresMarked,
 ) error {
 	var (
-		findAnime = nameToAnime(response, input.Animes)
-		newAnimes = input.Animes.Animes()
-		err       error
+		foundAnimes = namesToAnime(response, input.Animes)
+		newAnimes   = input.Animes.Animes()
+		err         error
+		msg         = "Тайтлы"
 	)
-	log.Println("findAnime", findAnime)
-	if findAnime != nil {
+	if len(foundAnimes) != 0 {
 		var m = make(map[int]int)
 		var s = models.UserScoreMap{
 			Scores: m,
 		}
-		s.Add(int(findAnime.ID), 10)
+		msg += " похожие на"
+		for i, foundAnime := range foundAnimes {
+			msg += " '" + foundAnime.Russian + "'"
+			s.Add(int(foundAnime.ID), 10)
+			if i != len(foundAnimes)-1 {
+				msg += ","
+			}
+		}
 		var (
 			newInput = recommend.Input{
 				Animes:   input.Animes,
@@ -216,22 +223,44 @@ func handleIntentRecommendFilters(
 		if err != nil {
 			return err
 		}
+
 	}
 
 	var (
 		searchSettings = models.NewSimpleSearchSettings()
-		genre          = response.Entities[EntityGenre]
+		entityGenres   = response.Entities[EntityGenre]
 	)
-	searchSettings.Genres = make([]models.GenresMarked, len(genres))
-	for i, g := range genres {
-		searchSettings.Genres[i] = make(models.GenresMarked, len(g))
-		for j, g := range g {
-			searchSettings.Genres[i][j].Genre = g.Genre
-			searchSettings.Genres[i][j].Marked = genre == g.Genre.Russian
+
+	result.Animes = newAnimes.Top(5)
+	log.Println("entityGenres", len(entityGenres))
+	if len(entityGenres) != 0 {
+		msg += " в жанре"
+		for i, genre := range entityGenres {
+			msg += " '" + genre + "'"
+			if i != len(entityGenres)-1 {
+				msg += ","
+			}
 		}
+		searchSettings.Genres = make([]models.GenresMarked, len(genres))
+		for i, g := range genres {
+			searchSettings.Genres[i] = make(models.GenresMarked, len(g))
+			for j, g := range g {
+				searchSettings.Genres[i][j].Genre = g.Genre
+				for _, genre := range entityGenres {
+					searchSettings.Genres[i][j].Marked = genre == g.Genre.Russian
+					if searchSettings.Genres[i][j].Marked {
+						break
+					}
+				}
+			}
+		}
+		ans, _ := newAnimes.Filter(searchSettings)
+		result.Animes = ans.Top(5)
 	}
-	result.Animes, _ = newAnimes.Filter(searchSettings)
-	result.Message = "Мне кажется тебе понравятся вот эти тайтлы"
+	result.Message = msg
+	if len(result.Animes) == 0 {
+		result.Message += "... В нашей базе данных нет таких тайтлов, попробуй смягчить требования"
+	}
 	return err
 }
 
@@ -242,10 +271,15 @@ func setRate(
 	myScores models.UserScoreMap,
 ) string {
 	var (
-		msg   string
-		score = response.Entities[EntityScore]
-		anime = nameToAnime(response, animes)
+		msg    string
+		scoreS = response.Entities[EntityScore]
+		anime  = nameToAnime(response, animes)
+		score  string
 	)
+
+	if len(scoreS) != 0 {
+		score = scoreS[0]
+	}
 
 	if anime == nil {
 		msg = AnimeSayItAgain

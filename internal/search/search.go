@@ -57,7 +57,6 @@ func (engine *Engine) initClosestMatch(data fuzzy.Source) {
 		engine.savedData = data
 		if engine.Config.WithTypos.On {
 			var (
-				//bagSizes = []int{engine.Config.WithTypos.BagSizes}
 				words = make([]string, data.Len())
 			)
 			for i := 0; i < data.Len(); i++ {
@@ -100,10 +99,24 @@ func (engine Engine) Search(
 		return nil, nil
 	}
 
-	originName := name
+	var (
+		deleteWords = []string{"сериал", "как", "а", "о", "в", "аниме", "фильм"}
+		originName  = name
+	)
+
 	if engine.Config.Stemming.On {
 		words := strings.Split(name, " ")
 		for i, word := range words {
+			var found bool
+			for _, v := range deleteWords {
+				found = word == v
+				if found {
+					break
+				}
+			}
+			if found {
+				continue
+			}
 			stemmed, err := snowball.Stem(
 				word,
 				engine.Config.Stemming.Language,
@@ -127,26 +140,11 @@ func (engine Engine) Search(
 		levDist = LevenshteinDistance{allPairs}
 	)
 
-	// for _, v := range results {
-	// 	log.Println("results1", v.Index, v.Str)
-	// }
-
-	//foundPairs = IntersectPairs(foundPairs, levDist.TyposLessP(originName, 0.3))
-
-	//foundPairs = levDist.FilterTyposLessP(foundPairs, originName, 0.3)
-	//log.Println("results1", len(foundPairs))
-
 	allOk := len(IntersectPairs(foundPairs, levDist.TyposLessN(originName, len(originName)))) != 0
 
 	if len(foundPairs) == 0 || len(foundPairs) > 10 || !allOk {
 		foundPairs = levDist.TyposLessN(originName, 5)
 	}
-	// log.Println("results2", len(foundPairs))
-
-	// for _, v := range foundPairs {
-	// 	proc := float32(levDist.ComputeDistance(v.Value, name)) / float32(len(v.Value+name))
-	// 	log.Println("results2", v.Index, v.Value, levDist.ComputeDistance(v.Value, name), proc)
-	// }
 
 	return foundPairs, nil
 }

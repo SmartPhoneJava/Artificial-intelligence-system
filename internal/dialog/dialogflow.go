@@ -40,9 +40,9 @@ type DialogflowProcessor struct {
 
 // NLPResponse is the struct for the response
 type NLPResponse struct {
-	Intent     string            `json:"intent"`
-	Confidence float32           `json:"confidence"`
-	Entities   map[string]string `json:"entities"`
+	Intent     string              `json:"intent"`
+	Confidence float32             `json:"confidence"`
+	Entities   map[string][]string `json:"entities"`
 }
 
 var dp DialogflowProcessor
@@ -132,7 +132,7 @@ func (dp *DialogflowProcessor) processNLP(rawMessage string, username string) (r
 		r.Intent = queryResult.Intent.DisplayName
 		r.Confidence = float32(queryResult.IntentDetectionConfidence)
 	}
-	r.Entities = make(map[string]string)
+	r.Entities = make(map[string][]string)
 	params := queryResult.Parameters.GetFields()
 	if len(params) > 0 {
 		for paramName, p := range params {
@@ -154,19 +154,19 @@ func (dp *DialogflowProcessor) processNLP(rawMessage string, username string) (r
 	return
 }
 
-func extractDialogflowEntities(p *structpb.Value) (extractedEntity string) {
+func extractDialogflowEntities(p *structpb.Value) []string {
 	kind := p.GetKind()
 	switch kind.(type) {
 	case *structpb.Value_StringValue:
-		return p.GetStringValue()
+		return []string{p.GetStringValue()}
 	case *structpb.Value_NumberValue:
-		return strconv.FormatFloat(p.GetNumberValue(), 'f', 6, 64)
+		return []string{strconv.FormatFloat(p.GetNumberValue(), 'f', 6, 64)}
 	case *structpb.Value_BoolValue:
-		return strconv.FormatBool(p.GetBoolValue())
+		return []string{strconv.FormatBool(p.GetBoolValue())}
 	case *structpb.Value_StructValue:
 		s := p.GetStructValue()
 		fields := s.GetFields()
-		extractedEntity = ""
+		extractedEntity := ""
 		for key, value := range fields {
 			if key == "amount" {
 				extractedEntity = fmt.Sprintf("%s%s", extractedEntity, strconv.FormatFloat(value.GetNumberValue(), 'f', 6, 64))
@@ -179,19 +179,23 @@ func extractDialogflowEntities(p *structpb.Value) (extractedEntity string) {
 			}
 			// @TODO: Other entity types can be added here
 		}
-		return extractedEntity
+		return []string{extractedEntity}
 	case *structpb.Value_ListValue:
 		list := p.GetListValue()
 		values := list.GetValues()
-		if len(values) == 0 {
-			return "nothing"
+		// if len(values) == 0 {
+		// 	return "nothing"
+		// }
+		// if len(values) > 1 {
+		// 	return "too much"
+		// }
+
+		var stringArr []string
+		for i := range values {
+			stringArr = append(stringArr, extractDialogflowEntities(values[i])...)
 		}
-		if len(values) > 1 {
-			return "too much"
-		}
-		extractedEntity = extractDialogflowEntities(values[0])
-		return extractedEntity
+		return stringArr
 	default:
-		return ""
+		return []string{"not found"}
 	}
 }

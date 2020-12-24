@@ -11,10 +11,36 @@ func nameToAnime(
 	response NLPResponse,
 	animes anime.AnimesUseCase,
 ) *models.Anime {
-	titleName := response.Entities[EntityTitleName]
+	var (
+		titleNames = response.Entities[EntityTitleName]
+		titleName  string
+	)
+
+	if len(titleNames) != 0 {
+		titleName = titleNames[0]
+	}
+
 	SingleContext.SetName(titleName)
 	titleName = SingleContext.GetName()
 	return SingleContext.GetAnime(animes)
+}
+
+func namesToAnime(
+	response NLPResponse,
+	animesUC anime.AnimesUseCase,
+) models.Animes {
+	var (
+		titleNames = response.Entities[EntityTitleName]
+		animes     = make(models.Animes, 0)
+	)
+	for _, titleName := range titleNames {
+		anime, found := animesUC.FindOneAnime(titleName)
+		if found {
+			animes = append(animes, anime)
+		}
+	}
+
+	return animes
 }
 
 // Получить информацию о тайтле
